@@ -1,0 +1,22 @@
+# This repository tracks only the UI mockup workflow. The surrounding Unreal
+# project remains local and is intentionally excluded from GitHub.
+/*
+
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/AGENTS.md
+!/CLAUDE.md
+
+!/GabrielOperation/
+!/GabrielOperation/**
+
+!/Mockups/
+!/Mockups/**
+
+# Local editor and operating-system metadata inside tracked trees.
+**/.DS_Store
+**/Thumbs.db
+**/Desktop.ini
+**/*.log
+**/*.tmp

@@ -1,0 +1,1437 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <title>PUBG Console Inventory 2-b Baseline</title>
+  <style>
+    * { box-sizing:border-box; }
+    body { margin:0; background-color:#000000; overflow:hidden; }
+    button { font:inherit; }
+
+    #preview-stage {
+      width:100vw;
+      height:100vh;
+      overflow:hidden;
+      background-color:#000000;
+    }
+
+    #inventory-2b {
+      position:relative;
+      width:1920px;
+      height:1080px;
+      overflow:hidden;
+      font-family:"PUBG Body", "Arial Narrow", Arial, sans-serif;
+      color:#ffffff;
+      background-color:#000000;
+    }
+
+    #inventory-2b .screen-title {
+      margin:0;
+      height:54px;
+      font-family:"PUBG Headline", "Arial Narrow", Arial, sans-serif;
+      font-size:36px;
+      font-weight:700;
+      line-height:54px;
+      color:#ffffff;
+    }
+
+    #inventory-2b .gear-region {
+      position:absolute;
+      left:24px;
+      top:37px;
+      width:370px;
+      height:965px;
+      display:flex;
+      flex-direction:column;
+    }
+
+    #inventory-2b .gear-layout {
+      display:flex;
+      flex-direction:row;
+      flex:1;
+      gap:6px;
+    }
+
+    #inventory-2b .gear-rail {
+      width:90px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    #inventory-2b .gear-rail-spacer { height:54px; }
+    #inventory-2b .gear-rail-large-spacer { height:54px; }
+
+    #inventory-2b .character-preview {
+      width:184px;
+      height:905px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      align-items:center;
+      overflow:hidden;
+    }
+
+    #inventory-2b .character-preview img {
+      width:184px;
+      height:905px;
+      object-fit:cover;
+    }
+
+    #inventory-2b .gear-slot {
+      width:84px;
+      height:84px;
+      padding:4px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      border:6px solid #d8d8d8;
+      background-color:#5d5d5d;
+      color:#ffffff;
+    }
+
+    #inventory-2b .gear-slot img { width:70px; height:70px; object-fit:contain; }
+    #inventory-2b .gear-slot .gear-level { margin-top:-20px; align-self:flex-end; font-size:18px; }
+
+    #inventory-2b .vicinity-region {
+      position:absolute;
+      left:416px;
+      top:37px;
+      width:220px;
+      height:962px;
+      display:flex;
+      flex-direction:column;
+    }
+
+    #inventory-2b .inventory-region {
+      position:absolute;
+      left:873px;
+      top:37px;
+      width:220px;
+      height:963px;
+      display:flex;
+      flex-direction:column;
+    }
+
+    #inventory-2b .tile-panel {
+      flex:1;
+      padding:6px 9px;
+      display:flex;
+      flex-direction:row;
+      flex-wrap:wrap;
+      align-content:flex-start;
+      gap:8px 6px;
+      overflow:hidden;
+      border:1px solid #d9d9d9;
+      background-color:transparent;
+    }
+
+    #inventory-2b .item-widget {
+      width:96px;
+      height:96px;
+      display:flex;
+      flex-direction:column;
+    }
+
+    #inventory-2b .item-tile {
+      width:96px;
+      height:96px;
+      padding:5px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      align-items:flex-end;
+      border:3px solid transparent;
+      background-color:#5d5d5d;
+      background-repeat:no-repeat;
+      background-position:center;
+      background-size:contain;
+      color:#ffffff;
+      cursor:pointer;
+    }
+
+    #inventory-2b .item-tile.empty { background-color:#323232; cursor:default; }
+    #inventory-2b .item-count { padding:1px 4px; font-size:24px; font-weight:700; background-color:rgba(0,0,0,0.58); }
+
+    #inventory-2b .category-divider {
+      width:198px;
+      height:3px;
+      background-color:#8e8e8e;
+    }
+
+    #inventory-2b .wide-item-widget {
+      width:198px;
+      height:202px;
+      display:flex;
+      flex-direction:column;
+    }
+
+    #inventory-2b .wide-item-widget .item-tile { width:198px; height:202px; }
+
+    #inventory-2b .scroll-indicator {
+      position:absolute;
+      left:837px;
+      top:91px;
+      width:30px;
+      height:250px;
+      padding:3px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      border:2px solid #ffffff;
+      background-color:#d9d9d9;
+    }
+
+    #inventory-2b .scroll-thumb { width:22px; height:157px; background-color:#696969; }
+
+    #inventory-2b .tooltip-panel {
+      position:absolute;
+      left:654px;
+      top:176px;
+      width:240px;
+      height:510px;
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      border:4px solid #e6e6e6;
+      background-color:rgba(205,205,205,0.98);
+      color:#191919;
+    }
+
+    #inventory-2b .tooltip-panel[hidden] { display:none; }
+    #inventory-2b .tooltip-panel.empty-slot { height:350px; }
+    #inventory-2b .tooltip-panel.empty-slot .tooltip-image { opacity:0.58; }
+    #inventory-2b .tooltip-panel.empty-slot .tooltip-description,
+    #inventory-2b .tooltip-panel.empty-slot .tooltip-meta { display:none; }
+    #inventory-2b .tooltip-title { margin:0; font-size:25px; font-weight:700; line-height:30px; }
+    #inventory-2b .tooltip-type { margin:0; font-size:17px; color:#4d4d4d; }
+    #inventory-2b .tooltip-image { width:205px; height:165px; align-self:center; object-fit:contain; }
+    #inventory-2b .tooltip-description { margin:0; font-size:17px; line-height:23px; }
+    #inventory-2b .tooltip-meta { display:flex; flex-direction:row; justify-content:space-between; font-size:16px; }
+    #inventory-2b .tooltip-actions {
+      margin-top:auto;
+      padding-top:8px;
+      display:flex;
+      flex-direction:row;
+      flex-wrap:wrap;
+      gap:8px;
+      border-top:2px solid #4c4c4c;
+    }
+    #inventory-2b .tooltip-actions:empty { display:none; }
+    #inventory-2b .tooltip-action { display:flex; flex-direction:row; align-items:center; gap:5px; font-size:15px; font-weight:700; }
+    #inventory-2b .tooltip-action-key { width:26px; height:26px; display:flex; justify-content:center; align-items:center; border:2px solid #191919; border-radius:50%; }
+    #inventory-2b .tooltip-hold-label { padding:1px 4px; border:1px solid #191919; font-size:11px; }
+
+    #inventory-2b .weapon-region {
+      position:absolute;
+      left:1102px;
+      top:91px;
+      width:787px;
+      height:910px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    #inventory-2b .weapon-row { width:787px; height:740px; display:flex; flex-direction:row; gap:8px; }
+
+    #inventory-2b .weapon-widget {
+      flex:none;
+      width:257px;
+      height:740px;
+      display:flex;
+      flex-direction:column;
+      padding:6px;
+      border:1px solid #d9d9d9;
+      background-color:transparent;
+    }
+
+    #inventory-2b .weapon-card {
+      flex:1;
+      padding:6px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      border:2px solid #111111;
+      background-color:#474747;
+    }
+
+    #inventory-2b .weapon-card.held { background-color:#808080; }
+    #inventory-2b .weapon-heading { display:flex; flex-direction:row; align-items:center; gap:7px; }
+    #inventory-2b .weapon-name { margin:0; font-size:30px; font-weight:700; }
+    #inventory-2b .weapon-class { padding:2px 5px; font-size:16px; font-weight:700; background-color:#080808; }
+    #inventory-2b .held-label { margin-left:auto; font-size:15px; font-weight:700; }
+    #inventory-2b .ammo-row { display:flex; flex-direction:row; align-items:center; gap:4px; }
+    #inventory-2b .ammo-loaded { font-size:30px; font-weight:700; }
+    #inventory-2b .ammo-reserve { padding-top:9px; font-size:15px; color:#c8c8c8; }
+    #inventory-2b .ammo-icon { width:54px; height:54px; object-fit:contain; }
+    #inventory-2b .ammo-type { padding:2px 4px; font-size:18px; font-weight:700; background-color:#159431; }
+    #inventory-2b .ammo-type.nine { background-color:#b12b2b; }
+
+    #inventory-2b .weapon-body { flex:1; display:flex; flex-direction:row; gap:8px; overflow:hidden; }
+    #inventory-2b .attachment-rail { width:76px; display:flex; flex-direction:column; gap:6px; }
+    #inventory-2b .attachment-slot {
+      width:76px;
+      height:76px;
+      padding:3px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      border:2px solid #ffffff;
+      background-color:#3c3c3c;
+      color:#ffffff;
+    }
+    #inventory-2b .attachment-slot img { width:68px; height:68px; object-fit:contain; opacity:0.72; }
+    #inventory-2b .attachment-slot.unavailable {
+      border-color:#666666;
+      background-color:#242424;
+      opacity:0.55;
+      cursor:default;
+    }
+    #inventory-2b .attachment-slot[data-slot-state="occupied"] img { opacity:1; }
+    #inventory-2b .attachment-slot.quick-equip-target {
+      border-color:#fff600;
+      outline:4px solid #fff600;
+      outline-offset:-4px;
+      background-color:#315d3b;
+      background-image:url('assets/controller-x-letter.svg'),url('assets/controller-x-vector.svg'),url('assets/controller-x-fill.svg'),url('assets/controller-x-shadow.svg');
+      background-repeat:no-repeat,no-repeat,no-repeat,no-repeat;
+      background-position:center,center,center,center;
+      background-size:13px 17px,36px 36px,33px 33px,36px 36px;
+    }
+    #inventory-2b .attachment-slot.quick-equip-target img { visibility:hidden; }
+
+    #inventory-2b .weapon-visual {
+      flex:1;
+      background-repeat:no-repeat,no-repeat;
+      background-position:center,center;
+    }
+    #inventory-2b .weapon-visual.m16 {
+      background-image:url('assets/sockets-m16.svg'),url('assets/weapon-m16-oriented.png');
+      background-size:112px 497px,145px 560px;
+      background-position:right center,center;
+    }
+    #inventory-2b .weapon-visual.m249 {
+      background-image:url('assets/sockets-m249.svg'),url('assets/weapon-m249-oriented.png');
+      background-size:120px 495px,145px 560px;
+      background-position:right center,center;
+    }
+    #inventory-2b .weapon-visual.p1911 {
+      background-image:url('assets/sockets-p1911.svg'),url('assets/weapon-p1911-oriented.png');
+      background-size:126px 186px,150px 340px;
+      background-position:right center,center;
+    }
+
+    #inventory-2b .secondary-weapons { width:787px; height:162px; padding:6px; display:flex; flex-direction:row; gap:6px; border:1px solid #d9d9d9; background-color:transparent; }
+    #inventory-2b .secondary-slot { flex:1; padding:8px 12px; display:flex; flex-direction:column; border:0; background-color:#474747; color:#ffffff; font:inherit; text-align:left; }
+    #inventory-2b .secondary-slot p { margin:0; font-size:22px; font-weight:700; }
+    #inventory-2b .secondary-slot img { width:140px; height:112px; align-self:center; object-fit:contain; }
+
+    #inventory-2b .top-status {
+      position:absolute;
+      left:1615px;
+      top:18px;
+      width:270px;
+      height:42px;
+      display:flex;
+      flex-direction:row;
+      justify-content:flex-end;
+      gap:30px;
+      font-size:26px;
+      font-weight:700;
+      color:#8c8c8c;
+    }
+
+    #inventory-2b .controller-guide {
+      position:absolute;
+      left:24px;
+      top:1018px;
+      width:1865px;
+      height:44px;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      gap:20px;
+      padding:6px 10px;
+      background-color:rgba(20,20,20,0.76);
+      font-size:16px;
+    }
+
+    #inventory-2b .controller-key { padding:2px 7px; border:2px solid #ffffff; font-weight:700; }
+    #inventory-2b .controller-action[hidden] { display:none; }
+    #inventory-2b .tooltip-meta[hidden] { display:none; }
+    #inventory-2b .interaction-message { color:#f7cf26; }
+    #inventory-2b .gamepad-status { margin-left:auto; color:#a8a8a8; }
+
+    #inventory-2b button:focus { outline:5px solid #f3d521; outline-offset:-5px; }
+    #inventory-2b .compatible { border-color:#52e06f; background-color:#315d3b; }
+    #inventory-2b .weapon-focused { border-color:#f3d521; }
+
+    #inventory-2b .attachment-connectors {
+      position:absolute;
+      left:0;
+      top:0;
+      width:1920px;
+      height:1080px;
+      pointer-events:none;
+    }
+    #inventory-2b .connector-line { fill:none; stroke:#52e06f; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+    #inventory-2b .connector-line.focused { stroke:#fff600; stroke-width:4; }
+    #inventory-2b .weapon-card.weapon-dropped { opacity:0.38; }
+  </style>
+</head>
+<body>
+  <div id="preview-stage" data-preview-only="viewport-fitter">
+  <main id="inventory-2b" data-umg-name="Panel_Root" data-umg-type="Overlay">
+    <section class="gear-region" data-umg-name="Box_GearAndOutfit">
+      <h1 class="screen-title" data-umg-name="Txt_GearTitle">장비 &amp; 의상</h1>
+      <div class="gear-layout">
+        <div class="gear-rail">
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="헬멧 슬롯" data-item-type="장비 슬롯" data-silhouette="assets/slot-helmet.svg"></button></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="얼굴 슬롯" data-item-type="의상 슬롯" data-silhouette="assets/slot-face.svg"></button></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="재킷 슬롯" data-item-type="의상 슬롯" data-silhouette="assets/slot-jacket.svg"></button></div>
+          <div class="gear-rail-spacer"></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="장갑 슬롯" data-item-type="의상 슬롯" data-silhouette="assets/slot-gloves.svg"></button></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="바지 슬롯" data-item-type="의상 슬롯" data-silhouette="assets/slot-pants.svg"></button></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="부츠 슬롯" data-item-type="의상 슬롯" data-silhouette="assets/slot-boots.svg"></button></div>
+        </div>
+        <div class="character-preview" data-umg-name="Img_CharacterPreview">
+          <img src="assets/character.png" alt="Player character preview">
+        </div>
+        <div class="gear-rail">
+          <div class="gear-rail-large-spacer"></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="유틸리티 슬롯" data-item-type="장비 슬롯" data-silhouette="assets/slot-utility.svg"></button></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 배낭" data-item-type="장비" data-image="assets/gear-backpack.png"><img src="assets/gear-backpack.png" alt="3레벨 배낭"><span class="gear-level">Lv.3</span></button></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 조끼" data-item-type="장비" data-image="assets/gear-vest.png"><img src="assets/gear-vest.png" alt="3레벨 조끼"><span class="gear-level">Lv.3</span></button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vicinity-region" data-umg-name="Box_Vicinity">
+      <h1 class="screen-title" data-umg-name="Txt_VicinityTitle">주변</h1>
+      <div class="tile-panel" data-umg-name="Box_VicinityGrid" data-umg-type="WrapBox">
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" autofocus data-default-focus="true" style="background-image:url('assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."><span class="item-count">2</span></button></div>
+        <div class="category-divider" data-category-break="consumables-throwables"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-molotov.png')" data-item-name="화염병" data-item-type="투척 무기" data-item-category="throwable" data-image="assets/item-molotov.png" data-description="충돌 지점에 불길을 생성합니다."><span class="item-count">4</span></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-frag-grenade.png')" data-item-name="수류탄" data-item-type="투척 무기" data-item-category="throwable" data-image="assets/item-frag-grenade.png" data-description="일정 시간이 지나면 폭발하는 파편 수류탄입니다."></button></div>
+        <div class="category-divider" data-category-break="throwables-ammo"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">30</span></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">15</span></button></div>
+        <div class="category-divider" data-category-break="ammo-attachments"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-magazine.png')" data-item-name="대용량 퀵드로우 탄창" data-item-type="부착물" data-item-category="attachment" data-compatibility="mag" data-compatible-weapon-groups="main" data-image="assets/item-magazine.png" data-description="탄창 용량을 늘리고 재장전 속도를 높입니다."></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-magazine.png')" data-item-name="퀵드로우 탄창" data-item-type="부착물" data-item-category="attachment" data-compatibility="mag" data-compatible-weapon-groups="main" data-image="assets/item-magazine.png" data-description="재장전 시간을 줄입니다."></button></div>
+        <div class="category-divider" data-category-break="attachments-weapons"></div>
+        <div class="wide-item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-vicinity-weapon.png')" data-item-name="M416" data-item-type="돌격소총" data-item-category="weapon" data-image="assets/item-vicinity-weapon.png" data-description="범용성이 높은 5.56mm 돌격소총입니다."></button></div>
+      </div>
+    </section>
+
+    <div class="scroll-indicator" data-umg-name="Bar_InventoryScroll"><div class="scroll-thumb"></div></div>
+
+    <section class="inventory-region" data-umg-name="Box_Inventory">
+      <h1 class="screen-title" data-umg-name="Txt_InventoryTitle">인벤토리</h1>
+      <div class="tile-panel" data-umg-name="Box_InventoryGrid" data-umg-type="WrapBox">
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."></button></div>
+        <div class="category-divider" data-category-break="consumables-throwables"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-molotov.png')" data-item-name="화염병" data-item-type="투척 무기" data-item-category="throwable" data-image="assets/item-molotov.png" data-description="충돌 지점에 불길을 생성합니다."></button></div>
+        <div class="category-divider" data-category-break="throwables-ammo"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">30</span></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">30</span></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">15</span></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/ammo-9mm.png')" data-item-name="9mm" data-item-type="탄약" data-item-category="ammunition" data-image="assets/ammo-9mm.png" data-description="권총과 기관단총에 사용하는 탄약입니다."><span class="item-count">30</span></button></div>
+        <div class="category-divider" data-category-break="ammo-attachments"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-magazine.png')" data-item-name="대용량 퀵드로우 탄창" data-item-type="부착물" data-item-category="attachment" data-compatibility="mag" data-compatible-weapon-groups="main" data-image="assets/item-magazine.png" data-description="탄창 용량을 늘리고 재장전 속도를 높입니다."></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-muzzle.png')" data-item-name="소염기" data-item-type="부착물" data-item-category="attachment" data-compatibility="muzzle" data-compatible-weapon-groups="main" data-image="assets/item-muzzle.png" data-description="총구 화염을 줄이고 반동 제어를 돕습니다."></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-magazine.png')" data-item-name="퀵드로우 탄창" data-item-type="부착물" data-item-category="attachment" data-compatibility="mag" data-compatible-weapon-groups="main" data-image="assets/item-magazine.png" data-description="재장전 시간을 줄입니다."></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-scope.png')" data-item-name="3배율 스코프" data-item-type="부착물" data-item-category="attachment" data-compatibility="scope" data-compatible-weapon-groups="main" data-image="assets/item-scope.png" data-description="중거리 교전에 적합한 확대 조준경입니다."></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-stock.png')" data-item-name="전술 개머리판" data-item-type="부착물" data-item-category="attachment" data-compatibility="stock" data-compatible-weapon-groups="main" data-image="assets/item-stock.png" data-description="반동 회복과 무기 안정성을 높입니다."></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-grip.png')" data-item-name="앵글 손잡이" data-item-type="부착물" data-item-category="attachment" data-compatibility="grip" data-compatible-weapon-groups="main" data-image="assets/item-grip.png" data-description="수평 반동을 줄이고 조준 전환을 돕습니다."></button></div>
+      </div>
+    </section>
+
+    <section class="weapon-region" data-umg-name="Box_WeaponRack">
+      <div class="weapon-row">
+        <article class="weapon-widget" data-umg-widget="WBP_WeaponCard">
+          <div class="weapon-card held" data-weapon-card="m16" data-weapon-group="main">
+            <div class="weapon-heading"><h2 class="weapon-name">M16</h2><span class="weapon-class">돌격소총</span><span class="held-label">장착 중</span></div>
+            <div class="ammo-row"><span class="ammo-loaded">21</span><span class="ammo-reserve">40</span><img class="ammo-icon" src="assets/ammo-556.png" alt="5.56mm ammunition"><span class="ammo-type">5.56mm</span></div>
+            <div class="weapon-body">
+              <div class="attachment-rail">
+                <button class="attachment-slot" data-slot-state="empty" data-socket="muzzle" data-silhouette="assets/attachment-muzzle.png" data-item-name="총구 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-muzzle.png" alt="총구 부착물 실루엣"></button>
+                <button class="attachment-slot" data-slot-state="empty" data-socket="grip" data-silhouette="assets/attachment-grip.png" data-item-name="손잡이 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-grip.png" alt="손잡이 부착물 실루엣"></button>
+                <button class="attachment-slot" data-slot-state="empty" data-socket="mag" data-silhouette="assets/attachment-mag.png" data-item-name="탄창 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-mag.png" alt="탄창 부착물 실루엣"></button>
+                <button class="attachment-slot" data-slot-state="empty" data-socket="scope" data-silhouette="assets/attachment-scope.png" data-item-name="조준경 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-scope.png" alt="조준경 부착물 실루엣"></button>
+                <button class="attachment-slot" data-slot-state="empty" data-socket="stock" data-silhouette="assets/attachment-stock.png" data-item-name="개머리판 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-stock.png" alt="개머리판 부착물 실루엣"></button>
+              </div>
+              <div class="weapon-visual m16" data-umg-type="Overlay" role="img" aria-label="M16 rifle with attachment socket positions"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="weapon-widget" data-umg-widget="WBP_WeaponCard">
+          <div class="weapon-card" data-weapon-card="m249" data-weapon-group="main">
+            <div class="weapon-heading"><h2 class="weapon-name">M249</h2><span class="weapon-class">경기관총</span></div>
+            <div class="ammo-row"><span class="ammo-loaded">75</span><span class="ammo-reserve">75</span><img class="ammo-icon" src="assets/ammo-556.png" alt="5.56mm ammunition"><span class="ammo-type">5.56mm</span></div>
+            <div class="weapon-body">
+              <div class="attachment-rail">
+                <button class="attachment-slot" data-slot-state="empty" data-socket="muzzle" data-silhouette="assets/attachment-muzzle.png" data-item-name="총구 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-muzzle.png" alt="총구 부착물 실루엣"></button>
+                <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="grip" data-item-name="손잡이 사용 불가" data-item-type="사용 불가" disabled aria-label="손잡이 부착물 사용 불가"></button>
+                <button class="attachment-slot" data-slot-state="empty" data-socket="mag" data-silhouette="assets/attachment-mag.png" data-item-name="탄창 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-mag.png" alt="탄창 부착물 실루엣"></button>
+                <button class="attachment-slot" data-slot-state="empty" data-socket="scope" data-silhouette="assets/attachment-scope.png" data-item-name="조준경 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-scope.png" alt="조준경 부착물 실루엣"></button>
+                <button class="attachment-slot" data-slot-state="empty" data-socket="stock" data-silhouette="assets/attachment-stock.png" data-item-name="개머리판 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-stock.png" alt="개머리판 부착물 실루엣"></button>
+              </div>
+              <div class="weapon-visual m249" data-umg-type="Overlay" role="img" aria-label="M249 light machine gun with attachment socket positions"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="weapon-widget" data-umg-widget="WBP_WeaponCard">
+          <div class="weapon-card" data-weapon-card="p1911" data-weapon-group="sidearm">
+            <div class="weapon-heading"><h2 class="weapon-name">P1911</h2><span class="weapon-class">권총</span></div>
+            <div class="ammo-row"><span class="ammo-loaded">9</span><span class="ammo-reserve">11</span><img class="ammo-icon" src="assets/ammo-9mm.png" alt="9mm ammunition"><span class="ammo-type nine">9mm</span></div>
+            <div class="weapon-body">
+              <div class="attachment-rail">
+                <button class="attachment-slot" data-slot-state="empty" data-socket="muzzle" data-silhouette="assets/attachment-muzzle.png" data-item-name="총구 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-muzzle.png" alt="총구 부착물 실루엣"></button>
+                <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="grip" data-item-name="손잡이 사용 불가" data-item-type="사용 불가" disabled aria-label="손잡이 부착물 사용 불가"></button>
+                <button class="attachment-slot" data-slot-state="empty" data-socket="mag" data-silhouette="assets/attachment-mag.png" data-item-name="탄창 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-mag.png" alt="탄창 부착물 실루엣"></button>
+                <button class="attachment-slot" data-slot-state="empty" data-socket="scope" data-silhouette="assets/attachment-scope.png" data-item-name="조준경 슬롯" data-item-type="빈 슬롯"><img src="assets/attachment-scope.png" alt="조준경 부착물 실루엣"></button>
+                <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="stock" data-item-name="개머리판 사용 불가" data-item-type="사용 불가" disabled aria-label="개머리판 부착물 사용 불가"></button>
+              </div>
+              <div class="weapon-visual p1911" data-umg-type="Overlay" role="img" aria-label="P1911 pistol with attachment socket positions"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="secondary-weapons">
+        <button class="secondary-slot" data-secondary-slot="throwable" data-item-name="수류탄" data-item-type="투척 무기" data-item-category="throwable" data-image="assets/item-frag-grenade.png" data-description="현재 장착된 투척 무기입니다."><p>수류탄 &nbsp; <span class="weapon-class">투척 무기</span></p><img src="assets/item-frag-grenade.png" alt="수류탄"></button>
+        <button class="secondary-slot" data-secondary-slot="melee" aria-label="빈 근접 무기 및 도구 슬롯"><p>— &nbsp; <span class="weapon-class">근접 무기 / 도구</span></p></button>
+      </div>
+    </section>
+
+    <svg class="attachment-connectors" data-umg-name="Overlay_AttachmentConnectors" data-umg-type="Overlay" viewBox="0 0 1920 1080" aria-hidden="true"><g id="connector-lines"></g></svg>
+
+    <div class="top-status"><span>23:35 시간</span><span>20 합류</span></div>
+
+    <footer class="controller-guide" data-umg-name="Box_ControllerGuide">
+      <span><span class="controller-key">B</span> 뒤로</span>
+      <span class="interaction-message" data-umg-name="Txt_InteractionMessage"></span>
+      <span class="gamepad-status" data-umg-name="Txt_GamepadStatus">컨트롤러 버튼을 눌러 연결</span>
+    </footer>
+
+    <aside class="tooltip-panel" data-umg-name="Panel_ItemTooltip" aria-live="polite">
+      <h2 class="tooltip-title" data-umg-name="Txt_TooltipItemName">붕대</h2>
+      <p class="tooltip-type" data-umg-name="Txt_TooltipItemType">소모품</p>
+      <img class="tooltip-image" data-umg-name="Img_TooltipItem" src="assets/item-first-aid.png" alt="Focused item">
+      <p class="tooltip-description" data-umg-name="Txt_TooltipDescription">사용 시 일정 시간에 걸쳐 체력을 회복합니다.</p>
+      <div class="tooltip-meta"><span>장착 가능</span><span id="tooltip-compatibility" data-umg-name="Txt_TooltipCompatibility">—</span></div>
+      <div class="tooltip-actions" data-umg-name="Box_TooltipActions"><span class="tooltip-action"><span class="tooltip-action-key">X</span> 줍기</span></div>
+    </aside>
+  </main>
+  </div>
+
+  <script>
+    (function () {
+      const root = document.getElementById('inventory-2b');
+      const previewStage = document.getElementById('preview-stage');
+      const tooltip = root.querySelector('.tooltip-panel');
+      const title = root.querySelector('.tooltip-title');
+      const type = root.querySelector('.tooltip-type');
+      const image = root.querySelector('.tooltip-image');
+      const description = root.querySelector('.tooltip-description');
+      const compatibility = document.getElementById('tooltip-compatibility');
+      const tooltipActions = root.querySelector('.tooltip-actions');
+      const message = root.querySelector('.interaction-message');
+      const gamepadStatus = root.querySelector('.gamepad-status');
+      const controllerActions = Array.from(root.querySelectorAll('[data-controller-action]'));
+      const connectorLines = document.getElementById('connector-lines');
+      let pendingAttachment = null;
+      let pendingSourceSlot = null;
+      let returnFocus = null;
+      let lastWeaponCard = null;
+      let previousButtons = [];
+      let heldDirection = '';
+      let nextDirectionRepeat = 0;
+      let keyboardYStarted = 0;
+      let gamepadYStarted = 0;
+      let gamepadYHoldTriggered = false;
+
+      function fitPrototypeToViewport() {
+        const designWidth = 1920;
+        const designHeight = 1080;
+        const availableWidth = previewStage.clientWidth;
+        const availableHeight = previewStage.clientHeight;
+        const scale = Math.min(availableWidth / designWidth, availableHeight / designHeight);
+        const unscaledViewportWidth = availableWidth / scale;
+        const unscaledViewportHeight = availableHeight / scale;
+        root.style.zoom = String(scale);
+        root.style.marginLeft = Math.max(0, (unscaledViewportWidth - designWidth) / 2) + 'px';
+        root.style.marginTop = Math.max(0, (unscaledViewportHeight - designHeight) / 2) + 'px';
+      }
+
+      function currentFocusables() {
+        return Array.from(root.querySelectorAll('button:not(:disabled)'));
+      }
+
+      function itemContext(target) {
+        if (target.closest('.vicinity-region')) return 'vicinity';
+        if (target.closest('.inventory-region')) return 'inventory';
+        if (target.closest('.attachment-slot')) return 'weapon-slot';
+        if (target.closest('.secondary-weapons')) return 'secondary';
+        if (target.closest('.gear-region')) return 'gear';
+        return 'other';
+      }
+
+      function availableActions(target) {
+        const context = itemContext(target);
+        const itemCategory = target.dataset.itemCategory || '';
+        const itemName = target.dataset.itemName || '';
+        const slotState = target.dataset.slotState || '';
+        if (!itemName || slotState === 'unavailable') return [];
+        if (target.dataset.emptySlot === 'true') return [];
+
+        if (pendingAttachment && context === 'weapon-slot' && compatibleSlots(pendingAttachment).includes(target)) {
+          const actions = [{ key:'A', label:'슬롯 선택' }];
+          if (slotState === 'occupied') {
+            actions.push({ key:'X', label:'분리' }, { key:'Y', label:'부착물 버리기' });
+          }
+          actions.push({ key:'Y', label:'무기 버리기', hold:true });
+          return actions;
+        }
+
+        if (context === 'weapon-slot' && slotState === 'empty') {
+          return [{ key:'Y', label:'무기 버리기', hold:true }];
+        }
+
+        if (context === 'weapon-slot' && slotState === 'occupied') {
+          return [
+            { key:'A', label:'슬롯 선택' },
+            { key:'X', label:'분리' },
+            { key:'Y', label:'부착물 버리기' },
+            { key:'Y', label:'무기 버리기', hold:true }
+          ];
+        }
+
+        if (target.dataset.compatibility) {
+          const actions = [{ key:'X', label:'빠른 장착' }, { key:'A', label:'슬롯 선택' }];
+          if (context === 'inventory') actions.push({ key:'Y', label:'버리기' });
+          return actions;
+        }
+        if (context === 'vicinity') return [{ key:'X', label:'줍기' }];
+        if (context === 'inventory' && itemCategory === 'ammunition') return [{ key:'Y', label:'버리기' }];
+        if (context === 'inventory' && itemCategory === 'consumable') return [{ key:'A', label:'사용' }, { key:'Y', label:'버리기' }];
+        if (context === 'inventory' && itemCategory === 'throwable') return [{ key:'A', label:'장착' }, { key:'Y', label:'버리기' }];
+        if (context === 'inventory') return [{ key:'A', label:'장착' }, { key:'Y', label:'버리기' }];
+        if (context === 'gear') return [{ key:'A', label:'선택' }, { key:'Y', label:'버리기' }];
+        return [];
+      }
+
+      function renderActionGuides(target) {
+        const actions = availableActions(target);
+        tooltipActions.replaceChildren();
+        actions.forEach((action) => {
+          const actionElement = document.createElement('span');
+          actionElement.className = 'tooltip-action';
+          const keyElement = document.createElement('span');
+          keyElement.className = 'tooltip-action-key';
+          keyElement.textContent = action.key;
+          actionElement.appendChild(keyElement);
+          if (action.hold) {
+            const holdElement = document.createElement('span');
+            holdElement.className = 'tooltip-hold-label';
+            holdElement.textContent = '길게';
+            actionElement.appendChild(holdElement);
+          }
+          actionElement.appendChild(document.createTextNode(' ' + action.label));
+          tooltipActions.appendChild(actionElement);
+        });
+
+        controllerActions.forEach((element) => {
+          const matches = actions.filter((candidate) => candidate.key.toLowerCase() === element.dataset.controllerAction);
+          element.hidden = matches.length === 0;
+          if (matches.length) {
+            element.querySelector('[data-controller-label]').textContent = matches.map((action) => action.hold ? '길게: ' + action.label : action.label).join(' / ');
+          }
+        });
+      }
+
+      const socketMaps = {
+        m16: {
+          displayWidth:112, displayHeight:497, viewWidth:149, viewHeight:663,
+          points:{ muzzle:[74,12], grip:[12,426], mag:[137,450], scope:[56,282], stock:[24,651] }
+        },
+        m249: {
+          displayWidth:120, displayHeight:495, viewWidth:160, viewHeight:660,
+          points:{ muzzle:[82,12], mag:[148,453], scope:[12,345.5], stock:[39,648] }
+        },
+        p1911: {
+          displayWidth:126, displayHeight:186, viewWidth:168, viewHeight:248,
+          points:{ muzzle:[105,12], mag:[156,176], scope:[70,86] }
+        }
+      };
+
+      function updateConnectorLines(slots, focusedSlot) {
+        connectorLines.replaceChildren();
+        const rootRect = root.getBoundingClientRect();
+        const scale = rootRect.width / 1920;
+        slots.forEach((slot) => {
+          if (slot.dataset.slotState === 'unavailable') return;
+          const weaponCard = slot.closest('[data-weapon-card]');
+          const weaponName = weaponCard?.dataset.weaponCard;
+          const map = socketMaps[weaponName];
+          const point = map?.points[slot.dataset.socket];
+          const visual = weaponCard?.querySelector('.weapon-visual');
+          if (!map || !point || !visual) return;
+
+          const slotRect = slot.getBoundingClientRect();
+          const visualRect = visual.getBoundingClientRect();
+          const x1 = (slotRect.right - rootRect.left) / scale;
+          const y1 = (slotRect.top + slotRect.height / 2 - rootRect.top) / scale;
+          const visualLeft = (visualRect.left - rootRect.left) / scale;
+          const visualTop = (visualRect.top - rootRect.top) / scale;
+          const visualWidth = visualRect.width / scale;
+          const visualHeight = visualRect.height / scale;
+          const mapLeft = visualLeft + visualWidth - map.displayWidth;
+          const mapTop = visualTop + (visualHeight - map.displayHeight) / 2;
+          const x2 = mapLeft + point[0] / map.viewWidth * map.displayWidth;
+          const y2 = mapTop + point[1] / map.viewHeight * map.displayHeight;
+          const connector = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          const horizontalDirection = x2 >= x1 ? 1 : -1;
+          const verticalDirection = y2 >= y1 ? 1 : -1;
+          const bendX = x1 + horizontalDirection * Math.min(22, Math.abs(x2 - x1) / 2);
+          const radius = Math.min(12, Math.abs(x2 - bendX) / 2, Math.abs(y2 - y1) / 2);
+          const path = radius < 1
+            ? 'M ' + x1 + ' ' + y1 + ' H ' + x2
+            : [
+                'M ' + x1 + ' ' + y1,
+                'H ' + (bendX - horizontalDirection * radius),
+                'Q ' + bendX + ' ' + y1 + ' ' + bendX + ' ' + (y1 + verticalDirection * radius),
+                'V ' + (y2 - verticalDirection * radius),
+                'Q ' + bendX + ' ' + y2 + ' ' + (bendX + horizontalDirection * radius) + ' ' + y2,
+                'H ' + x2
+              ].join(' ');
+          connector.setAttribute('d', path);
+          connector.setAttribute('class', slot === focusedSlot ? 'connector-line focused' : 'connector-line');
+          connectorLines.appendChild(connector);
+        });
+      }
+
+      function compatibleSlots(payload) {
+        if (!payload.socketType) return [];
+        return Array.from(root.querySelectorAll('[data-socket="' + payload.socketType + '"]')).filter((slot) => {
+          const weaponGroup = slot.closest('[data-weapon-group]')?.dataset.weaponGroup || '';
+          return payload.weaponGroups.includes(weaponGroup) && slot.dataset.slotState !== 'unavailable';
+        });
+      }
+
+      function updateFocusState(target) {
+        root.querySelectorAll('.compatible').forEach((element) => element.classList.remove('compatible'));
+        root.querySelectorAll('.quick-equip-target').forEach((element) => element.classList.remove('quick-equip-target'));
+        root.querySelectorAll('.weapon-focused').forEach((element) => element.classList.remove('weapon-focused'));
+
+        const itemType = target.dataset.itemType || '';
+        const isEmptySocket = target.classList.contains('attachment-slot') && target.dataset.slotState === 'empty';
+        const isEmptyGearSlot = target.closest('.gear-region') && target.dataset.emptySlot === 'true';
+        const isEmptySlot = Boolean(isEmptySocket || isEmptyGearSlot);
+        const itemName = target.dataset.itemName || '';
+        const itemImage = target.dataset.image || target.querySelector('img')?.getAttribute('src') || '';
+        const itemDescription = target.dataset.description || '';
+        const context = itemContext(target);
+        const isLooseAttachment = (context === 'vicinity' || context === 'inventory')
+          && target.dataset.itemCategory === 'attachment'
+          && Boolean(target.dataset.compatibility);
+        const compatibilityPayload = pendingAttachment || (isLooseAttachment ? itemPayload(target) : null);
+        const slots = compatibilityPayload ? compatibleSlots(compatibilityPayload) : [];
+        slots.forEach((slot) => slot.classList.add('compatible'));
+        const quickEquipTarget = !pendingAttachment && isLooseAttachment
+          ? slots.find((slot) => slot.closest('.weapon-card.held'))
+          : null;
+        if (quickEquipTarget) quickEquipTarget.classList.add('quick-equip-target');
+
+        const weaponCard = target.closest('[data-weapon-card]');
+        if (weaponCard) weaponCard.classList.add('weapon-focused');
+        const focusedSlot = target.classList.contains('attachment-slot') ? target : null;
+        const connectorSlots = slots.slice();
+        if (focusedSlot && !connectorSlots.includes(focusedSlot)) connectorSlots.push(focusedSlot);
+        updateConnectorLines(connectorSlots, focusedSlot);
+
+        renderActionGuides(target);
+        tooltip.classList.toggle('empty-slot', isEmptySlot);
+
+        if (!itemName) {
+          tooltip.hidden = true;
+          return;
+        }
+
+        if (isEmptySlot) {
+          const emptySocketTypes = {
+            muzzle:'총구 부착물 장착 가능',
+            grip:'손잡이 부착물 장착 가능',
+            mag:'탄창 부착물 장착 가능',
+            scope:'조준경 부착물 장착 가능',
+            stock:'개머리판 부착물 장착 가능'
+          };
+          const silhouette = target.dataset.silhouette || target.querySelector('img')?.getAttribute('src') || '';
+          title.textContent = itemName;
+          type.textContent = isEmptySocket ? (emptySocketTypes[target.dataset.socket] || '부착물 장착 가능') : itemType;
+          compatibility.parentElement.hidden = true;
+          if (silhouette) {
+            image.src = silhouette;
+            image.alt = itemName + ' 실루엣';
+            image.hidden = false;
+          } else {
+            image.hidden = true;
+          }
+          tooltip.hidden = false;
+          return;
+        }
+
+        title.textContent = itemName;
+        type.textContent = itemType;
+        description.textContent = itemDescription || '장착된 아이템입니다. 선택하여 관리할 수 있습니다.';
+        compatibility.textContent = slots.length
+          ? slots.map((slot) => slot.closest('[data-weapon-card]').dataset.weaponCard.toUpperCase()).join(', ')
+          : '—';
+        compatibility.parentElement.hidden = slots.length === 0;
+        if (itemImage) {
+          image.src = itemImage;
+          image.hidden = false;
+        } else {
+          image.hidden = true;
+        }
+        tooltip.hidden = false;
+      }
+
+      function nearestInDirection(current, direction, candidates) {
+        const currentRect = current.getBoundingClientRect();
+        const cx = currentRect.left + currentRect.width / 2;
+        const cy = currentRect.top + currentRect.height / 2;
+        let winner = null;
+        let winnerScore = Number.POSITIVE_INFINITY;
+
+        candidates.forEach((candidate) => {
+          if (candidate === current) return;
+          const rect = candidate.getBoundingClientRect();
+          const x = rect.left + rect.width / 2;
+          const y = rect.top + rect.height / 2;
+          const dx = x - cx;
+          const dy = y - cy;
+          const valid = direction === 'left' ? dx < -8 : direction === 'right' ? dx > 8 : direction === 'up' ? dy < -8 : dy > 8;
+          if (!valid) return;
+          const primary = direction === 'left' || direction === 'right' ? Math.abs(dx) : Math.abs(dy);
+          const secondary = direction === 'left' || direction === 'right' ? Math.abs(dy) : Math.abs(dx);
+          const score = primary + secondary * 2.25;
+          if (score < winnerScore) {
+            winner = candidate;
+            winnerScore = score;
+          }
+        });
+        return winner;
+      }
+
+      function attachmentButtons(weaponCard) {
+        return weaponCard ? Array.from(weaponCard.querySelectorAll('.attachment-slot:not(:disabled)')) : [];
+      }
+
+      function lowestAttachment(weaponCard) {
+        return attachmentButtons(weaponCard).at(-1) || null;
+      }
+
+      function moveFocus(direction) {
+        const focusables = currentFocusables();
+        const current = document.activeElement instanceof HTMLButtonElement ? document.activeElement : focusables[0];
+        if (!current) return;
+
+        if (current.classList.contains('attachment-slot') && (direction === 'up' || direction === 'down')) {
+          const rail = attachmentButtons(current.closest('[data-weapon-card]'));
+          const currentIndex = rail.indexOf(current);
+          const nextInRail = rail[currentIndex + (direction === 'down' ? 1 : -1)];
+          if (nextInRail) {
+            nextInRail.focus();
+            return;
+          }
+          if (direction === 'down') {
+            root.querySelector('[data-secondary-slot="throwable"]')?.focus();
+          }
+          return;
+        }
+
+        const secondaryType = current.dataset.secondarySlot || '';
+        if (secondaryType) {
+          const throwable = root.querySelector('[data-secondary-slot="throwable"]');
+          const melee = root.querySelector('[data-secondary-slot="melee"]');
+          if (secondaryType === 'throwable' && direction === 'left') {
+            const inventoryItems = Array.from(root.querySelectorAll('.inventory-region button:not(:disabled)'));
+            inventoryItems.at(-1)?.focus();
+            return;
+          }
+          if (secondaryType === 'throwable' && direction === 'right') {
+            melee?.focus();
+            return;
+          }
+          if (secondaryType === 'melee' && direction === 'left') {
+            throwable?.focus();
+            return;
+          }
+          if (direction === 'up') {
+            const fallbackCard = root.querySelector('.weapon-card.held') || root.querySelector('[data-weapon-card]');
+            lowestAttachment(lastWeaponCard || fallbackCard)?.focus();
+          }
+          return;
+        }
+
+        const candidates = itemContext(current) === 'inventory'
+          ? focusables.filter((candidate) => !candidate.dataset.secondarySlot)
+          : focusables;
+        const next = nearestInDirection(current, direction, candidates);
+        if (next) next.focus();
+      }
+
+      function itemPayload(source) {
+        return {
+          name: source.dataset.itemName || '부착물',
+          type: source.dataset.itemType || '부착물',
+          category: source.dataset.itemCategory || 'attachment',
+          description: source.dataset.description || '',
+          socketType: source.dataset.compatibility || source.dataset.socket || '',
+          weaponGroups: (source.dataset.compatibleWeaponGroups || source.closest('[data-weapon-group]')?.dataset.weaponGroup || '').split(',').map((group) => group.trim()).filter(Boolean),
+          image: source.dataset.image || source.querySelector('img')?.getAttribute('src') || '',
+          count: Number.parseInt(source.querySelector('.item-count')?.textContent || '1', 10) || 1
+        };
+      }
+
+      function itemQuantity(source) {
+        return Number.parseInt(source.querySelector('.item-count')?.textContent || '1', 10) || 1;
+      }
+
+      function setItemQuantity(source, quantity) {
+        const normalized = Math.max(1, Math.floor(quantity));
+        let count = source.querySelector('.item-count');
+        if (normalized === 1) {
+          count?.remove();
+          return;
+        }
+        if (!count) {
+          count = document.createElement('span');
+          count.className = 'item-count';
+          source.appendChild(count);
+        }
+        count.textContent = String(normalized);
+      }
+
+      function focusAndRefresh(target) {
+        if (!(target instanceof HTMLButtonElement) || !target.isConnected || target.disabled) return;
+        target.focus();
+        requestAnimationFrame(() => {
+          if (target.isConnected && document.activeElement === target) updateFocusState(target);
+        });
+      }
+
+      function equipIntoSlot(slot, payload) {
+        slot.dataset.itemName = payload.name;
+        slot.dataset.itemType = payload.type;
+        slot.dataset.itemCategory = payload.category;
+        slot.dataset.description = payload.description;
+        slot.dataset.image = payload.image;
+        slot.dataset.compatibility = payload.socketType;
+        slot.dataset.compatibleWeaponGroups = payload.weaponGroups.join(',');
+        slot.dataset.slotState = 'occupied';
+        slot.disabled = false;
+        slot.classList.remove('unavailable');
+        slot.replaceChildren();
+        if (payload.image) {
+          const equippedImage = document.createElement('img');
+          equippedImage.src = payload.image;
+          equippedImage.alt = payload.name;
+          slot.appendChild(equippedImage);
+        }
+      }
+
+      function emptyAttachmentSlot(slot) {
+        const silhouette = slot.dataset.silhouette || '';
+        const socketNames = { muzzle:'총구 슬롯', grip:'손잡이 슬롯', mag:'탄창 슬롯', scope:'조준경 슬롯', stock:'개머리판 슬롯' };
+        slot.dataset.itemName = socketNames[slot.dataset.socket] || '부착물 슬롯';
+        slot.dataset.itemType = '빈 슬롯';
+        slot.dataset.slotState = 'empty';
+        delete slot.dataset.itemCategory;
+        delete slot.dataset.description;
+        delete slot.dataset.image;
+        delete slot.dataset.compatibility;
+        delete slot.dataset.compatibleWeaponGroups;
+        slot.replaceChildren();
+        if (silhouette) {
+          const silhouetteImage = document.createElement('img');
+          silhouetteImage.src = silhouette;
+          silhouetteImage.alt = slot.dataset.itemName + ' 실루엣';
+          slot.appendChild(silhouetteImage);
+        }
+      }
+
+      function categoryEndReference(panel, category) {
+        const categoryBreaks = {
+          consumable:'consumables-throwables',
+          throwable:'throwables-ammo',
+          ammunition:'ammo-attachments',
+          attachment:'attachments-weapons'
+        };
+        const breakName = categoryBreaks[category];
+        return breakName ? panel.querySelector('[data-category-break="' + breakName + '"]') : null;
+      }
+
+      function categoryWrappers(panel, category) {
+        return Array.from(panel.children).filter((child) => {
+          const button = child.querySelector('button.item-tile');
+          return button && (button.dataset.itemCategory === category || button.dataset.emptyCategory === category);
+        });
+      }
+
+      function compactCategory(panel, category) {
+        const reference = categoryEndReference(panel, category);
+        categoryWrappers(panel, category).forEach((wrapper) => panel.insertBefore(wrapper, reference));
+      }
+
+      function clearListItem(source) {
+        const emptiedCategory = source.dataset.itemCategory || 'attachment';
+        const panel = source.closest('.tile-panel');
+        const categoryItems = panel
+          ? categoryWrappers(panel, emptiedCategory).map((wrapper) => wrapper.querySelector('button.item-tile')).filter((button) => button && !button.disabled)
+          : [];
+        const sourceIndex = categoryItems.indexOf(source);
+        const panelItems = panel ? Array.from(panel.querySelectorAll('button:not(:disabled)')) : [];
+        const fallback = categoryItems[sourceIndex + 1] || categoryItems[sourceIndex - 1]
+          || panelItems[panelItems.indexOf(source) + 1] || panelItems[panelItems.indexOf(source) - 1] || null;
+        source.closest('.item-widget, .wide-item-widget')?.remove();
+        return fallback;
+      }
+
+      function createListDestination(regionSelector, category) {
+        const panel = root.querySelector(regionSelector + ' .tile-panel');
+        if (!panel) return null;
+        const wrapper = document.createElement('div');
+        wrapper.className = category === 'weapon' ? 'wide-item-widget' : 'item-widget';
+        wrapper.dataset.umgWidget = 'WBP_InventoryItemTile';
+        const button = document.createElement('button');
+        button.className = 'item-tile';
+        wrapper.appendChild(button);
+        panel.insertBefore(wrapper, categoryEndReference(panel, category));
+        return button;
+      }
+
+      function populateListItem(destination, payload) {
+        destination.className = 'item-tile';
+        destination.dataset.itemName = payload.name;
+        destination.dataset.itemType = payload.type;
+        destination.dataset.itemCategory = payload.category;
+        destination.dataset.image = payload.image;
+        destination.dataset.description = payload.description;
+        if (payload.socketType) destination.dataset.compatibility = payload.socketType;
+        else delete destination.dataset.compatibility;
+        if (payload.weaponGroups?.length) destination.dataset.compatibleWeaponGroups = payload.weaponGroups.join(',');
+        else delete destination.dataset.compatibleWeaponGroups;
+        if (payload.image) destination.style.backgroundImage = "url('" + payload.image + "')";
+        else destination.removeAttribute('style');
+        destination.replaceChildren();
+        setItemQuantity(destination, payload.count || 1);
+      }
+
+      function restoreItemToList(regionSelector, payload) {
+        const panel = root.querySelector(regionSelector + ' .tile-panel');
+        if (!panel) return false;
+        const stackable = ['consumable', 'throwable', 'ammunition'].includes(payload.category);
+        const stackLimit = payload.category === 'ammunition' ? 30 : Number.POSITIVE_INFINITY;
+        let remaining = Math.max(1, Number(payload.count) || 1);
+
+        if (stackable) {
+          const matchingStacks = categoryWrappers(panel, payload.category)
+            .map((wrapper) => wrapper.querySelector('button.item-tile'))
+            .filter((button) => button && button.dataset.itemName === payload.name);
+          matchingStacks.forEach((button) => {
+            if (remaining <= 0) return;
+            const current = itemQuantity(button);
+            const transferred = Math.min(remaining, stackLimit - current);
+            if (transferred > 0) {
+              setItemQuantity(button, current + transferred);
+              remaining -= transferred;
+            }
+          });
+        }
+
+        while (remaining > 0) {
+          const destination = createListDestination(regionSelector, payload.category);
+          if (!destination) return false;
+          const destinationQuantity = stackable ? Math.min(remaining, stackLimit) : 1;
+          populateListItem(destination, { ...payload, count:destinationQuantity });
+          remaining -= destinationQuantity;
+          if (!stackable) remaining = 0;
+        }
+
+        compactCategory(panel, payload.category);
+        return true;
+      }
+
+      function consumeListUnit(source) {
+        const quantity = itemQuantity(source);
+        if (quantity > 1) {
+          setItemQuantity(source, quantity - 1);
+          updateFocusState(source);
+          return source;
+        }
+        return clearListItem(source);
+      }
+
+      function restoreAttachmentToInventory(payload) {
+        return restoreItemToList('.inventory-region', payload);
+      }
+
+      function restoreAttachmentToVicinity(payload) {
+        return restoreItemToList('.vicinity-region', payload);
+      }
+
+      function equipThrowable(payload) {
+        const slot = root.querySelector('[data-secondary-slot="throwable"]');
+        if (!slot) return null;
+        slot.dataset.itemName = payload.name;
+        slot.dataset.itemType = payload.type;
+        slot.dataset.itemCategory = payload.category;
+        slot.dataset.image = payload.image;
+        slot.dataset.description = '현재 장착된 투척 무기입니다.';
+        slot.replaceChildren();
+        const title = document.createElement('p');
+        title.append(payload.name + '   ');
+        const weaponClass = document.createElement('span');
+        weaponClass.className = 'weapon-class';
+        weaponClass.textContent = '투척 무기';
+        title.appendChild(weaponClass);
+        slot.appendChild(title);
+        if (payload.image) {
+          const image = document.createElement('img');
+          image.src = payload.image;
+          image.alt = payload.name;
+          slot.appendChild(image);
+        }
+        return slot;
+      }
+
+      function quickEquip() {
+        const source = document.activeElement;
+        if (!(source instanceof HTMLButtonElement) || !source.dataset.compatibility) {
+          message.textContent = '빠른 장착이 가능한 부착물을 선택하세요';
+          return;
+        }
+        const payload = itemPayload(source);
+        const destination = compatibleSlots(payload).find((slot) => slot.closest('.weapon-card.held'));
+        if (!destination) {
+          message.textContent = '현재 장착 중인 무기에 호환 슬롯이 없습니다';
+          return;
+        }
+        equipIntoSlot(destination, payload);
+        message.textContent = payload.name + '을(를) 현재 무기에 빠르게 장착했습니다';
+        const fallback = clearListItem(source);
+        focusAndRefresh(fallback || destination);
+      }
+
+      function selectOrConfirmSlot() {
+        const current = document.activeElement;
+        if (!(current instanceof HTMLButtonElement)) return;
+
+        if (pendingAttachment) {
+          if (compatibleSlots(pendingAttachment).includes(current)) {
+            if (pendingSourceSlot === current) {
+              message.textContent = '교체할 다른 호환 슬롯을 선택하세요';
+              return;
+            }
+            equipIntoSlot(current, pendingAttachment);
+            if (pendingSourceSlot) emptyAttachmentSlot(pendingSourceSlot);
+            if (!pendingSourceSlot && returnFocus?.closest('.tile-panel')) clearListItem(returnFocus);
+            message.textContent = pendingAttachment.name + '을(를) 선택한 슬롯에 장착했습니다';
+            pendingAttachment = null;
+            pendingSourceSlot = null;
+            returnFocus = null;
+            updateFocusState(current);
+          } else {
+            message.textContent = '강조 표시된 호환 슬롯을 선택하세요';
+          }
+          return;
+        }
+
+        if (itemContext(current) === 'weapon-slot' && current.dataset.slotState === 'occupied') {
+          pendingAttachment = itemPayload(current);
+          pendingSourceSlot = current;
+          returnFocus = current;
+          const destination = compatibleSlots(pendingAttachment).find((slot) => slot !== current);
+          if (!destination) {
+            message.textContent = '교체할 수 있는 다른 호환 슬롯이 없습니다';
+            pendingAttachment = null;
+            pendingSourceSlot = null;
+            returnFocus = null;
+            return;
+          }
+          message.textContent = '교체할 호환 부착물 슬롯을 선택하세요';
+          destination.focus();
+          return;
+        }
+
+        if (current.dataset.compatibility) {
+          pendingAttachment = itemPayload(current);
+          pendingSourceSlot = null;
+          returnFocus = current;
+          const destinations = compatibleSlots(pendingAttachment);
+          const heldDestination = destinations.find((slot) => slot.closest('.weapon-card.held'));
+          const anyDestination = destinations[0];
+          if (!anyDestination) {
+            message.textContent = '호환되는 무기 슬롯이 없습니다';
+            pendingAttachment = null;
+            returnFocus = null;
+            return;
+          }
+          message.textContent = '강조 표시된 부착물 슬롯을 선택하세요';
+          (heldDestination || anyDestination)?.focus();
+          return;
+        }
+
+        const context = itemContext(current);
+        if (current.dataset.itemCategory === 'ammunition') {
+          message.textContent = '탄약은 줍거나 버리기만 할 수 있습니다';
+          return;
+        }
+        if (context === 'inventory' && current.dataset.itemCategory === 'consumable') {
+          const usedName = current.dataset.itemName;
+          const fallback = consumeListUnit(current);
+          message.textContent = usedName + ' 사용';
+          focusAndRefresh(fallback);
+          return;
+        }
+        if (context === 'inventory' && current.dataset.itemCategory === 'throwable') {
+          const payload = itemPayload(current);
+          const throwableSlot = equipThrowable(payload);
+          const fallback = consumeListUnit(current);
+          message.textContent = payload.name + ' 장착';
+          focusAndRefresh(fallback || throwableSlot);
+          return;
+        }
+        if (context === 'vicinity') {
+          message.textContent = current.dataset.itemName + '에는 A 동작이 없습니다';
+          return;
+        }
+
+        message.textContent = current.dataset.itemName ? current.dataset.itemName + ' 선택' : '슬롯 선택';
+      }
+
+      function handleXAction() {
+        const current = document.activeElement;
+        if (!(current instanceof HTMLButtonElement)) return;
+        if (itemContext(current) === 'weapon-slot' && current.dataset.slotState === 'occupied') {
+          const payload = itemPayload(current);
+          if (restoreAttachmentToInventory(payload)) {
+            emptyAttachmentSlot(current);
+            message.textContent = payload.name + '을(를) 분리하여 인벤토리로 이동했습니다';
+            updateFocusState(current);
+          } else {
+            restoreAttachmentToVicinity(payload);
+            emptyAttachmentSlot(current);
+            message.textContent = '인벤토리 공간이 부족하여 부착물을 바닥에 버렸습니다';
+            updateFocusState(current);
+          }
+          return;
+        }
+        if (current.dataset.compatibility) {
+          quickEquip();
+          return;
+        }
+        const context = itemContext(current);
+        if (context === 'vicinity') {
+          const payload = itemPayload(current);
+          const pickedName = payload.name;
+          if (payload.category !== 'weapon') restoreItemToList('.inventory-region', payload);
+          const fallback = clearListItem(current);
+          message.textContent = payload.category === 'weapon' ? pickedName + '을(를) 무기 슬롯에 장착' : pickedName + ' 줍기';
+          focusAndRefresh(fallback);
+          return;
+        }
+        message.textContent = '이 아이템에는 X 동작이 없습니다';
+      }
+
+      function handleYAction(isHold) {
+        const current = document.activeElement;
+        if (!(current instanceof HTMLButtonElement)) return;
+        const context = itemContext(current);
+        if (context === 'weapon-slot' && (current.dataset.slotState === 'occupied' || current.dataset.slotState === 'empty')) {
+          const weaponCard = current.closest('[data-weapon-card]');
+          if (isHold) {
+            weaponCard.classList.add('weapon-dropped');
+            message.textContent = weaponCard.dataset.weaponCard.toUpperCase() + '과(와) 모든 부착물을 버렸습니다';
+          } else if (current.dataset.slotState === 'occupied') {
+            const payload = itemPayload(current);
+            const droppedName = payload.name;
+            restoreAttachmentToVicinity(payload);
+            emptyAttachmentSlot(current);
+            message.textContent = droppedName + '을(를) 주변에 버렸습니다';
+            updateFocusState(current);
+          }
+          return;
+        }
+        if (context === 'inventory') {
+          const payload = itemPayload(current);
+          const droppedName = payload.name;
+          restoreItemToList('.vicinity-region', payload);
+          const fallback = clearListItem(current);
+          message.textContent = droppedName + '을(를) 주변에 버렸습니다';
+          focusAndRefresh(fallback);
+          return;
+        }
+        if (context === 'gear') {
+          message.textContent = current.dataset.itemName + ' 버리기';
+          return;
+        }
+        message.textContent = '이 위치에서는 버릴 수 없습니다';
+      }
+
+      function cancelOrBack() {
+        if (pendingAttachment) {
+          const cancelledName = pendingAttachment.name;
+          pendingAttachment = null;
+          pendingSourceSlot = null;
+          message.textContent = cancelledName + ' 슬롯 선택 취소';
+          if (returnFocus) returnFocus.focus();
+          returnFocus = null;
+          return;
+        }
+        message.textContent = '뒤로 / 인벤토리 닫기';
+      }
+
+      function handleAction(action) {
+        if (action === 'select') selectOrConfirmSlot();
+        if (action === 'back') cancelOrBack();
+        if (action === 'quick') handleXAction();
+        requestAnimationFrame(() => {
+          const focused = document.activeElement;
+          if (focused instanceof HTMLButtonElement && focused.isConnected && !focused.disabled) updateFocusState(focused);
+        });
+      }
+
+      root.addEventListener('focusin', (event) => {
+        if (event.target instanceof HTMLButtonElement) {
+          const weaponCard = event.target.closest('[data-weapon-card]');
+          if (weaponCard && event.target.classList.contains('attachment-slot')) lastWeaponCard = weaponCard;
+          updateFocusState(event.target);
+        }
+      });
+
+      root.addEventListener('keydown', (event) => {
+        const directions = { ArrowLeft:'left', ArrowRight:'right', ArrowUp:'up', ArrowDown:'down' };
+        if (directions[event.key]) {
+          event.preventDefault();
+          moveFocus(directions[event.key]);
+        }
+        if (event.key.toLowerCase() === 'x') handleAction('quick');
+        if (event.key === 'Enter' || event.key.toLowerCase() === 'a') handleAction('select');
+        if (event.key === 'Escape' || event.key.toLowerCase() === 'b') handleAction('back');
+        if (event.key.toLowerCase() === 'y' && !event.repeat) {
+          event.preventDefault();
+          keyboardYStarted = performance.now();
+        }
+      });
+
+      root.addEventListener('keyup', (event) => {
+        if (event.key.toLowerCase() !== 'y' || !keyboardYStarted) return;
+        event.preventDefault();
+        handleYAction(performance.now() - keyboardYStarted >= 650);
+        keyboardYStarted = 0;
+      });
+
+      function primaryGamepad() {
+        if (!navigator.getGamepads) return null;
+        return Array.from(navigator.getGamepads()).find((gamepad) => gamepad?.connected) || null;
+      }
+
+      function pressed(gamepad, buttonIndex) {
+        return Boolean(gamepad.buttons[buttonIndex]?.pressed);
+      }
+
+      function gamepadDirection(gamepad) {
+        if (pressed(gamepad, 12) || (gamepad.axes[3] || 0) < -0.65) return 'up';
+        if (pressed(gamepad, 13) || (gamepad.axes[3] || 0) > 0.65) return 'down';
+        if (pressed(gamepad, 14) || (gamepad.axes[2] || 0) < -0.65) return 'left';
+        if (pressed(gamepad, 15) || (gamepad.axes[2] || 0) > 0.65) return 'right';
+        return '';
+      }
+
+      function pollGamepad(now) {
+        const gamepad = primaryGamepad();
+        if (!gamepad) {
+          gamepadStatus.textContent = '컨트롤러 버튼을 눌러 연결';
+          previousButtons = [];
+          heldDirection = '';
+          gamepadYStarted = 0;
+          gamepadYHoldTriggered = false;
+          requestAnimationFrame(pollGamepad);
+          return;
+        }
+
+        gamepadStatus.textContent = '게임패드 연결됨';
+        const direction = gamepadDirection(gamepad);
+        if (direction) {
+          if (direction !== heldDirection) {
+            moveFocus(direction);
+            heldDirection = direction;
+            nextDirectionRepeat = now + 320;
+          } else if (now >= nextDirectionRepeat) {
+            moveFocus(direction);
+            nextDirectionRepeat = now + 135;
+          }
+        } else {
+          heldDirection = '';
+        }
+
+        const actions = [
+          { index:0, name:'select' },
+          { index:1, name:'back' },
+          { index:2, name:'quick' }
+        ];
+        actions.forEach((action) => {
+          const isPressed = pressed(gamepad, action.index);
+          if (isPressed && !previousButtons[action.index]) handleAction(action.name);
+          previousButtons[action.index] = isPressed;
+        });
+
+        const yPressed = pressed(gamepad, 3);
+        const yWasPressed = Boolean(previousButtons[3]);
+        if (yPressed && !yWasPressed) {
+          gamepadYStarted = now;
+          gamepadYHoldTriggered = false;
+        }
+        if (yPressed && !gamepadYHoldTriggered && now - gamepadYStarted >= 650) {
+          const current = document.activeElement;
+          if (current instanceof HTMLButtonElement && itemContext(current) === 'weapon-slot' && (current.dataset.slotState === 'occupied' || current.dataset.slotState === 'empty')) {
+            handleYAction(true);
+            gamepadYHoldTriggered = true;
+          }
+        }
+        if (!yPressed && yWasPressed && !gamepadYHoldTriggered) handleYAction(false);
+        previousButtons[3] = yPressed;
+
+        requestAnimationFrame(pollGamepad);
+      }
+
+      window.addEventListener('gamepadconnected', () => { gamepadStatus.textContent = '게임패드 연결됨'; });
+      window.addEventListener('gamepaddisconnected', () => { gamepadStatus.textContent = '게임패드 연결 해제됨'; });
+      window.addEventListener('resize', () => {
+        fitPrototypeToViewport();
+        if (document.activeElement instanceof HTMLButtonElement) requestAnimationFrame(() => updateFocusState(document.activeElement));
+      });
+
+      const firstItem = root.querySelector('.vicinity-region button:not(:disabled)');
+      fitPrototypeToViewport();
+      if (firstItem) firstItem.focus({ preventScroll:true });
+      requestAnimationFrame(() => {
+        if (firstItem && document.activeElement === document.body) firstItem.focus({ preventScroll:true });
+      });
+      requestAnimationFrame(pollGamepad);
+    }());
+  </script>
+</body>
+</html>
