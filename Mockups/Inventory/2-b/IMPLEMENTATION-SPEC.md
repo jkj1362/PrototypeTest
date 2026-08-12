@@ -1,14 +1,18 @@
-# PUBG Console Inventory 2-b Current Implementation Specification
+# PUBG Console Inventory 2-b Final Feature Specification
 
-Status: interactive HTML design prototype, not final Unreal implementation
+Status: finalized interactive HTML design prototype; Unreal implementation is deferred
 
-Last updated: 2026-08-11
+Last updated: 2026-08-12
 
 ## 1. Scope
 
 This document defines the current behavior and structure of the PUBG console
 Inventory 2-b prototype. It records both the user's design decisions and the
 mechanics currently implemented in `WBP_Inventory2B.html`.
+
+Inventory 2-b is closed as the accepted baseline for subsequent variations.
+Future variations should fork these decisions explicitly rather than silently
+changing this document's description of the 2-b behavior.
 
 If this document and the HTML disagree, the HTML is the executable truth and
 this document must be updated. If the HTML and an explicit newer user decision
@@ -24,20 +28,24 @@ The prototype is intended to validate:
   slots;
 - a UMG-friendly visual hierarchy for later Unreal implementation.
 
-## 2. Source files and handoff boundary
+## 2. Artifact set and implementation boundary
 
 - `WBP_Inventory2B.html`: layout, styling, preview data, and browser-only
   interaction simulation.
+- `WBP_InventoryItemTile.html`, `WBP_GearSlot.html`, `WBP_WeaponCard.html`, and
+  `WBP_ItemTooltip.html`: reusable widget-boundary references.
 - `ASSET-AUDIT.md`: image provenance, visual decisions, and Unreal notes.
-- [Session handoff](../../../GabrielOperation/Session-Handoffs/2026-08-11-Inventory-2-b.md):
-  current resume point, pending verification, and known gaps.
 - `assets/`: Figma exports and mockup-only schematic slot art.
+
+Session handoffs are historical workflow records, not normative feature
+documents. This specification and the executable HTML together define the
+finished 2-b baseline.
 
 The HTML is designed at 1920 x 1080. `preview-stage`, JavaScript `zoom`,
 keyboard input, Gamepad API polling, DOM mutation, and SVG connector generation
-are browser-preview infrastructure. Claude's Unreal pass should translate the
-behavior into a hand-written parent `UserWidget`; it should not attempt to run
-the browser script inside UMG.
+are browser-preview infrastructure. An Unreal authoring pass should translate
+the behavior into a hand-written parent `UserWidget`; it should not attempt to
+run the browser script inside UMG.
 
 ## 3. Design hierarchy
 
@@ -50,7 +58,7 @@ background. Its main regions are:
 4. Weapon rack containing M16, M249, and P1911 cards.
 5. Throwable and Melee/Tool secondary slots.
 6. Attachment connector overlay.
-7. Item tooltip overlay.
+7. Item and attachment-comparison tooltip overlays.
 8. Controller/action guide.
 
 The connector overlay is placed before the tooltip in DOM order so the tooltip
@@ -61,12 +69,13 @@ Repeated UI structures are declared as:
 - `WBP_InventoryItemTile`
 - `WBP_GearSlot`
 - `WBP_WeaponCard`
+- `WBP_ItemTooltip`
 
 The intended generated parent widget is `WBP_Inventory2B`.
 
 ## 4. Bindable UMG API
 
-These 23 names are the current binding surface and must remain unique:
+These 29 names are the current binding surface and must remain unique:
 
 - `Panel_Root`
 - `Box_GearAndOutfit`
@@ -84,6 +93,12 @@ These 23 names are the current binding surface and must remain unique:
 - `Box_ControllerGuide`
 - `Txt_InteractionMessage`
 - `Txt_GamepadStatus`
+- `Panel_SelectedAttachmentTooltip`
+- `Txt_SelectedAttachmentName`
+- `Txt_SelectedAttachmentType`
+- `Img_SelectedAttachment`
+- `Txt_SelectedAttachmentDescription`
+- `Txt_SelectedAttachmentCompatibility`
 - `Panel_ItemTooltip`
 - `Txt_TooltipItemName`
 - `Txt_TooltipItemType`
@@ -140,6 +155,12 @@ Full-width divider nodes mark category boundaries:
 `createListDestination()` inserts a new tile immediately before that divider.
 `compactCategory()` preserves item order inside that segment.
 
+`updateCategoryDividers()` recalculates divider visibility after initialization
+and every list mutation. Empty categories contribute no divider. Among the
+remaining populated categories, exactly one divider is shown immediately before
+each category after the first populated category. This prevents consecutive or
+orphaned lines when one or more category segments become empty.
+
 When an item leaves either list, `clearListItem()` removes the complete tile
 wrapper from the DOM. It does not leave a disabled or visually empty tile.
 Items below it therefore reflow upward automatically. The category divider
@@ -148,6 +169,12 @@ unused half-row is natural WrapBox space, not an empty widget.
 
 Vicinity and Inventory use the same removal, insertion, stacking, and category
 placement functions.
+
+`updateEmptyListFocus()` makes a list panel focusable only while it contains no
+item tiles. Removing the final tile returns the empty panel as the focus-recovery
+target, keeping focus inside the list rather than jumping to another region.
+Restoring any item removes the panel from the focus graph again. Empty-panel
+focus shows neither an item tooltip nor contextual item actions.
 
 ## 7. Stacking rules
 
@@ -192,7 +219,8 @@ Partial pickup/drop and a quantity selector are outside the current prototype.
 - Throwables: Molotov Cocktail x4, Frag Grenade x1
 - Ammunition: 5.56mm x30, 5.56mm x15
 - Attachments: Extended Quickdraw Magazine, Quickdraw Magazine
-- Weapon: M416
+- Weapon: AUG (X and A guides are shown, but both equip flows are intentionally
+  blocked in this prototype)
 
 ### Inventory
 
@@ -218,6 +246,33 @@ The rack contains three weapon cards:
 Every rail always renders five positions in this order:
 
 `Muzzle -> Handle/Grip -> Magazine -> Scope -> Stock`
+
+Marker identity was audited against the explicitly named ellipse layers in the
+original Figma 2-b frame (`393:917`):
+
+- M16 `Attachment sockets` (`404:3740`): `Socket - Muzzle`,
+  `Socket - Handle`, `Socket - Magazine`, `Socket - Scope`, `Socket - Stock`;
+- M249 `Attachment sockets` (`404:3768`): `Socket - Muzzle`,
+  `Socket - Magazine`, `Socket - Scope`, `Socket - Stock`;
+- P1911 `Attachment sockets` (`404:3797`): `Socket - Muzzle`,
+  `Socket - Magazine`, `Socket - Scope`.
+
+The P1911 visual therefore renders exactly three marker points. Its unavailable
+Handle/Grip and Stock rail positions do not have gun-image markers.
+
+The final browser-aligned marker centers are expressed in each socket SVG's
+native viewBox coordinates:
+
+| Weapon | Muzzle | Handle/Grip | Magazine | Scope | Stock |
+|---|---:|---:|---:|---:|---:|
+| M16 | `74,12` | `56,282` | `12,426` | `137,450` | `24,651` |
+| M249 | `82,12` | unavailable | `12,345.5` | `148,453` | `39,648` |
+| P1911 | `105,12` | unavailable | `42,150` | `156,176` | unavailable |
+
+The P1911 Magazine and Scope assignments include the final visual correction:
+the Magazine marker is the lower-left point placed near the pistol grip, while
+the Scope marker uses the right-side point. These accepted coordinates override
+the stale exported P1911 path order.
 
 Each slot has one of three `data-slot-state` values:
 
@@ -251,23 +306,22 @@ no cross-weapon synchronized compatibility highlight is shown.
 
 ## 11. Attachment interaction state machine
 
-The browser preview uses three variables:
+The browser preview uses four variables:
 
 - `pendingAttachment`: payload being placed through A slot selection;
 - `pendingSourceSlot`: occupied weapon socket when moving an attached item;
-- `returnFocus`: loose source item or source socket used for cancellation.
+- `returnFocus`: loose source item or source socket used for cancellation;
+- `placementFocus`: last valid socket focused inside the locked placement mode.
 
 ### X quick equip from a loose attachment
 
 1. Serialize the focused loose attachment.
 2. Find its compatible socket on the held M16.
-3. Populate that socket as occupied.
-4. Remove the source tile from Vicinity or Inventory.
-5. Focus the next same-category item when possible.
-6. Recompute compatibility and the X cue immediately.
-
-Current limitation: if the destination socket was already occupied, its old
-attachment is overwritten rather than returned to Inventory.
+3. If that socket is occupied, restore its existing attachment to Inventory.
+4. Populate the socket with the selected attachment.
+5. Remove the source tile from Vicinity or Inventory.
+6. Focus the next same-category item when possible.
+7. Recompute compatibility and the X cue immediately.
 
 ### A slot selection from a loose attachment
 
@@ -275,17 +329,25 @@ attachment is overwritten rather than returned to Inventory.
 2. Highlight every compatible socket.
 3. Move focus to the held compatible socket when available, otherwise the
    first compatible socket.
-4. A on a highlighted socket confirms placement.
-5. Remove the loose source tile and clear pending state.
-6. B cancels and returns focus to the source item.
+4. Lock directional focus to compatible sockets of the same type and weapon
+   group. If there is only one destination, directional input leaves focus on
+   it.
+5. While locked, X and Y actions are unavailable. A confirms placement and B
+   is the only cancellation/escape input.
+6. If the destination is occupied, return its existing attachment to Inventory.
+7. Remove the loose source tile and clear pending state after confirmation.
+8. B cancels and returns focus to the source item without changing inventory.
 
 ### A slot selection from an occupied socket
 
 1. Serialize the attached item and remember its source socket.
 2. Highlight compatible sockets other than the source.
-3. A on a compatible destination moves the item and restores the source socket
-   to its empty silhouette state.
-4. B cancels and returns to the source socket.
+3. Lock focus to those destinations, using the same A-confirm/B-cancel rules as
+   loose attachment placement.
+4. A on a compatible destination returns any displaced destination attachment
+   to Inventory, moves the selected item, and restores the source socket to its
+   empty silhouette state.
+5. B cancels and returns to the source socket.
 
 ### X detach from an occupied socket
 
@@ -322,12 +384,40 @@ controller D-pad, and controller right-stick axes.
 
 The right stick, not the left stick, is the intended analog navigation input.
 
+### Vicinity, Inventory, Gear, and Outfit columns
+
+Up/down navigation is contained within the current visual column. Vicinity and
+Inventory use horizontal-overlap testing so a two-column tile never jumps into
+the neighboring column when its own column ends. A full-width tile may still
+be entered from either column because it overlaps both. Each Gear/Outfit rail
+is a separate vertical column.
+
+At the top or bottom of one of these columns, another up/down input leaves focus
+on the boundary item. It never escapes into a neighboring or external region.
+Left/right navigation remains available for deliberate cross-column movement.
+
+If every item is removed from Vicinity or Inventory, focus moves to that empty
+list panel. The panel participates in navigation only until an item is added
+again and never produces a tooltip.
+
 ### Weapon rails
 
 Within a weapon rail, up/down traverses focusable attachment sockets in rail
 order while skipping unavailable sockets.
 
 From the lowest focusable socket, Down moves to Throwable.
+
+### Attachment placement focus lock
+
+While `pendingAttachment` is active, the normal navigation graph is suspended.
+Every direction searches only the compatible destination sockets returned by
+`compatibleSlots()`, excluding `pendingSourceSlot` when moving an already
+attached item. Directional input with no compatible socket in that direction
+does nothing, and a single compatible destination cannot lose focus.
+
+Successful A confirmation ends the mode. B is the only way to cancel and exit
+without placing the attachment. X, Y, list navigation, gear navigation,
+secondary-slot navigation, and incompatible weapon sockets are unavailable.
 
 ### Secondary slots
 
@@ -357,27 +447,48 @@ Keyboard preview equivalents are arrow keys, A/Enter, X, Y, B/Escape.
 
 There is deliberately no tooltip-toggle input.
 
-## 14. Contextual action guides
+## 14. Contextual action guides and blocked weapon actions
 
-`availableActions()` determines both tooltip actions and the footer guide.
+`availableActions()` determines the contextual action rows inside the item
+tooltip. The footer is separate and always retains B Back, the yellow system
+message, and controller connection status.
 
 | Context | Actions |
 |---|---|
-| Vicinity non-attachment | X Pick Up |
+| Vicinity non-attachment, non-weapon | X Pick Up |
+| Vicinity AUG | X Quick Equip, A Select Equip Slot (guides only; both actions are blocked) |
 | Inventory ammunition | Y Drop |
 | Inventory consumable | A Use, Y Drop |
 | Inventory throwable | A Equip, Y Drop |
 | Loose attachment | X Quick Equip, A Select Slot; Inventory also has Y Drop |
+| Pending attachment placement | A Confirm Slot; B remains the global cancel action |
 | Occupied attachment socket | A Select Slot, X Detach, Y Drop Attachment, hold-Y Drop Weapon |
 | Empty available attachment socket | hold-Y Drop Weapon |
 | Empty gear/outfit slot | No action guide |
+| Occupied gear/outfit slot | A Select, Y Drop (message-only simulation) |
+| Throwable or Melee/Tool secondary slot | No contextual action guide |
 
 Ammunition never exposes Use, Equip, or Attach.
 
+Pressing X or A while the vicinity AUG is focused shows the yellow
+`무기 장착 기능은 아직 구현되지 않았습니다` system message. The AUG remains
+in Vicinity and no weapon or inventory state changes.
+
 ## 15. Tooltip behavior
 
-The tooltip is a top-layer overlay with a wider, darker gray panel than the
-earlier version. It is shown for focused items and occupied equipment.
+The tooltip is a top-layer overlay with a dark gray panel. Its width and
+horizontal position keep it fully inside the open space between Vicinity and
+Inventory, so it does not cover either list.
+
+During normal navigation, one tooltip is shown for the focused item or occupied
+equipment. During A-based attachment slot selection, two tooltips are stacked
+in that same gap:
+
+- the upper tooltip remains locked to the selected attachment;
+- the lower tooltip follows the focused destination socket and shows either
+  the empty-slot tooltip or the currently attached item.
+
+This comparison state remains active until placement is confirmed or cancelled.
 
 Normal tooltip content includes:
 
@@ -418,14 +529,22 @@ For every compatible or focused socket, it calculates:
 Compatible connectors are green. The focused socket connector is yellow and
 slightly thicker.
 
-The geometry follows the Figma connector vector, but the final gun-part marker
-coordinates remain approximate. Unreal should reproduce this with an overlay
-or custom paint pass, not by importing the browser-generated SVG.
+The geometry follows the Figma connector vector. Marker semantics originate
+from the named ellipse layers in baseline frame `393:917`, while the final
+coordinates are the accepted browser-aligned values recorded in Section 9.
+They must not be reconstructed from raw SVG path order. Unreal should reproduce
+this with an overlay or custom paint pass, not by importing the
+browser-generated SVG.
 
 ## 17. Gear, outfit, and character preview
 
 Gear and outfit slots are visually separated from the high-frequency looting
 path. Empty slots show schematic silhouettes only in their focused tooltip.
+
+The top slot of the leftmost Outfit rail is `모자 슬롯` and is classified as
+an Outfit slot. The top Gear slot immediately above the backpack is
+`헬멧 슬롯`. They are distinct equipment locations despite both using the
+current schematic head-slot silhouette in this mockup.
 
 Level 3 Backpack and Level 3 Vest are occupied examples. Helmet, backpack, and
 vest visibility must be preserved in the eventual design. Character preview is
@@ -439,15 +558,17 @@ The script is organized around these responsibilities:
 - Context and actions: `itemContext()`, `availableActions()`,
   `renderActionGuides()`
 - Compatibility and focus presentation: `compatibleSlots()`,
-  `updateFocusState()`, `focusAndRefresh()`
-- Connectors: `updateConnectorLines()`
+  `updateSelectedAttachmentTooltip()`, `updateFocusState()`,
+  `focusAndRefresh()`
+- Connectors: `socketMaps`, `updateConnectorLines()`
 - Navigation: `nearestInDirection()`, `attachmentButtons()`,
-  `lowestAttachment()`, `moveFocus()`
+  `lowestAttachment()`, `verticalColumnCandidates()`, `moveFocus()`
 - Item serialization and counts: `itemPayload()`, `itemQuantity()`,
   `setItemQuantity()`
 - List lifecycle: `categoryEndReference()`, `categoryWrappers()`,
-  `compactCategory()`, `clearListItem()`, `createListDestination()`,
-  `populateListItem()`, `restoreItemToList()`, `consumeListUnit()`
+  `updateCategoryDividers()`, `updateEmptyListFocus()`, `compactCategory()`,
+  `clearListItem()`, `createListDestination()`, `populateListItem()`,
+  `restoreItemToList()`, `consumeListUnit()`
 - Attachment lifecycle: `equipIntoSlot()`, `emptyAttachmentSlot()`,
   `quickEquip()`, `selectOrConfirmSlot()`
 - Secondary throwable display: `equipThrowable()`
@@ -466,26 +587,36 @@ Unreal function names.
 - Use production inventory events to rebuild or diff list entries after every
   pickup, use, equip, detach, and drop.
 - Preserve focus after list mutation by choosing the next same-category entry,
-  then the previous entry, then the nearest remaining list entry.
+  then the previous entry, then the nearest remaining list entry. If none
+  remains, focus the now-empty list panel without displaying a tooltip.
 - Recompute attachment compatibility and the held quick-equip target after
   every focus or inventory-state change.
+- Return an occupied destination socket's displaced attachment to Inventory
+  before installing its replacement. The current mockup assumes capacity is
+  always available.
+- Preserve the dual-tooltip attachment comparison state during slot selection,
+  with both panels contained between Vicinity and Inventory.
 - Keep stack limits and item compatibility in gameplay data rather than hard
   coding them in generated layout.
 - Rebuild connector geometry through UMG/Slate drawing or an overlay.
+- Preserve the final marker semantics and coordinates in Section 9, especially
+  the corrected three-point P1911 map.
+- Keep vicinity AUG X/A equip handling blocked until a later variation or
+  production feature explicitly defines weapon-slot selection and replacement.
 - Resolve `PUBG Headline` and `PUBG Body` to licensed in-project font assets.
 - Replace mockup-only schematic assets with approved production assets where
   required by `ASSET-AUDIT.md`.
 
-## 20. Current limitations
+## 20. Deferred and out-of-scope behavior
 
-- Exact socket-marker coordinates need visual calibration.
-- Displaced attachments are not restored when quick equip replaces an occupied
-  socket.
+The 2-b mockup is accepted with the following deliberate deferments. They do
+not block using this document as the baseline for the next variation.
+
 - The previous throwable is not returned when another throwable is equipped.
-- Weapon pickup and whole-weapon drop are visual simulations, not complete
-  inventory transactions.
+- Vicinity AUG equip/slot-selection guides are visible, but pressing X or A
+  only reports that weapon equipment is not implemented and never removes the
+  weapon tile. Whole-weapon drop remains only a visual simulation.
 - Capacity, weight, partial quantities, persistence, replication, and server
   authority are not modeled.
-- Large-list scrolling and all edge-case focus recovery still need testing.
-- The latest stacking, no-placeholder reflow, repeated-X, bent connector, and
-  tooltip changes require a fresh manual controller acceptance pass.
+- Large-list scrolling, production-scale list stress, and exhaustive focus
+  recovery remain Unreal implementation concerns rather than mockup features.

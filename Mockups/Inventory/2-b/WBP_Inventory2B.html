@@ -188,27 +188,37 @@
 
     #inventory-2b .tooltip-panel {
       position:absolute;
-      left:654px;
+      left:642px;
       top:176px;
-      width:240px;
+      width:225px;
       height:510px;
-      padding:14px;
+      padding:12px;
       display:flex;
       flex-direction:column;
-      gap:10px;
+      gap:8px;
       border:4px solid #e6e6e6;
       background-color:rgba(205,205,205,0.98);
       color:#191919;
     }
 
     #inventory-2b .tooltip-panel[hidden] { display:none; }
+    #inventory-2b .tooltip-context { display:none; margin:0; font-size:14px; font-weight:700; color:#5a5a5a; }
+    #inventory-2b .comparison-tooltip { top:60px; height:452px; }
+    #inventory-2b.comparison-active .primary-tooltip { top:530px; height:452px; }
+    #inventory-2b.comparison-active .tooltip-panel { gap:6px; }
+    #inventory-2b.comparison-active .tooltip-context { display:block; }
+    #inventory-2b.comparison-active .tooltip-image { height:100px; }
+    #inventory-2b.comparison-active .tooltip-description { font-size:15px; line-height:19px; }
+    #inventory-2b.comparison-active .tooltip-action { gap:3px; font-size:13px; }
+    #inventory-2b.comparison-active .tooltip-action-key { width:22px; height:22px; }
     #inventory-2b .tooltip-panel.empty-slot { height:350px; }
+    #inventory-2b.comparison-active .tooltip-panel.empty-slot { height:452px; }
     #inventory-2b .tooltip-panel.empty-slot .tooltip-image { opacity:0.58; }
     #inventory-2b .tooltip-panel.empty-slot .tooltip-description,
     #inventory-2b .tooltip-panel.empty-slot .tooltip-meta { display:none; }
     #inventory-2b .tooltip-title { margin:0; font-size:25px; font-weight:700; line-height:30px; }
     #inventory-2b .tooltip-type { margin:0; font-size:17px; color:#4d4d4d; }
-    #inventory-2b .tooltip-image { width:205px; height:165px; align-self:center; object-fit:contain; }
+    #inventory-2b .tooltip-image { width:185px; height:165px; align-self:center; object-fit:contain; }
     #inventory-2b .tooltip-description { margin:0; font-size:17px; line-height:23px; }
     #inventory-2b .tooltip-meta { display:flex; flex-direction:row; justify-content:space-between; font-size:16px; }
     #inventory-2b .tooltip-actions {
@@ -368,6 +378,7 @@
     #inventory-2b .gamepad-status { margin-left:auto; color:#a8a8a8; }
 
     #inventory-2b button:focus { outline:5px solid #f3d521; outline-offset:-5px; }
+    #inventory-2b .tile-panel[tabindex="0"]:focus { outline:5px solid #f3d521; outline-offset:-5px; }
     #inventory-2b .compatible { border-color:#52e06f; background-color:#315d3b; }
     #inventory-2b .weapon-focused { border-color:#f3d521; }
 
@@ -391,7 +402,7 @@
       <h1 class="screen-title" data-umg-name="Txt_GearTitle">장비 &amp; 의상</h1>
       <div class="gear-layout">
         <div class="gear-rail">
-          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="헬멧 슬롯" data-item-type="장비 슬롯" data-silhouette="assets/slot-helmet.svg"></button></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="모자 슬롯" data-item-type="의상 슬롯" data-silhouette="assets/slot-helmet.svg"></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="얼굴 슬롯" data-item-type="의상 슬롯" data-silhouette="assets/slot-face.svg"></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="재킷 슬롯" data-item-type="의상 슬롯" data-silhouette="assets/slot-jacket.svg"></button></div>
           <div class="gear-rail-spacer"></div>
@@ -404,7 +415,7 @@
         </div>
         <div class="gear-rail">
           <div class="gear-rail-large-spacer"></div>
-          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="유틸리티 슬롯" data-item-type="장비 슬롯" data-silhouette="assets/slot-utility.svg"></button></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="헬멧 슬롯" data-item-type="장비 슬롯" data-silhouette="assets/slot-helmet.svg"></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 배낭" data-item-type="장비" data-image="assets/gear-backpack.png"><img src="assets/gear-backpack.png" alt="3레벨 배낭"><span class="gear-level">Lv.3</span></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 조끼" data-item-type="장비" data-image="assets/gear-vest.png"><img src="assets/gear-vest.png" alt="3레벨 조끼"><span class="gear-level">Lv.3</span></button></div>
         </div>
@@ -426,7 +437,7 @@
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-magazine.png')" data-item-name="대용량 퀵드로우 탄창" data-item-type="부착물" data-item-category="attachment" data-compatibility="mag" data-compatible-weapon-groups="main" data-image="assets/item-magazine.png" data-description="탄창 용량을 늘리고 재장전 속도를 높입니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-magazine.png')" data-item-name="퀵드로우 탄창" data-item-type="부착물" data-item-category="attachment" data-compatibility="mag" data-compatible-weapon-groups="main" data-image="assets/item-magazine.png" data-description="재장전 시간을 줄입니다."></button></div>
         <div class="category-divider" data-category-break="attachments-weapons"></div>
-        <div class="wide-item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-vicinity-weapon.png')" data-item-name="M416" data-item-type="돌격소총" data-item-category="weapon" data-image="assets/item-vicinity-weapon.png" data-description="범용성이 높은 5.56mm 돌격소총입니다."></button></div>
+        <div class="wide-item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-vicinity-weapon.png')" data-item-name="AUG" data-item-type="돌격소총" data-item-category="weapon" data-image="assets/item-vicinity-weapon.png" data-description="5.56mm 탄약을 사용하는 불펍 돌격소총입니다."></button></div>
       </div>
     </section>
 
@@ -451,6 +462,7 @@
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-scope.png')" data-item-name="3배율 스코프" data-item-type="부착물" data-item-category="attachment" data-compatibility="scope" data-compatible-weapon-groups="main" data-image="assets/item-scope.png" data-description="중거리 교전에 적합한 확대 조준경입니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-stock.png')" data-item-name="전술 개머리판" data-item-type="부착물" data-item-category="attachment" data-compatibility="stock" data-compatible-weapon-groups="main" data-image="assets/item-stock.png" data-description="반동 회복과 무기 안정성을 높입니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-grip.png')" data-item-name="앵글 손잡이" data-item-type="부착물" data-item-category="attachment" data-compatibility="grip" data-compatible-weapon-groups="main" data-image="assets/item-grip.png" data-description="수평 반동을 줄이고 조준 전환을 돕습니다."></button></div>
+        <div class="category-divider" data-category-break="attachments-weapons"></div>
       </div>
     </section>
 
@@ -523,7 +535,17 @@
       <span class="gamepad-status" data-umg-name="Txt_GamepadStatus">컨트롤러 버튼을 눌러 연결</span>
     </footer>
 
-    <aside class="tooltip-panel" data-umg-name="Panel_ItemTooltip" aria-live="polite">
+    <aside class="tooltip-panel comparison-tooltip" data-umg-widget="WBP_ItemTooltip" data-umg-name="Panel_SelectedAttachmentTooltip" hidden>
+      <p class="tooltip-context">선택한 부착물</p>
+      <h2 class="tooltip-title" data-umg-name="Txt_SelectedAttachmentName"></h2>
+      <p class="tooltip-type" data-umg-name="Txt_SelectedAttachmentType"></p>
+      <img class="tooltip-image" data-umg-name="Img_SelectedAttachment" alt="Selected attachment">
+      <p class="tooltip-description" data-umg-name="Txt_SelectedAttachmentDescription"></p>
+      <div class="tooltip-meta"><span>장착 가능</span><span data-selected-compatibility data-umg-name="Txt_SelectedAttachmentCompatibility">—</span></div>
+    </aside>
+
+    <aside class="tooltip-panel primary-tooltip" data-umg-widget="WBP_ItemTooltip" data-umg-name="Panel_ItemTooltip" aria-live="polite">
+      <p class="tooltip-context">대상 슬롯</p>
       <h2 class="tooltip-title" data-umg-name="Txt_TooltipItemName">붕대</h2>
       <p class="tooltip-type" data-umg-name="Txt_TooltipItemType">소모품</p>
       <img class="tooltip-image" data-umg-name="Img_TooltipItem" src="assets/item-first-aid.png" alt="Focused item">
@@ -538,11 +560,17 @@
     (function () {
       const root = document.getElementById('inventory-2b');
       const previewStage = document.getElementById('preview-stage');
-      const tooltip = root.querySelector('.tooltip-panel');
-      const title = root.querySelector('.tooltip-title');
-      const type = root.querySelector('.tooltip-type');
-      const image = root.querySelector('.tooltip-image');
-      const description = root.querySelector('.tooltip-description');
+      const tooltip = root.querySelector('.primary-tooltip');
+      const selectedTooltip = root.querySelector('.comparison-tooltip');
+      const selectedTitle = selectedTooltip.querySelector('.tooltip-title');
+      const selectedType = selectedTooltip.querySelector('.tooltip-type');
+      const selectedImage = selectedTooltip.querySelector('.tooltip-image');
+      const selectedDescription = selectedTooltip.querySelector('.tooltip-description');
+      const selectedCompatibility = selectedTooltip.querySelector('[data-selected-compatibility]');
+      const title = tooltip.querySelector('.tooltip-title');
+      const type = tooltip.querySelector('.tooltip-type');
+      const image = tooltip.querySelector('.tooltip-image');
+      const description = tooltip.querySelector('.tooltip-description');
       const compatibility = document.getElementById('tooltip-compatibility');
       const tooltipActions = root.querySelector('.tooltip-actions');
       const message = root.querySelector('.interaction-message');
@@ -552,6 +580,7 @@
       let pendingAttachment = null;
       let pendingSourceSlot = null;
       let returnFocus = null;
+      let placementFocus = null;
       let lastWeaponCard = null;
       let previousButtons = [];
       let heldDirection = '';
@@ -574,7 +603,7 @@
       }
 
       function currentFocusables() {
-        return Array.from(root.querySelectorAll('button:not(:disabled)'));
+        return Array.from(root.querySelectorAll('button:not(:disabled), .tile-panel[tabindex="0"]'));
       }
 
       function itemContext(target) {
@@ -594,13 +623,11 @@
         if (!itemName || slotState === 'unavailable') return [];
         if (target.dataset.emptySlot === 'true') return [];
 
-        if (pendingAttachment && context === 'weapon-slot' && compatibleSlots(pendingAttachment).includes(target)) {
-          const actions = [{ key:'A', label:'슬롯 선택' }];
-          if (slotState === 'occupied') {
-            actions.push({ key:'X', label:'분리' }, { key:'Y', label:'부착물 버리기' });
-          }
-          actions.push({ key:'Y', label:'무기 버리기', hold:true });
-          return actions;
+        if (pendingAttachment) {
+          const isPlacementTarget = context === 'weapon-slot'
+            && target !== pendingSourceSlot
+            && compatibleSlots(pendingAttachment).includes(target);
+          return isPlacementTarget ? [{ key:'A', label:'슬롯 선택' }] : [];
         }
 
         if (context === 'weapon-slot' && slotState === 'empty') {
@@ -620,6 +647,9 @@
           const actions = [{ key:'X', label:'빠른 장착' }, { key:'A', label:'슬롯 선택' }];
           if (context === 'inventory') actions.push({ key:'Y', label:'버리기' });
           return actions;
+        }
+        if (context === 'vicinity' && itemCategory === 'weapon') {
+          return [{ key:'X', label:'빠른 장착' }, { key:'A', label:'장착 슬롯 선택' }];
         }
         if (context === 'vicinity') return [{ key:'X', label:'줍기' }];
         if (context === 'inventory' && itemCategory === 'ammunition') return [{ key:'Y', label:'버리기' }];
@@ -662,15 +692,15 @@
       const socketMaps = {
         m16: {
           displayWidth:112, displayHeight:497, viewWidth:149, viewHeight:663,
-          points:{ muzzle:[74,12], grip:[12,426], mag:[137,450], scope:[56,282], stock:[24,651] }
+          points:{ muzzle:[74,12], grip:[56,282], mag:[12,426], scope:[137,450], stock:[24,651] }
         },
         m249: {
           displayWidth:120, displayHeight:495, viewWidth:160, viewHeight:660,
-          points:{ muzzle:[82,12], mag:[148,453], scope:[12,345.5], stock:[39,648] }
+          points:{ muzzle:[82,12], mag:[12,345.5], scope:[148,453], stock:[39,648] }
         },
         p1911: {
           displayWidth:126, displayHeight:186, viewWidth:168, viewHeight:248,
-          points:{ muzzle:[105,12], mag:[156,176], scope:[70,86] }
+          points:{ muzzle:[105,12], mag:[42,150], scope:[156,176] }
         }
       };
 
@@ -728,10 +758,41 @@
         });
       }
 
+      function updateSelectedAttachmentTooltip(target, slots) {
+        const isComparing = Boolean(pendingAttachment && itemContext(target) === 'weapon-slot');
+        root.classList.toggle('comparison-active', isComparing);
+        selectedTooltip.hidden = !isComparing;
+        if (!isComparing) return;
+
+        selectedTitle.textContent = pendingAttachment.name;
+        selectedType.textContent = pendingAttachment.type;
+        selectedDescription.textContent = pendingAttachment.description || '선택한 부착물입니다.';
+        selectedCompatibility.textContent = slots.length
+          ? slots.map((slot) => slot.closest('[data-weapon-card]').dataset.weaponCard.toUpperCase()).join(', ')
+          : '—';
+        selectedCompatibility.parentElement.hidden = slots.length === 0;
+        if (pendingAttachment.image) {
+          selectedImage.src = pendingAttachment.image;
+          selectedImage.alt = pendingAttachment.name;
+          selectedImage.hidden = false;
+        } else {
+          selectedImage.hidden = true;
+        }
+      }
+
       function updateFocusState(target) {
         root.querySelectorAll('.compatible').forEach((element) => element.classList.remove('compatible'));
         root.querySelectorAll('.quick-equip-target').forEach((element) => element.classList.remove('quick-equip-target'));
         root.querySelectorAll('.weapon-focused').forEach((element) => element.classList.remove('weapon-focused'));
+
+        if (target.matches('.tile-panel[tabindex="0"]')) {
+          root.classList.remove('comparison-active');
+          selectedTooltip.hidden = true;
+          tooltip.hidden = true;
+          renderActionGuides(target);
+          updateConnectorLines([], null);
+          return;
+        }
 
         const itemType = target.dataset.itemType || '';
         const isEmptySocket = target.classList.contains('attachment-slot') && target.dataset.slotState === 'empty';
@@ -746,6 +807,7 @@
           && Boolean(target.dataset.compatibility);
         const compatibilityPayload = pendingAttachment || (isLooseAttachment ? itemPayload(target) : null);
         const slots = compatibilityPayload ? compatibleSlots(compatibilityPayload) : [];
+        updateSelectedAttachmentTooltip(target, slots);
         slots.forEach((slot) => slot.classList.add('compatible'));
         const quickEquipTarget = !pendingAttachment && isLooseAttachment
           ? slots.find((slot) => slot.closest('.weapon-card.held'))
@@ -841,10 +903,34 @@
         return attachmentButtons(weaponCard).at(-1) || null;
       }
 
+      function verticalColumnCandidates(current) {
+        const gearRail = current.closest('.gear-rail');
+        if (gearRail) return Array.from(gearRail.querySelectorAll('button:not(:disabled)'));
+
+        const listPanel = current.closest('.vicinity-region .tile-panel, .inventory-region .tile-panel');
+        if (!listPanel) return null;
+        const currentRect = current.getBoundingClientRect();
+        return Array.from(listPanel.querySelectorAll('button:not(:disabled)')).filter((candidate) => {
+          if (candidate === current) return true;
+          const rect = candidate.getBoundingClientRect();
+          const overlap = Math.min(currentRect.right, rect.right) - Math.max(currentRect.left, rect.left);
+          return overlap >= Math.min(currentRect.width, rect.width) * 0.25;
+        });
+      }
+
       function moveFocus(direction) {
         const focusables = currentFocusables();
-        const current = document.activeElement instanceof HTMLButtonElement ? document.activeElement : focusables[0];
+        const current = document.activeElement instanceof HTMLElement && root.contains(document.activeElement)
+          ? document.activeElement
+          : focusables[0];
         if (!current) return;
+
+        if (pendingAttachment) {
+          const placementSlots = compatibleSlots(pendingAttachment).filter((slot) => slot !== pendingSourceSlot);
+          const nextPlacementSlot = nearestInDirection(current, direction, placementSlots);
+          if (nextPlacementSlot) nextPlacementSlot.focus();
+          return;
+        }
 
         if (current.classList.contains('attachment-slot') && (direction === 'up' || direction === 'down')) {
           const rail = attachmentButtons(current.closest('[data-weapon-card]'));
@@ -882,6 +968,15 @@
             lowestAttachment(lastWeaponCard || fallbackCard)?.focus();
           }
           return;
+        }
+
+        if (direction === 'up' || direction === 'down') {
+          const columnCandidates = verticalColumnCandidates(current);
+          if (columnCandidates) {
+            const nextInColumn = nearestInDirection(current, direction, columnCandidates);
+            if (nextInColumn) nextInColumn.focus();
+            return;
+          }
         }
 
         const candidates = itemContext(current) === 'inventory'
@@ -924,7 +1019,7 @@
       }
 
       function focusAndRefresh(target) {
-        if (!(target instanceof HTMLButtonElement) || !target.isConnected || target.disabled) return;
+        if (!(target instanceof HTMLElement) || !target.isConnected || target.disabled) return;
         target.focus();
         requestAnimationFrame(() => {
           if (target.isConnected && document.activeElement === target) updateFocusState(target);
@@ -932,6 +1027,8 @@
       }
 
       function equipIntoSlot(slot, payload) {
+        const replacedAttachment = slot.dataset.slotState === 'occupied' ? itemPayload(slot) : null;
+        if (replacedAttachment) restoreAttachmentToInventory(replacedAttachment);
         slot.dataset.itemName = payload.name;
         slot.dataset.itemType = payload.type;
         slot.dataset.itemCategory = payload.category;
@@ -949,6 +1046,7 @@
           equippedImage.alt = payload.name;
           slot.appendChild(equippedImage);
         }
+        return replacedAttachment;
       }
 
       function emptyAttachmentSlot(slot) {
@@ -989,6 +1087,37 @@
         });
       }
 
+      function updateCategoryDividers(panel) {
+        if (!panel) return;
+        const categories = ['consumable', 'throwable', 'ammunition', 'attachment', 'weapon'];
+        const dividerBeforeCategory = {
+          throwable:'consumables-throwables',
+          ammunition:'throwables-ammo',
+          attachment:'ammo-attachments',
+          weapon:'attachments-weapons'
+        };
+        panel.querySelectorAll('.category-divider').forEach((divider) => { divider.hidden = true; });
+        const populatedCategories = categories.filter((category) => categoryWrappers(panel, category).length > 0);
+        populatedCategories.slice(1).forEach((category) => {
+          const dividerName = dividerBeforeCategory[category];
+          const divider = dividerName ? panel.querySelector('[data-category-break="' + dividerName + '"]') : null;
+          if (divider) divider.hidden = false;
+        });
+      }
+
+      function updateEmptyListFocus(panel) {
+        if (!panel) return false;
+        const isEmpty = panel.querySelector('button.item-tile:not(:disabled)') === null;
+        if (isEmpty) {
+          panel.tabIndex = 0;
+          panel.setAttribute('aria-label', panel.closest('.vicinity-region') ? '빈 주변 목록' : '빈 인벤토리 목록');
+        } else {
+          panel.removeAttribute('tabindex');
+          panel.removeAttribute('aria-label');
+        }
+        return isEmpty;
+      }
+
       function compactCategory(panel, category) {
         const reference = categoryEndReference(panel, category);
         categoryWrappers(panel, category).forEach((wrapper) => panel.insertBefore(wrapper, reference));
@@ -1005,7 +1134,9 @@
         const fallback = categoryItems[sourceIndex + 1] || categoryItems[sourceIndex - 1]
           || panelItems[panelItems.indexOf(source) + 1] || panelItems[panelItems.indexOf(source) - 1] || null;
         source.closest('.item-widget, .wide-item-widget')?.remove();
-        return fallback;
+        updateCategoryDividers(panel);
+        const isEmpty = updateEmptyListFocus(panel);
+        return fallback || (isEmpty ? panel : null);
       }
 
       function createListDestination(regionSelector, category) {
@@ -1070,6 +1201,8 @@
         }
 
         compactCategory(panel, payload.category);
+        updateCategoryDividers(panel);
+        updateEmptyListFocus(panel);
         return true;
       }
 
@@ -1128,8 +1261,10 @@
           message.textContent = '현재 장착 중인 무기에 호환 슬롯이 없습니다';
           return;
         }
-        equipIntoSlot(destination, payload);
-        message.textContent = payload.name + '을(를) 현재 무기에 빠르게 장착했습니다';
+        const replacedAttachment = equipIntoSlot(destination, payload);
+        message.textContent = replacedAttachment
+          ? payload.name + '을(를) 현재 무기에 장착하고 ' + replacedAttachment.name + '을(를) 인벤토리로 이동했습니다'
+          : payload.name + '을(를) 현재 무기에 빠르게 장착했습니다';
         const fallback = clearListItem(source);
         focusAndRefresh(fallback || destination);
       }
@@ -1144,13 +1279,16 @@
               message.textContent = '교체할 다른 호환 슬롯을 선택하세요';
               return;
             }
-            equipIntoSlot(current, pendingAttachment);
+            const replacedAttachment = equipIntoSlot(current, pendingAttachment);
             if (pendingSourceSlot) emptyAttachmentSlot(pendingSourceSlot);
             if (!pendingSourceSlot && returnFocus?.closest('.tile-panel')) clearListItem(returnFocus);
-            message.textContent = pendingAttachment.name + '을(를) 선택한 슬롯에 장착했습니다';
+            message.textContent = replacedAttachment
+              ? pendingAttachment.name + '을(를) 장착하고 ' + replacedAttachment.name + '을(를) 인벤토리로 이동했습니다'
+              : pendingAttachment.name + '을(를) 선택한 슬롯에 장착했습니다';
             pendingAttachment = null;
             pendingSourceSlot = null;
             returnFocus = null;
+            placementFocus = null;
             updateFocusState(current);
           } else {
             message.textContent = '강조 표시된 호환 슬롯을 선택하세요';
@@ -1168,9 +1306,11 @@
             pendingAttachment = null;
             pendingSourceSlot = null;
             returnFocus = null;
+            placementFocus = null;
             return;
           }
           message.textContent = '교체할 호환 부착물 슬롯을 선택하세요';
+          placementFocus = destination;
           destination.focus();
           return;
         }
@@ -1186,10 +1326,12 @@
             message.textContent = '호환되는 무기 슬롯이 없습니다';
             pendingAttachment = null;
             returnFocus = null;
+            placementFocus = null;
             return;
           }
           message.textContent = '강조 표시된 부착물 슬롯을 선택하세요';
-          (heldDestination || anyDestination)?.focus();
+          placementFocus = heldDestination || anyDestination;
+          placementFocus.focus();
           return;
         }
 
@@ -1214,6 +1356,10 @@
           return;
         }
         if (context === 'vicinity') {
+          if (current.dataset.itemCategory === 'weapon') {
+            message.textContent = '무기 장착 기능은 아직 구현되지 않았습니다';
+            return;
+          }
           message.textContent = current.dataset.itemName + '에는 A 동작이 없습니다';
           return;
         }
@@ -1224,6 +1370,10 @@
       function handleXAction() {
         const current = document.activeElement;
         if (!(current instanceof HTMLButtonElement)) return;
+        if (itemContext(current) === 'vicinity' && current.dataset.itemCategory === 'weapon') {
+          message.textContent = '무기 장착 기능은 아직 구현되지 않았습니다';
+          return;
+        }
         if (itemContext(current) === 'weapon-slot' && current.dataset.slotState === 'occupied') {
           const payload = itemPayload(current);
           if (restoreAttachmentToInventory(payload)) {
@@ -1256,6 +1406,10 @@
       }
 
       function handleYAction(isHold) {
+        if (pendingAttachment) {
+          message.textContent = '슬롯 선택을 취소하려면 B를 누르세요';
+          return;
+        }
         const current = document.activeElement;
         if (!(current instanceof HTMLButtonElement)) return;
         const context = itemContext(current);
@@ -1295,6 +1449,7 @@
           const cancelledName = pendingAttachment.name;
           pendingAttachment = null;
           pendingSourceSlot = null;
+          placementFocus = null;
           message.textContent = cancelledName + ' 슬롯 선택 취소';
           if (returnFocus) returnFocus.focus();
           returnFocus = null;
@@ -1304,17 +1459,29 @@
       }
 
       function handleAction(action) {
+        if (pendingAttachment && action !== 'select' && action !== 'back') {
+          message.textContent = '슬롯을 선택하거나 B를 눌러 취소하세요';
+          return;
+        }
         if (action === 'select') selectOrConfirmSlot();
         if (action === 'back') cancelOrBack();
         if (action === 'quick') handleXAction();
         requestAnimationFrame(() => {
           const focused = document.activeElement;
-          if (focused instanceof HTMLButtonElement && focused.isConnected && !focused.disabled) updateFocusState(focused);
+          if (focused instanceof HTMLElement && focused.isConnected && !focused.disabled) updateFocusState(focused);
         });
       }
 
       root.addEventListener('focusin', (event) => {
-        if (event.target instanceof HTMLButtonElement) {
+        if (event.target instanceof HTMLElement && (event.target instanceof HTMLButtonElement || event.target.matches('.tile-panel[tabindex="0"]'))) {
+          if (pendingAttachment) {
+            const placementSlots = compatibleSlots(pendingAttachment).filter((slot) => slot !== pendingSourceSlot);
+            if (!placementSlots.includes(event.target)) {
+              placementFocus?.focus();
+              return;
+            }
+            placementFocus = event.target;
+          }
           const weaponCard = event.target.closest('[data-weapon-card]');
           if (weaponCard && event.target.classList.contains('attachment-slot')) lastWeaponCard = weaponCard;
           updateFocusState(event.target);
@@ -1421,11 +1588,15 @@
       window.addEventListener('gamepaddisconnected', () => { gamepadStatus.textContent = '게임패드 연결 해제됨'; });
       window.addEventListener('resize', () => {
         fitPrototypeToViewport();
-        if (document.activeElement instanceof HTMLButtonElement) requestAnimationFrame(() => updateFocusState(document.activeElement));
+        if (document.activeElement instanceof HTMLElement && root.contains(document.activeElement)) requestAnimationFrame(() => updateFocusState(document.activeElement));
       });
 
       const firstItem = root.querySelector('.vicinity-region button:not(:disabled)');
       fitPrototypeToViewport();
+      root.querySelectorAll('.tile-panel').forEach((panel) => {
+        updateCategoryDividers(panel);
+        updateEmptyListFocus(panel);
+      });
       if (firstItem) firstItem.focus({ preventScroll:true });
       requestAnimationFrame(() => {
         if (firstItem && document.activeElement === document.body) firstItem.focus({ preventScroll:true });
