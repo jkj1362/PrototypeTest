@@ -296,13 +296,21 @@ must explicitly declare `sidearm`.
 When a loose attachment is focused:
 
 - all compatible sockets receive the green compatible state;
-- the compatible socket on the held M16 receives the stronger X quick-equip
-  target state and controller X icon;
+- the compatible socket on the held M16 receives the controller X quick-equip
+  icon while retaining the same green-only compatible treatment;
+- compatible and quick-equip targets never receive a yellow border or outline;
+  yellow is reserved for the actual navigation focus;
 - the cue is recalculated on every focus and after every action;
 - it is not a first-time tutorial or a one-shot state.
 
 When the user traverses weapon sockets without a loose or pending attachment,
 no cross-weapon synchronized compatibility highlight is shown.
+
+During A-based slot selection, every compatible destination remains green and
+the currently focused valid destination receives an A-button tap icon. The A
+icon moves with placement focus and is removed as soon as placement is
+confirmed or cancelled. The yellow outline continues to identify the actual
+navigation focus.
 
 ## 11. Attachment interaction state machine
 
@@ -329,14 +337,15 @@ The browser preview uses four variables:
 2. Highlight every compatible socket.
 3. Move focus to the held compatible socket when available, otherwise the
    first compatible socket.
-4. Lock directional focus to compatible sockets of the same type and weapon
+4. Show the A-button tap icon on the currently focused compatible destination.
+5. Lock directional focus to compatible sockets of the same type and weapon
    group. If there is only one destination, directional input leaves focus on
    it.
-5. While locked, X and Y actions are unavailable. A confirms placement and B
+6. While locked, X and Y actions are unavailable. A confirms placement and B
    is the only cancellation/escape input.
-6. If the destination is occupied, return its existing attachment to Inventory.
-7. Remove the loose source tile and clear pending state after confirmation.
-8. B cancels and returns focus to the source item without changing inventory.
+7. If the destination is occupied, return its existing attachment to Inventory.
+8. Remove the loose source tile and clear pending state after confirmation.
+9. B cancels and returns focus to the source item without changing inventory.
 
 ### A slot selection from an occupied socket
 
@@ -442,10 +451,10 @@ This asymmetry is intentional.
 | Y tap | Drop focused Inventory item/stack or attached attachment |
 | Y hold, 650 ms | Drop focused weapon while an available attachment socket is focused |
 | B tap | Cancel pending slot selection or back/close Inventory |
+| View tap | Hide or show all focused-item tooltip panels |
 
-Keyboard preview equivalents are arrow keys, A/Enter, X, Y, B/Escape.
-
-There is deliberately no tooltip-toggle input.
+Keyboard preview equivalents are arrow keys, A/Enter, X, Y, B/Escape, and V
+for View.
 
 ## 14. Contextual action guides and blocked weapon actions
 
@@ -510,8 +519,11 @@ same tooltip:
 Empty gear/outfit slots show no key guide. Empty weapon sockets retain hold-Y
 `무기 버리기` because socket focus also represents focus on that weapon.
 
-The game may expose a setting that hides focused-item tooltips for experienced
-players. That setting is outside this HTML and has no controller binding.
+Focused-item tooltips are visible by default. View toggles the complete tooltip
+layer without changing focus, compatibility highlights, placement state, or
+the connector layer. In comparison mode, both the selected-attachment and
+destination-slot panels hide and return together. This is a mockup convenience
+for comparing the setting's visible and hidden states; it has no action guide.
 
 ## 16. Connector behavior
 
@@ -555,6 +567,7 @@ lower priority and may later be collapsible if more space is needed.
 The script is organized around these responsibilities:
 
 - View fitting: `fitPrototypeToViewport()`
+- Tooltip visibility: `toggleTooltipVisibility()`
 - Context and actions: `itemContext()`, `availableActions()`,
   `renderActionGuides()`
 - Compatibility and focus presentation: `compatibleSlots()`,
@@ -596,6 +609,8 @@ Unreal function names.
   always available.
 - Preserve the dual-tooltip attachment comparison state during slot selection,
   with both panels contained between Vicinity and Inventory.
+- Bind View to the setting-backed tooltip visibility toggle without adding it
+  to the contextual action guide.
 - Keep stack limits and item compatibility in gameplay data rather than hard
   coding them in generated layout.
 - Rebuild connector geometry through UMG/Slate drawing or an overlay.

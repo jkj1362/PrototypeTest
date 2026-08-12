@@ -14,15 +14,27 @@ Implementation specifications stay beside their artifacts. Session handoffs
 stay in this directory so a new model or chat can quickly find the current
 resume point without searching every mockup folder.
 
+## Hard rules
+
+- A session handoff is an immutable historical snapshot. Never edit, correct,
+  refresh, or otherwise bring an existing handoff up to date after it is
+  written.
+- Never create a new handoff unless the user explicitly asks for a handoff for
+  the next session. Finishing work, reaching a milestone, or ending a chat is
+  not permission to create one.
+- Update the handoff index only as part of that explicit handoff request.
+- Record ongoing work in the artifact and its implementation specification.
+  Do not use a past handoff as living project documentation.
+
 ## Naming convention
 
 Use:
 
 `YYYY-MM-DD-Workstream-Variant.md`
 
-Create a new dated handoff when a workstream reaches a meaningful resume point.
-Do not overwrite an older handoff if preserving its historical state would be
-useful. Mark superseded entries in this index.
+When the user explicitly requests a next-session handoff, create a new dated
+file. Never overwrite or revise an older handoff. Mark older entries superseded
+in the index only as part of the same explicit request.
 
 Keep every document in this directory ASCII-only, matching the
 GabrielOperation portability rule.

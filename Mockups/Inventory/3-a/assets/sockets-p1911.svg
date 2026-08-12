@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="168" height="248" viewBox="0 0 168 248" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Attachment sockets">
+<path id="Socket - Muzzle" d="M116.5 12C116.5 18.3513 111.351 23.5 105 23.5C98.6487 23.5 93.5 18.3513 93.5 12C93.5 5.64872 98.6487 0.5 105 0.5C111.351 0.5 116.5 5.64873 116.5 12Z" fill="#ACACAC" stroke="black"/>
+<path id="Socket - Magazine" d="M53.5 150C53.5 156.351 48.3513 161.5 42 161.5C35.6487 161.5 30.5 156.351 30.5 150C30.5 143.649 35.6487 138.5 42 138.5C48.3513 138.5 53.5 143.649 53.5 150Z" fill="#ACACAC" stroke="black"/>
+<path id="Socket - Scope" d="M167.5 176C167.5 182.351 162.351 187.5 156 187.5C149.649 187.5 144.5 182.351 144.5 176C144.5 169.649 149.649 164.5 156 164.5C162.351 164.5 167.5 169.649 167.5 176Z" fill="#ACACAC" stroke="black"/>
+</g>
+</svg>

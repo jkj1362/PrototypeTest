@@ -21,6 +21,12 @@ If a document is wrong or blocks the task, say so and propose a change to the
 document -- don't silently work around it. A convention only holds if
 deviations are visible.
 
+**Session handoffs are explicit-request-only historical records.** Never
+create a handoff, edit an existing handoff, or update the handoff index unless
+the user explicitly asks for a handoff for the next session. Later progress
+belongs in the active artifact and its implementation specification, not in a
+past handoff.
+
 ## Documents
 
 | Document | Read when |
