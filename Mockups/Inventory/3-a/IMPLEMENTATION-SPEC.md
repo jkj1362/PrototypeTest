@@ -1,13 +1,15 @@
 # PUBG Console Inventory 3-a Feature Specification
 
-Status: interactive HTML prototype implemented; manual controller acceptance pending
+Status: accepted interactive HTML design prototype; manual controller acceptance pending
 
 Last updated: 2026-08-12
 
 ## 1. Purpose
 
 Inventory 3-a is the bold expandable Gear/Outfit variation built from the
-accepted Inventory 2-b interaction baseline. It tests whether hiding the
+historical original Inventory 2-b interaction baseline. That layout is now
+deprecated in favor of the active 2-b, but it remains 3-a's behavioral source. 3-a
+tests whether hiding the
 low-frequency character, Gear, and Outfit presentation creates a more useful
 default inventory experience without weakening the two main-weapon workflows.
 
@@ -20,8 +22,9 @@ The executable artifact is `WBP_Inventory3A.html`.
 
 ## 2. Inherited behavior
 
-Unless this specification explicitly overrides a rule, 3-a inherits the final
-2-b behavior in `../2-b/IMPLEMENTATION-SPEC.md`, including:
+Unless this specification explicitly overrides a rule, 3-a inherits the
+historical original 2-b behavior in
+`../2-b [Deprecated]/IMPLEMENTATION-SPEC.md`, including:
 
 - list categories, mutation, stacking, empty-list focus, and initial content;
 - initial focus on the first Vicinity item;
@@ -54,6 +57,10 @@ The default layout contains:
 
 The fourth-column secondary layout is mandatory. Throwable and Melee/Tool are
 not a horizontal footer as they were in 2-b.
+
+The vertical Inventory capacity indicator displays the current/max preview
+value as `210 / 350`, stacked inside its narrow thumb for television
+readability. The value is exposed through `Txt_InventoryCapacity`.
 
 ## 4. Collapse and expansion contract
 
@@ -135,6 +142,7 @@ All 29 inherited 2-b bindings remain. 3-a adds:
 - `Btn_ToggleGearOutfit`
 - `Txt_GearToggleLabel`
 - `Txt_OutfitTitle`
+- `Txt_InventoryCapacity`
 
 The intended generated parent widget is `WBP_Inventory3A`. Treat all binding
 names as an API shared with its hand-written parent `UserWidget`.
@@ -181,7 +189,8 @@ Automated browser checks on 2026-08-12 confirmed:
   without moving focus or cancelling attachment placement;
 - no browser console warnings or errors were produced.
 
-Manual controller acceptance and subjective value evaluation remain pending.
+Manual physical-controller acceptance remains pending. The design and its value
+as a foundation for further inventory exploration are accepted.
 
 ## 10. Evaluation questions
 

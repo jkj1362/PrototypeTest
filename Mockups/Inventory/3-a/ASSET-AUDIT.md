@@ -5,14 +5,15 @@ Source designs:
 - Collapsed/default: Figma node `402:1746`
 - Gear/Outfit expanded: Figma node `402:2054`
 
-Status: initial 3-a interactive prototype; manual design acceptance pending.
+Status: accepted 3-a interactive design prototype; manual controller acceptance pending.
 
 ## Inherited assets
 
-3-a forks the finalized 2-b asset set. Item icons, weapon renders, attachment
+3-a forks the historical original 2-b asset set. Although that layout is now
+deprecated in favor of the active 2-b, its item icons, weapon renders, attachment
 silhouettes, socket maps, character preview, occupied Gear icons, and
 mockup-only Outfit silhouettes retain the provenance and production caveats in
-`../2-b/ASSET-AUDIT.md`.
+`../2-b [Deprecated]/ASSET-AUDIT.md`.
 
 The corrected M16, M249, and P1911 socket semantics from the 2-b implementation
 spec remain authoritative. Do not infer socket identity from raw SVG path

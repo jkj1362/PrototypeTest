@@ -228,7 +228,8 @@
       background-color:#d9d9d9;
     }
 
-    #inventory-3a .scroll-thumb { width:22px; height:157px; background-color:#696969; }
+    #inventory-3a .scroll-thumb { width:22px; height:157px; display:flex; flex-direction:column; justify-content:center; align-items:center; background-color:#696969; }
+    #inventory-3a .capacity-value { color:#ffffff; font-size:13px; font-weight:700; line-height:15px; text-align:center; }
 
     #inventory-3a .tooltip-panel {
       position:absolute;
@@ -469,7 +470,7 @@
       </div>
     </section>
 
-    <div class="scroll-indicator" data-umg-name="Bar_InventoryScroll"><div class="scroll-thumb"></div></div>
+    <div class="scroll-indicator" data-umg-name="Bar_InventoryScroll"><div class="scroll-thumb"><span class="capacity-value" data-umg-name="Txt_InventoryCapacity">210<br>/<br>350</span></div></div>
 
     <section class="inventory-region" data-umg-name="Box_Inventory">
       <h1 class="screen-title" data-umg-name="Txt_InventoryTitle">인벤토리</h1>

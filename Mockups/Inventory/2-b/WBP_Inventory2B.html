@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=1920, initial-scale=1">
-  <title>PUBG Console Inventory 2-b Baseline</title>
+  <title>PUBG Console Inventory 2-b Active Prototype</title>
   <style>
     * { box-sizing:border-box; }
     body { margin:0; background-color:#000000; overflow:hidden; }
@@ -40,7 +40,7 @@
       position:absolute;
       left:24px;
       top:37px;
-      width:370px;
+      width:362px;
       height:965px;
       display:flex;
       flex-direction:column;
@@ -54,17 +54,16 @@
     }
 
     #inventory-2b .gear-rail {
-      width:90px;
+      width:72px;
       display:flex;
       flex-direction:column;
       gap:18px;
     }
 
     #inventory-2b .gear-rail-spacer { height:54px; }
-    #inventory-2b .gear-rail-large-spacer { height:54px; }
 
     #inventory-2b .character-preview {
-      width:184px;
+      width:206px;
       height:905px;
       display:flex;
       flex-direction:column;
@@ -74,30 +73,30 @@
     }
 
     #inventory-2b .character-preview img {
-      width:184px;
+      width:206px;
       height:905px;
       object-fit:cover;
     }
 
     #inventory-2b .gear-slot {
-      width:84px;
-      height:84px;
+      width:72px;
+      height:72px;
       padding:4px;
       display:flex;
       flex-direction:column;
       justify-content:center;
       align-items:center;
-      border:6px solid #d8d8d8;
+      border:5px solid #d8d8d8;
       background-color:#5d5d5d;
       color:#ffffff;
     }
 
-    #inventory-2b .gear-slot img { width:70px; height:70px; object-fit:contain; }
-    #inventory-2b .gear-slot .gear-level { margin-top:-20px; align-self:flex-end; font-size:18px; }
+    #inventory-2b .gear-slot img { width:60px; height:60px; object-fit:contain; }
+    #inventory-2b .gear-slot .gear-level { margin-top:-18px; align-self:flex-end; font-size:16px; }
 
     #inventory-2b .vicinity-region {
       position:absolute;
-      left:416px;
+      left:536px;
       top:37px;
       width:220px;
       height:962px;
@@ -107,7 +106,7 @@
 
     #inventory-2b .inventory-region {
       position:absolute;
-      left:873px;
+      left:762px;
       top:37px;
       width:220px;
       height:963px;
@@ -124,7 +123,10 @@
       align-content:flex-start;
       gap:8px 6px;
       overflow:hidden;
-      border:1px solid #d9d9d9;
+      border-top:0;
+      border-right:1px solid #d9d9d9;
+      border-bottom:1px solid #d9d9d9;
+      border-left:1px solid #d9d9d9;
       background-color:transparent;
     }
 
@@ -170,26 +172,39 @@
 
     #inventory-2b .wide-item-widget .item-tile { width:198px; height:202px; }
 
+    #inventory-2b .list-header {
+      width:220px;
+      height:36px;
+      flex:0 0 36px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      border-top:1px solid #d9d9d9;
+      border-right:1px solid #d9d9d9;
+      border-bottom:0;
+      border-left:1px solid #d9d9d9;
+    }
+
+    #inventory-2b .vicinity-header-line { width:198px; height:3px; background-color:#8e8e8e; }
+
     #inventory-2b .scroll-indicator {
-      position:absolute;
-      left:837px;
-      top:91px;
-      width:30px;
-      height:250px;
+      width:198px;
+      height:24px;
       padding:3px;
       display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
+      flex-direction:row;
+      justify-content:flex-start;
       border:2px solid #ffffff;
       background-color:#d9d9d9;
     }
 
-    #inventory-2b .scroll-thumb { width:22px; height:157px; background-color:#696969; }
+    #inventory-2b .scroll-thumb { width:116px; height:14px; display:flex; justify-content:center; align-items:center; background-color:#696969; }
+    #inventory-2b .capacity-value { color:#ffffff; font-size:11px; font-weight:700; line-height:14px; white-space:nowrap; }
 
     #inventory-2b .tooltip-panel {
       position:absolute;
-      left:642px;
-      top:176px;
+      left:305px;
+      top:285px;
       width:225px;
       height:510px;
       padding:12px;
@@ -203,6 +218,13 @@
 
     #inventory-2b .tooltip-panel[hidden] { display:none; }
     #inventory-2b.tooltips-hidden .tooltip-panel { display:none; }
+    #inventory-2b.tooltip-zone-gear .tooltip-panel { left:392px; }
+    #inventory-2b.tooltip-zone-list .tooltip-panel { left:305px; }
+    #inventory-2b.tooltip-zone-weapon .tooltip-panel { left:902px; }
+    #inventory-2b .tooltip-panel.empty-slot { top:365px; height:350px; }
+    #inventory-2b .tooltip-panel.empty-slot .tooltip-image { opacity:0.58; }
+    #inventory-2b .tooltip-panel.empty-slot .tooltip-description,
+    #inventory-2b .tooltip-panel.empty-slot .tooltip-meta { display:none; }
     #inventory-2b .tooltip-context { display:none; margin:0; font-size:14px; font-weight:700; color:#5a5a5a; }
     #inventory-2b .comparison-tooltip { top:60px; height:452px; }
     #inventory-2b.comparison-active .primary-tooltip { top:530px; height:452px; }
@@ -212,11 +234,7 @@
     #inventory-2b.comparison-active .tooltip-description { font-size:15px; line-height:19px; }
     #inventory-2b.comparison-active .tooltip-action { gap:3px; font-size:13px; }
     #inventory-2b.comparison-active .tooltip-action-key { width:22px; height:22px; }
-    #inventory-2b .tooltip-panel.empty-slot { height:350px; }
     #inventory-2b.comparison-active .tooltip-panel.empty-slot { height:452px; }
-    #inventory-2b .tooltip-panel.empty-slot .tooltip-image { opacity:0.58; }
-    #inventory-2b .tooltip-panel.empty-slot .tooltip-description,
-    #inventory-2b .tooltip-panel.empty-slot .tooltip-meta { display:none; }
     #inventory-2b .tooltip-title { margin:0; font-size:25px; font-weight:700; line-height:30px; }
     #inventory-2b .tooltip-type { margin:0; font-size:17px; color:#4d4d4d; }
     #inventory-2b .tooltip-image { width:185px; height:165px; align-self:center; object-fit:contain; }
@@ -238,7 +256,7 @@
 
     #inventory-2b .weapon-region {
       position:absolute;
-      left:1102px;
+      left:1133px;
       top:91px;
       width:787px;
       height:910px;
@@ -422,7 +440,6 @@
           <img src="assets/character.png" alt="Player character preview">
         </div>
         <div class="gear-rail">
-          <div class="gear-rail-large-spacer"></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="헬멧 슬롯" data-item-type="장비 슬롯" data-silhouette="assets/slot-helmet.svg"></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 배낭" data-item-type="장비" data-image="assets/gear-backpack.png"><img src="assets/gear-backpack.png" alt="3레벨 배낭"><span class="gear-level">Lv.3</span></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 조끼" data-item-type="장비" data-image="assets/gear-vest.png"><img src="assets/gear-vest.png" alt="3레벨 조끼"><span class="gear-level">Lv.3</span></button></div>
@@ -432,8 +449,9 @@
 
     <section class="vicinity-region" data-umg-name="Box_Vicinity">
       <h1 class="screen-title" data-umg-name="Txt_VicinityTitle">주변</h1>
+      <div class="list-header"><div class="vicinity-header-line"></div></div>
       <div class="tile-panel" data-umg-name="Box_VicinityGrid" data-umg-type="WrapBox">
-        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" autofocus data-default-focus="true" style="background-image:url('assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" autofocus data-default-focus="true" data-umg-focus-default style="background-image:url('assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."><span class="item-count">2</span></button></div>
         <div class="category-divider" data-category-break="consumables-throwables"></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-molotov.png')" data-item-name="화염병" data-item-type="투척 무기" data-item-category="throwable" data-image="assets/item-molotov.png" data-description="충돌 지점에 불길을 생성합니다."><span class="item-count">4</span></button></div>
@@ -449,10 +467,9 @@
       </div>
     </section>
 
-    <div class="scroll-indicator" data-umg-name="Bar_InventoryScroll"><div class="scroll-thumb"></div></div>
-
     <section class="inventory-region" data-umg-name="Box_Inventory">
       <h1 class="screen-title" data-umg-name="Txt_InventoryTitle">인벤토리</h1>
+      <div class="list-header"><div class="scroll-indicator" data-umg-name="Bar_InventoryScroll"><div class="scroll-thumb"><span class="capacity-value" data-umg-name="Txt_InventoryCapacity">210 / 350</span></div></div></div>
       <div class="tile-panel" data-umg-name="Box_InventoryGrid" data-umg-type="WrapBox">
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."></button></div>
@@ -797,6 +814,13 @@
         root.querySelectorAll('.quick-equip-target').forEach((element) => element.classList.remove('quick-equip-target'));
         root.querySelectorAll('.confirm-equip-target').forEach((element) => element.classList.remove('confirm-equip-target'));
         root.querySelectorAll('.weapon-focused').forEach((element) => element.classList.remove('weapon-focused'));
+        const context = itemContext(target);
+        root.classList.remove('tooltip-zone-gear', 'tooltip-zone-list', 'tooltip-zone-weapon');
+        root.classList.add(context === 'gear'
+          ? 'tooltip-zone-gear'
+          : (context === 'weapon-slot' || context === 'secondary')
+            ? 'tooltip-zone-weapon'
+            : 'tooltip-zone-list');
 
         if (target.matches('.tile-panel[tabindex="0"]')) {
           root.classList.remove('comparison-active');
@@ -814,7 +838,6 @@
         const itemName = target.dataset.itemName || '';
         const itemImage = target.dataset.image || target.querySelector('img')?.getAttribute('src') || '';
         const itemDescription = target.dataset.description || '';
-        const context = itemContext(target);
         const isLooseAttachment = (context === 'vicinity' || context === 'inventory')
           && target.dataset.itemCategory === 'attachment'
           && Boolean(target.dataset.compatibility);
