@@ -1,5 +1,7 @@
 # Inventory 2-a asset audit
 
+Shared asset root: `../assets/`. This prototype does not own a separate asset copy.
+
 Source design: Figma frame `339:1503` (`2-a`).
 
 Status: complete for the first-pass 2-a HTML prototype; visual acceptance pending.
@@ -20,6 +22,9 @@ those recorded in `../2-b/ASSET-AUDIT.md`.
 - Weapons in Vicinity use the same row height as all other item categories.
 - Category bars, the fixed Vicinity header spacer line, and the horizontal
   inventory indicator are CSS/UMG primitives, not imported images.
+- The browser gradient only previews the current fill while the capacity label
+  stays centered. Unreal should use a native ProgressBar fill with a centered
+  TextBlock overlay; do not create a gradient asset for it.
 
 ## Unreal handoff
 

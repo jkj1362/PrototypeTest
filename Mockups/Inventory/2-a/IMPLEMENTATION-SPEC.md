@@ -16,7 +16,7 @@ Authoritative visual reference:
 
 This document records the 2-a delta. Unless it explicitly overrides a rule,
 2-a inherits `../2-b/IMPLEMENTATION-SPEC.md`, including item actions, list
-mutation and stacking, category preservation, attachment placement, quick
+mutation and stacking, category preservation, attachment placement, conditional quick
 equip, comparison tooltips, the View-key tooltip toggle, weapon socket maps,
 controller bindings, empty-list focus, and deliberate production deferments.
 
@@ -50,7 +50,8 @@ The inventory capacity indicator is horizontal, 306 px wide, and 30 px high.
 It is vertically centered in the fixed Inventory header and retains the same
 horizontal inset as the rows. This replaces the vertical 2-b indicator. Its
 thumb explicitly displays the current/max preview value `210 / 350` through
-the `Txt_InventoryCapacity` binding.
+the `Txt_InventoryCapacity` binding. The value is centered on the complete bar
+and does not move as the current-capacity fill changes.
 
 Vicinity uses a fixed 306 x 3 line centered in its corresponding header. It
 preserves the reference-frame spacer and keeps the two lists' item rows aligned
@@ -89,12 +90,16 @@ Unlike 2-b, stack count `1` remains visible. The reusable row adds the binding
 
 All accepted 2-b actions remain available:
 
-- A confirms/equips; B returns; X quick-equips compatible attachments;
+- A confirms/equips; B returns; Vicinity X picks up and only quick-equips into
+  an empty held slot when the Menu setting is on; Inventory X quick-equips and
+  may replace the existing attachment;
+- gamepad Menu toggles the Vicinity empty-slot convenience, enabled by default;
+- replacing the equipped Throwable returns the previous Throwable to Inventory;
 - Y drops, or hold-Y detaches where applicable;
 - 2-a starts with tooltips hidden; View shows or hides them without adding a
   permanent controller-guide row or moving focus;
-- attachment availability uses green fill and the X Tap cue without a yellow
-  border; the actual navigation focus alone uses the yellow outline;
+- attachment availability uses green fill without a yellow border; the X Tap
+  cue appears on a held slot only when X would actually quick-equip there;
 - focusing an equippable attachment slot shows the A Tap placement cue.
 
 ## 7. Provisional tooltip placement
@@ -124,6 +129,8 @@ a list or changing the overall frame geometry.
 - The 30 px capacity bar and fixed Vicinity header line preserve first-row
   alignment between lists and remain stationary while either list scrolls.
 - The capacity thumb visibly reads `210 / 350`.
+- Capacity text remains centered independently of the fill amount.
+- Replacing an equipped Throwable restores the previous item to Inventory.
 - Tooltips are hidden on entry; View reveals them without moving focus.
 - Gear/Outfit focus moves the visible primary tooltip to the Vicinity side and
   leaving Gear/Outfit restores the normal position.
@@ -131,8 +138,8 @@ a list or changing the overall frame geometry.
 - Category dividers appear only between populated groups after mutations.
 - Up/Down stay within one list and contain at both ends.
 - Left/Right move between regions predictably.
-- A, B, X, Y, View, quick equip, modal placement, drop/detach, stacking, and
-  empty-list recovery still match 2-b.
+- A, B, X, Y, View, Menu, the split Vicinity/Inventory quick-equip rules,
+  modal placement, drop/detach, stacking, and empty-list recovery still match 2-b.
 - Green compatibility highlighting does not gain a yellow outline.
 - Browser console has no errors.
 - Physical-controller testing remains pending until performed by the user.

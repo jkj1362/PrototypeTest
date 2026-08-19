@@ -3,30 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=1920, initial-scale=1">
-  <title>PUBG Console Inventory 2-b Active Prototype</title>
+  <title>PUBG Console Inventory 1-a Conservative Layout</title>
   <style>
     * { box-sizing:border-box; }
-    body { margin:0; background-color:#000000; overflow:hidden; }
+    body { margin:0; background-color:#2c2c2c; overflow:hidden; }
     button { font:inherit; }
 
     #preview-stage {
       width:100vw;
       height:100vh;
       overflow:hidden;
-      background-color:#000000;
+      background-color:#2c2c2c;
     }
 
-    #inventory-2b {
+    #inventory-1a {
       position:relative;
       width:1920px;
       height:1080px;
       overflow:hidden;
       font-family:"PUBG Body", "Arial Narrow", Arial, sans-serif;
       color:#ffffff;
-      background-color:#000000;
+      background-color:#2c2c2c;
     }
 
-    #inventory-2b .screen-title {
+    #inventory-1a .screen-title {
       margin:0;
       height:54px;
       font-family:"PUBG Headline", "Arial Narrow", Arial, sans-serif;
@@ -36,35 +36,37 @@
       color:#ffffff;
     }
 
-    #inventory-2b .gear-region {
+    #inventory-1a .gear-region {
       position:absolute;
-      left:24px;
-      top:37px;
-      width:362px;
-      height:965px;
+      left:1540px;
+      top:38px;
+      width:347px;
+      height:970px;
       display:flex;
       flex-direction:column;
     }
 
-    #inventory-2b .gear-layout {
+    #inventory-1a .gear-layout {
       display:flex;
       flex-direction:row;
       flex:1;
-      gap:6px;
+      gap:4px;
     }
 
-    #inventory-2b .gear-rail {
-      width:72px;
+    #inventory-1a .gear-rail {
+      width:90px;
       display:flex;
       flex-direction:column;
+      align-items:center;
       gap:18px;
     }
 
-    #inventory-2b .gear-rail-spacer { height:54px; }
+    #inventory-1a .gear-rail-spacer { width:1px; height:14px; flex:0 0 14px; }
+    #inventory-1a .gear-rail-large-spacer { width:1px; height:33px; flex:0 0 33px; }
 
-    #inventory-2b .character-preview {
-      width:206px;
-      height:905px;
+    #inventory-1a .character-preview {
+      width:167px;
+      height:917px;
       display:flex;
       flex-direction:column;
       justify-content:flex-end;
@@ -72,15 +74,16 @@
       overflow:hidden;
     }
 
-    #inventory-2b .character-preview img {
-      width:206px;
-      height:905px;
+    #inventory-1a .character-preview img {
+      width:167px;
+      height:917px;
       object-fit:cover;
+      object-position:center bottom;
     }
 
-    #inventory-2b .gear-slot {
-      width:72px;
-      height:72px;
+    #inventory-1a .gear-slot {
+      width:75px;
+      height:75px;
       padding:4px;
       display:flex;
       flex-direction:column;
@@ -91,105 +94,165 @@
       color:#ffffff;
     }
 
-    #inventory-2b .gear-slot img { width:60px; height:60px; object-fit:contain; }
-    #inventory-2b .gear-slot .gear-level { margin-top:-18px; align-self:flex-end; font-size:16px; }
+    #inventory-1a .gear-slot img { width:63px; height:63px; object-fit:contain; }
+    #inventory-1a .gear-slot .gear-level { margin-top:-18px; align-self:flex-end; font-size:16px; }
+    #inventory-1a .gear-slot.layout-placeholder { border-color:#d8d8d8; background-color:#5d5d5d; opacity:1; }
 
-    #inventory-2b .vicinity-region {
+    #inventory-1a .region-divider {
       position:absolute;
-      left:536px;
+      left:509px;
+      top:68px;
+      width:2px;
+      height:949px;
+      background-color:#8e8e8e;
+    }
+
+    #inventory-1a .vicinity-region {
+      position:absolute;
+      left:42px;
       top:37px;
-      width:220px;
-      height:962px;
+      width:384px;
+      height:952px;
       display:flex;
       flex-direction:column;
     }
 
-    #inventory-2b .inventory-region {
+    #inventory-1a .inventory-region {
       position:absolute;
-      left:762px;
+      left:593px;
       top:37px;
-      width:220px;
-      height:963px;
+      width:384px;
+      height:952px;
       display:flex;
       flex-direction:column;
     }
 
-    #inventory-2b .tile-panel {
+    #inventory-1a .tile-panel {
       flex:1;
-      padding:6px 9px;
+      padding:1px 10px 6px;
       display:flex;
-      flex-direction:row;
-      flex-wrap:wrap;
+      flex-direction:column;
+      flex-wrap:nowrap;
       align-content:flex-start;
-      gap:8px 6px;
-      overflow:hidden;
+      gap:8px;
+      overflow-x:hidden;
+      overflow-y:auto;
       border-top:0;
       border-right:1px solid #d9d9d9;
       border-bottom:1px solid #d9d9d9;
       border-left:1px solid #d9d9d9;
       background-color:transparent;
+      scrollbar-width:none;
     }
 
-    #inventory-2b .item-widget {
-      width:96px;
-      height:96px;
+    #inventory-1a .tile-panel::-webkit-scrollbar { display:none; }
+
+    #inventory-1a .list-header {
+      width:384px;
+      height:68px;
+      flex:0 0 68px;
+      padding:0 10px;
       display:flex;
-      flex-direction:column;
-    }
-
-    #inventory-2b .item-tile {
-      width:96px;
-      height:96px;
-      padding:5px;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      align-items:flex-end;
-      border:3px solid transparent;
-      background-color:#5d5d5d;
-      background-repeat:no-repeat;
-      background-position:center;
-      background-size:contain;
-      color:#ffffff;
-      cursor:pointer;
-    }
-
-    #inventory-2b .item-tile.empty { background-color:#323232; cursor:default; }
-    #inventory-2b .item-count { padding:1px 4px; font-size:24px; font-weight:700; background-color:rgba(0,0,0,0.58); }
-
-    #inventory-2b .category-divider {
-      width:198px;
-      height:3px;
-      background-color:#8e8e8e;
-    }
-
-    #inventory-2b .wide-item-widget {
-      width:198px;
-      height:202px;
-      display:flex;
-      flex-direction:column;
-    }
-
-    #inventory-2b .wide-item-widget .item-tile { width:198px; height:202px; }
-
-    #inventory-2b .list-header {
-      width:220px;
-      height:36px;
-      flex:0 0 36px;
-      display:flex;
-      justify-content:center;
+      flex-direction:row;
       align-items:center;
       border-top:1px solid #d9d9d9;
       border-right:1px solid #d9d9d9;
       border-bottom:0;
       border-left:1px solid #d9d9d9;
+      background-color:transparent;
     }
 
-    #inventory-2b .vicinity-header-line { width:198px; height:3px; background-color:#8e8e8e; }
+    #inventory-1a .vicinity-region .list-header {
+      width:384px;
+      height:0;
+      flex:0 0 0;
+      padding:0;
+      overflow:hidden;
+      border:0;
+    }
 
-    #inventory-2b .scroll-indicator {
-      width:198px;
-      height:24px;
+    #inventory-1a .vicinity-region .tile-panel {
+      padding-top:10px;
+      border-top:1px solid #d9d9d9;
+    }
+
+    #inventory-1a .item-widget {
+      width:364px;
+      height:90px;
+      flex:0 0 90px;
+      display:flex;
+      flex-direction:column;
+    }
+
+    #inventory-1a .item-tile {
+      width:364px;
+      height:90px;
+      padding:3px;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      gap:8px;
+      border:3px solid transparent;
+      background-color:transparent;
+      color:#ffffff;
+      cursor:pointer;
+    }
+
+    #inventory-1a .item-tile.empty { background-color:#323232; cursor:default; }
+    #inventory-1a .item-icon {
+      width:90px;
+      height:84px;
+      flex:0 0 90px;
+      background-color:#5d5d5d;
+      background-repeat:no-repeat;
+      background-position:center;
+      background-size:contain;
+    }
+    #inventory-1a .item-name {
+      height:84px;
+      flex:1;
+      padding:8px;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      background-color:#5d5d5d;
+      font-size:20px;
+      font-weight:700;
+      line-height:24px;
+      text-align:left;
+    }
+    #inventory-1a .item-count {
+      width:30px;
+      height:84px;
+      flex:0 0 30px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background-color:#5d5d5d;
+      font-size:24px;
+      font-weight:700;
+    }
+
+    #inventory-1a .category-divider {
+      width:364px;
+      height:3px;
+      flex:0 0 3px;
+      background-color:#999999;
+    }
+
+    #inventory-1a .wide-item-widget {
+      width:364px;
+      height:90px;
+      flex:0 0 90px;
+      display:flex;
+      flex-direction:column;
+    }
+
+    #inventory-1a .wide-item-widget .item-tile { width:364px; height:90px; }
+
+    #inventory-1a .scroll-indicator {
+      width:364px;
+      height:30px;
       padding:3px;
       display:flex;
       flex-direction:row;
@@ -198,12 +261,19 @@
       background-color:#d9d9d9;
     }
 
-    #inventory-2b .scroll-thumb { width:188px; height:14px; display:flex; justify-content:center; align-items:center; background-image:linear-gradient(to right,#696969 0 60%,transparent 60% 100%); }
-    #inventory-2b .capacity-value { color:#ffffff; font-size:11px; font-weight:700; line-height:14px; white-space:nowrap; }
+    #inventory-1a .scroll-thumb { width:354px; height:20px; display:flex; justify-content:center; align-items:center; background-image:linear-gradient(to right,#696969 0 60%,transparent 60% 100%); }
+    #inventory-1a .capacity-value { color:#ffffff; font-size:14px; font-weight:700; line-height:20px; white-space:nowrap; }
 
-    #inventory-2b .tooltip-panel {
+    #inventory-1a .vicinity-header-line {
+      width:364px;
+      height:3px;
+      display:none;
+      background-color:#999999;
+    }
+
+    #inventory-1a .tooltip-panel {
       position:absolute;
-      left:305px;
+      left:360px;
       top:285px;
       width:225px;
       height:510px;
@@ -216,31 +286,29 @@
       color:#191919;
     }
 
-    #inventory-2b .tooltip-panel[hidden] { display:none; }
-    #inventory-2b.tooltips-hidden .tooltip-panel { display:none; }
-    #inventory-2b.tooltip-zone-gear .tooltip-panel { left:392px; }
-    #inventory-2b.tooltip-zone-list .tooltip-panel { left:305px; }
-    #inventory-2b.tooltip-zone-weapon .tooltip-panel { left:902px; }
-    #inventory-2b .tooltip-panel.empty-slot { top:365px; height:350px; }
-    #inventory-2b .tooltip-panel.empty-slot .tooltip-image { opacity:0.58; }
-    #inventory-2b .tooltip-panel.empty-slot .tooltip-description,
-    #inventory-2b .tooltip-panel.empty-slot .tooltip-meta { display:none; }
-    #inventory-2b .tooltip-context { display:none; margin:0; font-size:14px; font-weight:700; color:#5a5a5a; }
-    #inventory-2b .comparison-tooltip { top:60px; height:452px; }
-    #inventory-2b.comparison-active .primary-tooltip { top:530px; height:452px; }
-    #inventory-2b.comparison-active .tooltip-panel { gap:6px; }
-    #inventory-2b.comparison-active .tooltip-context { display:block; }
-    #inventory-2b.comparison-active .tooltip-image { height:100px; }
-    #inventory-2b.comparison-active .tooltip-description { font-size:15px; line-height:19px; }
-    #inventory-2b.comparison-active .tooltip-action { gap:3px; font-size:13px; }
-    #inventory-2b.comparison-active .tooltip-action-key { width:22px; height:22px; }
-    #inventory-2b.comparison-active .tooltip-panel.empty-slot { height:452px; }
-    #inventory-2b .tooltip-title { margin:0; font-size:25px; font-weight:700; line-height:30px; }
-    #inventory-2b .tooltip-type { margin:0; font-size:17px; color:#4d4d4d; }
-    #inventory-2b .tooltip-image { width:185px; height:165px; align-self:center; object-fit:contain; }
-    #inventory-2b .tooltip-description { margin:0; font-size:17px; line-height:23px; }
-    #inventory-2b .tooltip-meta { display:flex; flex-direction:row; justify-content:space-between; font-size:16px; }
-    #inventory-2b .tooltip-actions {
+    #inventory-1a .tooltip-panel[hidden] { display:none; }
+    #inventory-1a.tooltips-hidden .tooltip-panel { display:none; }
+    #inventory-1a.gear-tooltip-active .primary-tooltip { left:1309px; }
+    #inventory-1a .tooltip-context { display:none; margin:0; font-size:14px; font-weight:700; color:#5a5a5a; }
+    #inventory-1a .comparison-tooltip { top:60px; height:452px; }
+    #inventory-1a.comparison-active .primary-tooltip { top:530px; height:452px; }
+    #inventory-1a.comparison-active .tooltip-panel { gap:6px; }
+    #inventory-1a.comparison-active .tooltip-context { display:block; }
+    #inventory-1a.comparison-active .tooltip-image { height:100px; }
+    #inventory-1a.comparison-active .tooltip-description { font-size:15px; line-height:19px; }
+    #inventory-1a.comparison-active .tooltip-action { gap:3px; font-size:13px; }
+    #inventory-1a.comparison-active .tooltip-action-key { width:22px; height:22px; }
+    #inventory-1a .tooltip-panel.empty-slot { height:350px; }
+    #inventory-1a.comparison-active .tooltip-panel.empty-slot { height:452px; }
+    #inventory-1a .tooltip-panel.empty-slot .tooltip-image { opacity:0.58; }
+    #inventory-1a .tooltip-panel.empty-slot .tooltip-description,
+    #inventory-1a .tooltip-panel.empty-slot .tooltip-meta { display:none; }
+    #inventory-1a .tooltip-title { margin:0; font-size:25px; font-weight:700; line-height:30px; }
+    #inventory-1a .tooltip-type { margin:0; font-size:17px; color:#4d4d4d; }
+    #inventory-1a .tooltip-image { width:185px; height:165px; align-self:center; object-fit:contain; }
+    #inventory-1a .tooltip-description { margin:0; font-size:17px; line-height:23px; }
+    #inventory-1a .tooltip-meta { display:flex; flex-direction:row; justify-content:space-between; font-size:16px; }
+    #inventory-1a .tooltip-actions {
       margin-top:auto;
       padding-top:8px;
       display:flex;
@@ -249,62 +317,63 @@
       gap:8px;
       border-top:2px solid #4c4c4c;
     }
-    #inventory-2b .tooltip-actions:empty { display:none; }
-    #inventory-2b .tooltip-action { display:flex; flex-direction:row; align-items:center; gap:5px; font-size:15px; font-weight:700; }
-    #inventory-2b .tooltip-action-key { width:26px; height:26px; display:flex; justify-content:center; align-items:center; border:2px solid #191919; border-radius:50%; }
-    #inventory-2b .tooltip-hold-label { padding:1px 4px; border:1px solid #191919; font-size:11px; }
+    #inventory-1a .tooltip-actions:empty { display:none; }
+    #inventory-1a .tooltip-action { display:flex; flex-direction:row; align-items:center; gap:5px; font-size:15px; font-weight:700; }
+    #inventory-1a .tooltip-action-key { width:26px; height:26px; display:flex; justify-content:center; align-items:center; border:2px solid #191919; border-radius:50%; }
+    #inventory-1a .tooltip-hold-label { padding:1px 4px; border:1px solid #191919; font-size:11px; }
 
-    #inventory-2b .weapon-region {
+    #inventory-1a .weapon-region {
       position:absolute;
-      left:1133px;
-      top:91px;
-      width:787px;
-      height:910px;
+      left:989px;
+      top:90px;
+      width:518px;
+      height:899px;
       display:flex;
       flex-direction:column;
-      gap:8px;
+      gap:12px;
     }
 
-    #inventory-2b .weapon-row { width:787px; height:740px; display:flex; flex-direction:row; gap:8px; }
+    #inventory-1a .weapon-row { width:518px; height:690px; display:flex; flex-direction:column; gap:12px; }
 
-    #inventory-2b .weapon-widget {
+    #inventory-1a .weapon-widget {
       flex:none;
-      width:257px;
-      height:740px;
+      width:518px;
+      height:222px;
       display:flex;
-      flex-direction:column;
+      flex-direction:row;
       padding:6px;
       border:1px solid #d9d9d9;
       background-color:transparent;
     }
 
-    #inventory-2b .weapon-card {
+    #inventory-1a .weapon-card {
       flex:1;
-      padding:6px;
+      padding:0;
       display:flex;
-      flex-direction:column;
+      flex-direction:row;
       gap:8px;
-      border:2px solid #111111;
+      border:0;
       background-color:#474747;
     }
 
-    #inventory-2b .weapon-card.held { background-color:#808080; }
-    #inventory-2b .weapon-heading { display:flex; flex-direction:row; align-items:center; gap:7px; }
-    #inventory-2b .weapon-name { margin:0; font-size:30px; font-weight:700; }
-    #inventory-2b .weapon-class { padding:2px 5px; font-size:16px; font-weight:700; background-color:#080808; }
-    #inventory-2b .held-label { margin-left:auto; font-size:15px; font-weight:700; }
-    #inventory-2b .ammo-row { display:flex; flex-direction:row; align-items:center; gap:4px; }
-    #inventory-2b .ammo-loaded { font-size:30px; font-weight:700; }
-    #inventory-2b .ammo-reserve { padding-top:9px; font-size:15px; color:#c8c8c8; }
-    #inventory-2b .ammo-icon { width:54px; height:54px; object-fit:contain; }
-    #inventory-2b .ammo-type { padding:2px 4px; font-size:18px; font-weight:700; background-color:#159431; }
-    #inventory-2b .ammo-type.nine { background-color:#b12b2b; }
+    #inventory-1a .weapon-card.held { background-color:#808080; }
+    #inventory-1a .weapon-details { flex:1; height:208px; padding:3px 6px; display:flex; flex-direction:column; gap:2px; overflow:hidden; }
+    #inventory-1a .weapon-heading { height:26px; flex:0 0 26px; display:flex; flex-direction:row; align-items:center; gap:6px; }
+    #inventory-1a .weapon-name { margin:0; font-size:20px; font-weight:700; }
+    #inventory-1a .weapon-class { padding:1px 4px; font-size:12px; font-weight:700; background-color:#080808; }
+    #inventory-1a .held-label { margin-left:auto; font-size:11px; font-weight:700; }
+    #inventory-1a .ammo-row { height:28px; flex:0 0 28px; display:flex; flex-direction:row; align-items:center; gap:3px; }
+    #inventory-1a .ammo-loaded { font-size:20px; font-weight:700; }
+    #inventory-1a .ammo-reserve { padding-top:4px; font-size:11px; color:#c8c8c8; }
+    #inventory-1a .ammo-icon { width:28px; height:28px; object-fit:contain; }
+    #inventory-1a .ammo-type { padding:1px 3px; font-size:12px; font-weight:700; background-color:#159431; }
+    #inventory-1a .ammo-type.nine { background-color:#b12b2b; }
 
-    #inventory-2b .weapon-body { flex:1; display:flex; flex-direction:row; gap:8px; overflow:hidden; }
-    #inventory-2b .attachment-rail { width:76px; display:flex; flex-direction:column; gap:6px; }
-    #inventory-2b .attachment-slot {
-      width:76px;
-      height:76px;
+    #inventory-1a .weapon-body { flex:1; display:flex; flex-direction:row; gap:8px; overflow:hidden; }
+    #inventory-1a .attachment-rail { width:138px; height:208px; flex:0 0 138px; display:flex; flex-direction:row; flex-wrap:wrap; align-content:flex-start; gap:2px; }
+    #inventory-1a .attachment-slot {
+      width:68px;
+      height:68px;
       padding:3px;
       display:flex;
       flex-direction:column;
@@ -314,15 +383,15 @@
       background-color:#3c3c3c;
       color:#ffffff;
     }
-    #inventory-2b .attachment-slot img { width:68px; height:68px; object-fit:contain; opacity:0.72; }
-    #inventory-2b .attachment-slot.unavailable {
+    #inventory-1a .attachment-slot img { width:60px; height:60px; object-fit:contain; opacity:0.72; }
+    #inventory-1a .attachment-slot.unavailable {
       border-color:#666666;
       background-color:#242424;
       opacity:0.55;
       cursor:default;
     }
-    #inventory-2b .attachment-slot[data-slot-state="occupied"] img { opacity:1; }
-    #inventory-2b .attachment-slot.quick-equip-target {
+    #inventory-1a .attachment-slot[data-slot-state="occupied"] img { opacity:1; }
+    #inventory-1a .attachment-slot.quick-equip-target {
       border-color:#52e06f;
       outline:none;
       background-color:#315d3b;
@@ -331,43 +400,42 @@
       background-position:center,center,center,center;
       background-size:13px 17px,36px 36px,33px 33px,36px 36px;
     }
-    #inventory-2b .attachment-slot.quick-equip-target img { visibility:hidden; }
-    #inventory-2b .attachment-slot.confirm-equip-target {
+    #inventory-1a .attachment-slot.quick-equip-target img { visibility:hidden; }
+    #inventory-1a .attachment-slot.confirm-equip-target {
       background-color:#315d3b;
       background-image:url('../assets/controller-a-letter.svg'),url('../assets/controller-x-vector.svg'),url('../assets/controller-x-fill.svg'),url('../assets/controller-x-shadow.svg');
       background-repeat:no-repeat,no-repeat,no-repeat,no-repeat;
       background-position:center,center,center,center;
       background-size:13px 17px,36px 36px,33px 33px,36px 36px;
     }
-    #inventory-2b .attachment-slot.confirm-equip-target img { visibility:hidden; }
+    #inventory-1a .attachment-slot.confirm-equip-target img { visibility:hidden; }
 
-    #inventory-2b .weapon-visual {
+    #inventory-1a .weapon-visual {
       flex:1;
-      background-repeat:no-repeat,no-repeat;
-      background-position:center,center;
+      min-height:0;
+      background-repeat:no-repeat;
+      background-position:center;
     }
-    #inventory-2b .weapon-visual.m16 {
-      background-image:url('../assets/sockets-m16.svg'),url('../assets/weapon-m16-oriented.png');
-      background-size:112px 497px,145px 560px;
-      background-position:right center,center;
+    #inventory-1a .weapon-visual.m16 {
+      background-image:url('../assets/weapon-m16.png');
+      background-size:345px 210px;
     }
-    #inventory-2b .weapon-visual.m249 {
-      background-image:url('../assets/sockets-m249.svg'),url('../assets/weapon-m249-oriented.png');
-      background-size:120px 495px,145px 560px;
-      background-position:right center,center;
+    #inventory-1a .weapon-visual.m249 {
+      background-image:url('../assets/weapon-m249.png');
+      background-size:345px 108px;
     }
-    #inventory-2b .weapon-visual.p1911 {
-      background-image:url('../assets/sockets-p1911.svg'),url('../assets/weapon-p1911-oriented.png');
-      background-size:126px 186px,150px 340px;
-      background-position:right center,center;
+    #inventory-1a .weapon-visual.p1911 {
+      background-image:url('../assets/weapon-p1911.png');
+      background-size:400px 165px;
+      background-position:center;
     }
 
-    #inventory-2b .secondary-weapons { width:787px; height:162px; padding:6px; display:flex; flex-direction:row; gap:6px; border:1px solid #d9d9d9; background-color:transparent; }
-    #inventory-2b .secondary-slot { flex:1; padding:8px 12px; display:flex; flex-direction:column; border:0; background-color:#474747; color:#ffffff; font:inherit; text-align:left; }
-    #inventory-2b .secondary-slot p { margin:0; font-size:22px; font-weight:700; }
-    #inventory-2b .secondary-slot img { width:140px; height:112px; align-self:center; object-fit:contain; }
+    #inventory-1a .secondary-weapons { width:518px; height:197px; padding:6px; display:flex; flex-direction:row; gap:6px; border:1px solid #d9d9d9; background-color:transparent; }
+    #inventory-1a .secondary-slot { flex:1; padding:8px 12px; display:flex; flex-direction:column; border:0; background-color:#474747; color:#ffffff; font:inherit; text-align:left; }
+    #inventory-1a .secondary-slot p { margin:0; font-size:22px; font-weight:700; }
+    #inventory-1a .secondary-slot img { width:140px; height:112px; align-self:center; object-fit:contain; }
 
-    #inventory-2b .top-status {
+    #inventory-1a .top-status {
       position:absolute;
       left:1615px;
       top:18px;
@@ -380,9 +448,10 @@
       font-size:26px;
       font-weight:700;
       color:#8c8c8c;
+      display:none;
     }
 
-    #inventory-2b .controller-guide {
+    #inventory-1a .controller-guide {
       position:absolute;
       left:24px;
       top:1018px;
@@ -397,18 +466,18 @@
       font-size:16px;
     }
 
-    #inventory-2b .controller-key { padding:2px 7px; border:2px solid #ffffff; font-weight:700; }
-    #inventory-2b .controller-action[hidden] { display:none; }
-    #inventory-2b .tooltip-meta[hidden] { display:none; }
-    #inventory-2b .interaction-message { color:#f7cf26; }
-    #inventory-2b .gamepad-status { margin-left:auto; color:#a8a8a8; }
+    #inventory-1a .controller-key { padding:2px 7px; border:2px solid #ffffff; font-weight:700; }
+    #inventory-1a .controller-action[hidden] { display:none; }
+    #inventory-1a .tooltip-meta[hidden] { display:none; }
+    #inventory-1a .interaction-message { color:#f7cf26; }
+    #inventory-1a .gamepad-status { margin-left:auto; color:#a8a8a8; }
 
-    #inventory-2b button:focus { outline:5px solid #f3d521; outline-offset:-5px; }
-    #inventory-2b .tile-panel[tabindex="0"]:focus { outline:5px solid #f3d521; outline-offset:-5px; }
-    #inventory-2b .compatible { border-color:#52e06f; background-color:#315d3b; }
-    #inventory-2b .weapon-focused { border-color:#f3d521; }
+    #inventory-1a button:focus { outline:5px solid #f3d521; outline-offset:-5px; }
+    #inventory-1a .tile-panel[tabindex="0"]:focus { outline:5px solid #f3d521; outline-offset:-5px; }
+    #inventory-1a .compatible { border-color:#52e06f; background-color:#315d3b; }
+    #inventory-1a .weapon-focused { border-color:#f3d521; }
 
-    #inventory-2b .attachment-connectors {
+    #inventory-1a .attachment-connectors {
       position:absolute;
       left:0;
       top:0;
@@ -416,17 +485,28 @@
       height:1080px;
       pointer-events:none;
     }
-    #inventory-2b .connector-line { fill:none; stroke:#52e06f; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
-    #inventory-2b .connector-line.focused { stroke:#fff600; stroke-width:4; }
-    #inventory-2b .weapon-card.weapon-dropped { opacity:0.38; }
+    #inventory-1a .connector-line { fill:none; stroke:#52e06f; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+    #inventory-1a .connector-line.focused { stroke:#fff600; stroke-width:4; }
+    #inventory-1a .socket-marker { fill:#acacac; stroke:#111111; stroke-width:1.5; }
+    #inventory-1a .socket-marker.compatible { fill:#52e06f; }
+    #inventory-1a .socket-marker.focused { fill:#fff600; stroke-width:2; }
+    #inventory-1a .weapon-card.weapon-dropped { opacity:0.38; }
   </style>
 </head>
 <body>
   <div id="preview-stage" data-preview-only="viewport-fitter">
-  <main id="inventory-2b" data-umg-name="Panel_Root" data-umg-type="Overlay">
+  <main id="inventory-1a" class="tooltips-hidden" data-umg-name="Panel_Root" data-umg-type="Overlay">
     <section class="gear-region" data-umg-name="Box_GearAndOutfit">
-      <h1 class="screen-title" data-umg-name="Txt_GearTitle">장비 &amp; 의상</h1>
+      <h1 class="screen-title" data-umg-name="Txt_GearTitle">GEARS &amp; OUTFIT</h1>
       <div class="gear-layout">
+        <div class="gear-rail">
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="헬멧 슬롯" data-item-type="장비 슬롯" data-silhouette="../assets/slot-helmet.svg"></button></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 배낭" data-item-type="장비" data-image="../assets/gear-backpack.png"><img src="../assets/gear-backpack.png" alt="3레벨 배낭"><span class="gear-level">Lv.3</span></button></div>
+          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 조끼" data-item-type="장비" data-image="../assets/gear-vest.png"><img src="../assets/gear-vest.png" alt="3레벨 조끼"><span class="gear-level">Lv.3</span></button></div>
+        </div>
+        <div class="character-preview" data-umg-name="Img_CharacterPreview">
+          <img src="../assets/character.png" alt="Player character preview">
+        </div>
         <div class="gear-rail">
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="모자 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-helmet.svg"></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="얼굴 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-face.svg"></button></div>
@@ -435,23 +515,21 @@
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="장갑 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-gloves.svg"></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="바지 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-pants.svg"></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="부츠 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-boots.svg"></button></div>
-        </div>
-        <div class="character-preview" data-umg-name="Img_CharacterPreview">
-          <img src="../assets/character.png" alt="Player character preview">
-        </div>
-        <div class="gear-rail">
-          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="헬멧 슬롯" data-item-type="장비 슬롯" data-silhouette="../assets/slot-helmet.svg"></button></div>
-          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 배낭" data-item-type="장비" data-image="../assets/gear-backpack.png"><img src="../assets/gear-backpack.png" alt="3레벨 배낭"><span class="gear-level">Lv.3</span></button></div>
-          <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 조끼" data-item-type="장비" data-image="../assets/gear-vest.png"><img src="../assets/gear-vest.png" alt="3레벨 조끼"><span class="gear-level">Lv.3</span></button></div>
+          <div class="gear-rail-large-spacer"></div>
+          <button class="gear-slot layout-placeholder" disabled aria-hidden="true"></button>
+          <button class="gear-slot layout-placeholder" disabled aria-hidden="true"></button>
+          <button class="gear-slot layout-placeholder" disabled aria-hidden="true"></button>
         </div>
       </div>
     </section>
 
+    <div class="region-divider" aria-hidden="true"></div>
+
     <section class="vicinity-region" data-umg-name="Box_Vicinity">
-      <h1 class="screen-title" data-umg-name="Txt_VicinityTitle">주변</h1>
-      <div class="list-header"><div class="vicinity-header-line"></div></div>
-      <div class="tile-panel" data-umg-name="Box_VicinityGrid" data-umg-type="WrapBox">
-        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" autofocus data-default-focus="true" data-umg-focus-default style="background-image:url('../assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
+      <h1 class="screen-title" data-umg-name="Txt_VicinityTitle">VICINITY</h1>
+      <div class="list-header"><div class="vicinity-header-line" aria-hidden="true"></div></div>
+      <div class="tile-panel" data-umg-name="Box_VicinityGrid" data-umg-type="ScrollBox">
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" autofocus data-default-focus="true" style="background-image:url('../assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."><span class="item-count">2</span></button></div>
         <div class="category-divider" data-category-break="consumables-throwables"></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-molotov.png')" data-item-name="화염병" data-item-type="투척 무기" data-item-category="throwable" data-image="../assets/item-molotov.png" data-description="충돌 지점에 불길을 생성합니다."><span class="item-count">4</span></button></div>
@@ -468,9 +546,9 @@
     </section>
 
     <section class="inventory-region" data-umg-name="Box_Inventory">
-      <h1 class="screen-title" data-umg-name="Txt_InventoryTitle">인벤토리</h1>
+      <h1 class="screen-title" data-umg-name="Txt_InventoryTitle">INVENTORY</h1>
       <div class="list-header"><div class="scroll-indicator" data-umg-name="Bar_InventoryScroll"><div class="scroll-thumb"><span class="capacity-value" data-umg-name="Txt_InventoryCapacity">210 / 350</span></div></div></div>
-      <div class="tile-panel" data-umg-name="Box_InventoryGrid" data-umg-type="WrapBox">
+      <div class="tile-panel" data-umg-name="Box_InventoryGrid" data-umg-type="ScrollBox">
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."></button></div>
         <div class="category-divider" data-category-break="consumables-throwables"></div>
@@ -495,8 +573,6 @@
       <div class="weapon-row">
         <article class="weapon-widget" data-umg-widget="WBP_WeaponCard">
           <div class="weapon-card held" data-weapon-card="m16" data-weapon-group="main">
-            <div class="weapon-heading"><h2 class="weapon-name">M16</h2><span class="weapon-class">돌격소총</span><span class="held-label">장착 중</span></div>
-            <div class="ammo-row"><span class="ammo-loaded">21</span><span class="ammo-reserve">40</span><img class="ammo-icon" src="../assets/ammo-556.png" alt="5.56mm ammunition"><span class="ammo-type">5.56mm</span></div>
             <div class="weapon-body">
               <div class="attachment-rail">
                 <button class="attachment-slot" data-slot-state="empty" data-socket="muzzle" data-silhouette="../assets/attachment-muzzle.png" data-item-name="총구 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-muzzle.png" alt="총구 부착물 실루엣"></button>
@@ -504,16 +580,19 @@
                 <button class="attachment-slot" data-slot-state="empty" data-socket="mag" data-silhouette="../assets/attachment-mag.png" data-item-name="탄창 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-mag.png" alt="탄창 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="scope" data-silhouette="../assets/attachment-scope.png" data-item-name="조준경 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-scope.png" alt="조준경 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="stock" data-silhouette="../assets/attachment-stock.png" data-item-name="개머리판 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-stock.png" alt="개머리판 부착물 실루엣"></button>
+                <button class="attachment-slot unavailable layout-placeholder" data-slot-state="unavailable" disabled aria-hidden="true"></button>
               </div>
-              <div class="weapon-visual m16" data-umg-type="Overlay" role="img" aria-label="M16 rifle with attachment socket positions"></div>
+              <div class="weapon-details">
+                <div class="weapon-heading"><h2 class="weapon-name">M16</h2><span class="weapon-class">돌격소총</span><span class="held-label">장착 중</span></div>
+                <div class="ammo-row"><span class="ammo-loaded">21</span><span class="ammo-reserve">40</span><img class="ammo-icon" src="../assets/ammo-556.png" alt="5.56mm ammunition"><span class="ammo-type">5.56mm</span></div>
+                <div class="weapon-visual m16" data-umg-type="Overlay" role="img" aria-label="Horizontal M16 rifle with attachment socket positions"></div>
+              </div>
             </div>
           </div>
         </article>
 
         <article class="weapon-widget" data-umg-widget="WBP_WeaponCard">
           <div class="weapon-card" data-weapon-card="m249" data-weapon-group="main">
-            <div class="weapon-heading"><h2 class="weapon-name">M249</h2><span class="weapon-class">경기관총</span></div>
-            <div class="ammo-row"><span class="ammo-loaded">75</span><span class="ammo-reserve">75</span><img class="ammo-icon" src="../assets/ammo-556.png" alt="5.56mm ammunition"><span class="ammo-type">5.56mm</span></div>
             <div class="weapon-body">
               <div class="attachment-rail">
                 <button class="attachment-slot" data-slot-state="empty" data-socket="muzzle" data-silhouette="../assets/attachment-muzzle.png" data-item-name="총구 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-muzzle.png" alt="총구 부착물 실루엣"></button>
@@ -521,16 +600,19 @@
                 <button class="attachment-slot" data-slot-state="empty" data-socket="mag" data-silhouette="../assets/attachment-mag.png" data-item-name="탄창 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-mag.png" alt="탄창 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="scope" data-silhouette="../assets/attachment-scope.png" data-item-name="조준경 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-scope.png" alt="조준경 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="stock" data-silhouette="../assets/attachment-stock.png" data-item-name="개머리판 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-stock.png" alt="개머리판 부착물 실루엣"></button>
+                <button class="attachment-slot unavailable layout-placeholder" data-slot-state="unavailable" disabled aria-hidden="true"></button>
               </div>
-              <div class="weapon-visual m249" data-umg-type="Overlay" role="img" aria-label="M249 light machine gun with attachment socket positions"></div>
+              <div class="weapon-details">
+                <div class="weapon-heading"><h2 class="weapon-name">M249</h2><span class="weapon-class">경기관총</span></div>
+                <div class="ammo-row"><span class="ammo-loaded">75</span><span class="ammo-reserve">75</span><img class="ammo-icon" src="../assets/ammo-556.png" alt="5.56mm ammunition"><span class="ammo-type">5.56mm</span></div>
+                <div class="weapon-visual m249" data-umg-type="Overlay" role="img" aria-label="Horizontal M249 light machine gun with attachment socket positions"></div>
+              </div>
             </div>
           </div>
         </article>
 
         <article class="weapon-widget" data-umg-widget="WBP_WeaponCard">
           <div class="weapon-card" data-weapon-card="p1911" data-weapon-group="sidearm">
-            <div class="weapon-heading"><h2 class="weapon-name">P1911</h2><span class="weapon-class">권총</span></div>
-            <div class="ammo-row"><span class="ammo-loaded">9</span><span class="ammo-reserve">11</span><img class="ammo-icon" src="../assets/ammo-9mm.png" alt="9mm ammunition"><span class="ammo-type nine">9mm</span></div>
             <div class="weapon-body">
               <div class="attachment-rail">
                 <button class="attachment-slot" data-slot-state="empty" data-socket="muzzle" data-silhouette="../assets/attachment-muzzle.png" data-item-name="총구 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-muzzle.png" alt="총구 부착물 실루엣"></button>
@@ -538,8 +620,13 @@
                 <button class="attachment-slot" data-slot-state="empty" data-socket="mag" data-silhouette="../assets/attachment-mag.png" data-item-name="탄창 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-mag.png" alt="탄창 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="scope" data-silhouette="../assets/attachment-scope.png" data-item-name="조준경 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-scope.png" alt="조준경 부착물 실루엣"></button>
                 <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="stock" data-item-name="개머리판 사용 불가" data-item-type="사용 불가" disabled aria-label="개머리판 부착물 사용 불가"></button>
+                <button class="attachment-slot unavailable layout-placeholder" data-slot-state="unavailable" disabled aria-hidden="true"></button>
               </div>
-              <div class="weapon-visual p1911" data-umg-type="Overlay" role="img" aria-label="P1911 pistol with attachment socket positions"></div>
+              <div class="weapon-details">
+                <div class="weapon-heading"><h2 class="weapon-name">P1911</h2><span class="weapon-class">권총</span></div>
+                <div class="ammo-row"><span class="ammo-loaded">9</span><span class="ammo-reserve">11</span><img class="ammo-icon" src="../assets/ammo-9mm.png" alt="9mm ammunition"><span class="ammo-type nine">9mm</span></div>
+                <div class="weapon-visual p1911" data-umg-type="Overlay" role="img" aria-label="Horizontal P1911 pistol with attachment socket positions"></div>
+              </div>
             </div>
           </div>
         </article>
@@ -583,7 +670,7 @@
 
   <script>
     (function () {
-      const root = document.getElementById('inventory-2b');
+      const root = document.getElementById('inventory-1a');
       const previewStage = document.getElementById('preview-stage');
       const tooltip = root.querySelector('.primary-tooltip');
       const selectedTooltip = root.querySelector('.comparison-tooltip');
@@ -606,7 +693,7 @@
       let pendingSourceSlot = null;
       let returnFocus = null;
       let placementFocus = null;
-      let lastWeaponCard = null;
+      let lastSidearmAttachmentSlot = null;
       let previousButtons = [];
       let vicinityQuickEquipEnabled = true;
       let heldDirection = '';
@@ -719,44 +806,65 @@
 
       const socketMaps = {
         m16: {
-          displayWidth:112, displayHeight:497, viewWidth:149, viewHeight:663,
-          points:{ muzzle:[74,12], grip:[56,282], mag:[12,426], scope:[137,450], stock:[24,651] }
+          points:{ muzzle:[0.04,0.42], grip:[0.42,0.52], mag:[0.59,0.80], scope:[0.63,0.24], stock:[0.92,0.52] }
         },
         m249: {
-          displayWidth:120, displayHeight:495, viewWidth:160, viewHeight:660,
-          points:{ muzzle:[82,12], mag:[12,345.5], scope:[148,453], stock:[39,648] }
+          points:{ muzzle:[0.03,0.41], mag:[0.60,0.70], scope:[0.56,0.18], stock:[0.94,0.45] }
         },
         p1911: {
-          displayWidth:126, displayHeight:186, viewWidth:168, viewHeight:248,
-          points:{ muzzle:[105,12], mag:[42,150], scope:[156,176] }
+          points:{ muzzle:[0.28,0.30], mag:[0.64,0.74], scope:[0.58,0.18] }
         }
       };
+
+      function socketPoint(weaponCard, socket, rootRect, scale) {
+        const map = socketMaps[weaponCard?.dataset.weaponCard];
+        const point = map?.points[socket];
+        const visual = weaponCard?.querySelector('.weapon-visual');
+        if (!point || !visual) return null;
+        const visualRect = visual.getBoundingClientRect();
+        return {
+          x:(visualRect.left - rootRect.left) / scale + visualRect.width / scale * point[0],
+          y:(visualRect.top - rootRect.top) / scale + visualRect.height / scale * point[1]
+        };
+      }
 
       function updateConnectorLines(slots, focusedSlot) {
         connectorLines.replaceChildren();
         const rootRect = root.getBoundingClientRect();
         const scale = rootRect.width / 1920;
+
+        root.querySelectorAll('[data-weapon-card]').forEach((weaponCard) => {
+          const map = socketMaps[weaponCard.dataset.weaponCard];
+          if (!map) return;
+          Object.keys(map.points).forEach((socket) => {
+            const slot = weaponCard.querySelector('.attachment-slot[data-socket="' + socket + '"]');
+            if (!slot || slot.dataset.slotState === 'unavailable') return;
+            const point = socketPoint(weaponCard, socket, rootRect, scale);
+            if (!point) return;
+            const marker = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            marker.setAttribute('cx', point.x);
+            marker.setAttribute('cy', point.y);
+            marker.setAttribute('r', '6');
+            marker.setAttribute('class', slot === focusedSlot
+              ? 'socket-marker focused'
+              : slots.includes(slot)
+                ? 'socket-marker compatible'
+                : 'socket-marker');
+            connectorLines.appendChild(marker);
+          });
+        });
+
         slots.forEach((slot) => {
           if (slot.dataset.slotState === 'unavailable') return;
           const weaponCard = slot.closest('[data-weapon-card]');
-          const weaponName = weaponCard?.dataset.weaponCard;
-          const map = socketMaps[weaponName];
-          const point = map?.points[slot.dataset.socket];
-          const visual = weaponCard?.querySelector('.weapon-visual');
-          if (!map || !point || !visual) return;
+          const point = socketPoint(weaponCard, slot.dataset.socket, rootRect, scale);
+          if (!point) return;
 
           const slotRect = slot.getBoundingClientRect();
-          const visualRect = visual.getBoundingClientRect();
           const x1 = (slotRect.right - rootRect.left) / scale;
           const y1 = (slotRect.top + slotRect.height / 2 - rootRect.top) / scale;
-          const visualLeft = (visualRect.left - rootRect.left) / scale;
-          const visualTop = (visualRect.top - rootRect.top) / scale;
-          const visualWidth = visualRect.width / scale;
-          const visualHeight = visualRect.height / scale;
-          const mapLeft = visualLeft + visualWidth - map.displayWidth;
-          const mapTop = visualTop + (visualHeight - map.displayHeight) / 2;
-          const x2 = mapLeft + point[0] / map.viewWidth * map.displayWidth;
-          const y2 = mapTop + point[1] / map.viewHeight * map.displayHeight;
+          const x2 = point.x;
+          const y2 = point.y;
           const connector = document.createElementNS('http://www.w3.org/2000/svg', 'path');
           const horizontalDirection = x2 >= x1 ? 1 : -1;
           const verticalDirection = y2 >= y1 ? 1 : -1;
@@ -829,12 +937,7 @@
         root.querySelectorAll('.confirm-equip-target').forEach((element) => element.classList.remove('confirm-equip-target'));
         root.querySelectorAll('.weapon-focused').forEach((element) => element.classList.remove('weapon-focused'));
         const context = itemContext(target);
-        root.classList.remove('tooltip-zone-gear', 'tooltip-zone-list', 'tooltip-zone-weapon');
-        root.classList.add(context === 'gear'
-          ? 'tooltip-zone-gear'
-          : (context === 'weapon-slot' || context === 'secondary')
-            ? 'tooltip-zone-weapon'
-            : 'tooltip-zone-list');
+        root.classList.toggle('gear-tooltip-active', context === 'gear');
 
         if (target.matches('.tile-panel[tabindex="0"]')) {
           root.classList.remove('comparison-active');
@@ -950,12 +1053,70 @@
         return winner;
       }
 
-      function attachmentButtons(weaponCard) {
-        return weaponCard ? Array.from(weaponCard.querySelectorAll('.attachment-slot:not(:disabled)')) : [];
+      function nearestGearSlot(current) {
+        const gearSlots = Array.from(root.querySelectorAll('.gear-region button:not(:disabled)'));
+        return nearestInDirection(current, 'right', gearSlots);
       }
 
-      function lowestAttachment(weaponCard) {
-        return attachmentButtons(weaponCard).at(-1) || null;
+      function attachmentGridCells(weaponCard) {
+        return weaponCard ? Array.from(weaponCard.querySelectorAll('.attachment-slot')) : [];
+      }
+
+      function attachmentGridCell(weaponCard, row, column) {
+        return attachmentGridCells(weaponCard)[row * 2 + column] || null;
+      }
+
+      function attachmentGridTarget(current, direction) {
+        const weaponCard = current.closest('[data-weapon-card]');
+        const cells = attachmentGridCells(weaponCard);
+        const cellIndex = cells.indexOf(current);
+        if (!weaponCard || cellIndex < 0) return null;
+
+        const row = Math.floor(cellIndex / 2);
+        const column = cellIndex % 2;
+
+        if (direction === 'left' || direction === 'right') {
+          const nextColumn = column + (direction === 'right' ? 1 : -1);
+          if (nextColumn > 1) return nearestGearSlot(current);
+          if (nextColumn < 0) return null;
+          const candidate = attachmentGridCell(weaponCard, row, nextColumn);
+          if (candidate && !candidate.disabled) return candidate;
+          return direction === 'right' ? nearestGearSlot(current) : current;
+        }
+
+        const rowStep = direction === 'down' ? 1 : -1;
+        for (let nextRow = row + rowStep; nextRow >= 0 && nextRow < 3; nextRow += rowStep) {
+          const candidate = attachmentGridCell(weaponCard, nextRow, column);
+          if (candidate && !candidate.disabled) return candidate;
+        }
+
+        const weaponCards = Array.from(root.querySelectorAll('[data-weapon-card]'));
+        const cardIndex = weaponCards.indexOf(weaponCard);
+        for (let nextCardIndex = cardIndex + rowStep; nextCardIndex >= 0 && nextCardIndex < weaponCards.length; nextCardIndex += rowStep) {
+          const rowOrder = direction === 'down' ? [0, 1, 2] : [2, 1, 0];
+          for (const nextRow of rowOrder) {
+            const candidate = attachmentGridCell(weaponCards[nextCardIndex], nextRow, column);
+            if (candidate && !candidate.disabled) return candidate;
+          }
+        }
+
+        if (direction === 'down' && weaponCard.dataset.weaponCard === 'p1911') {
+          return root.querySelector('[data-secondary-slot="throwable"]');
+        }
+        if (direction === 'down') {
+          return root.querySelector('[data-secondary-slot="' + (column === 0 ? 'throwable' : 'melee') + '"]');
+        }
+        return current;
+      }
+
+      function latestSidearmAttachment() {
+        if (lastSidearmAttachmentSlot?.isConnected && !lastSidearmAttachmentSlot.disabled) {
+          return lastSidearmAttachmentSlot;
+        }
+        const sidearmCard = root.querySelector('[data-weapon-card="p1911"]');
+        return sidearmCard
+          ? Array.from(sidearmCard.querySelectorAll('.attachment-slot:not(:disabled)')).at(-1) || null
+          : null;
       }
 
       function verticalColumnCandidates(current) {
@@ -987,18 +1148,12 @@
           return;
         }
 
-        if (current.classList.contains('attachment-slot') && (direction === 'up' || direction === 'down')) {
-          const rail = attachmentButtons(current.closest('[data-weapon-card]'));
-          const currentIndex = rail.indexOf(current);
-          const nextInRail = rail[currentIndex + (direction === 'down' ? 1 : -1)];
-          if (nextInRail) {
-            nextInRail.focus();
+        if (current.classList.contains('attachment-slot')) {
+          const nextGridSlot = attachmentGridTarget(current, direction);
+          if (nextGridSlot) {
+            nextGridSlot.focus();
             return;
           }
-          if (direction === 'down') {
-            root.querySelector('[data-secondary-slot="throwable"]')?.focus();
-          }
-          return;
         }
 
         const secondaryType = current.dataset.secondarySlot || '';
@@ -1018,9 +1173,12 @@
             throwable?.focus();
             return;
           }
+          if (secondaryType === 'melee' && direction === 'right') {
+            nearestGearSlot(current)?.focus();
+            return;
+          }
           if (direction === 'up') {
-            const fallbackCard = root.querySelector('.weapon-card.held') || root.querySelector('[data-weapon-card]');
-            lowestAttachment(lastWeaponCard || fallbackCard)?.focus();
+            latestSidearmAttachment()?.focus();
           }
           return;
         }
@@ -1058,13 +1216,26 @@
         return Number.parseInt(source.querySelector('.item-count')?.textContent || '1', 10) || 1;
       }
 
+      function renderLinearListItem(source, quantity = itemQuantity(source)) {
+        const icon = document.createElement('span');
+        icon.className = 'item-icon';
+        if (source.dataset.image) icon.style.backgroundImage = "url('" + source.dataset.image + "')";
+
+        const name = document.createElement('span');
+        name.className = 'item-name';
+        name.textContent = source.dataset.itemName || '아이템';
+
+        const count = document.createElement('span');
+        count.className = 'item-count';
+        count.textContent = String(Math.max(1, Math.floor(quantity)));
+
+        source.style.removeProperty('background-image');
+        source.replaceChildren(icon, name, count);
+      }
+
       function setItemQuantity(source, quantity) {
         const normalized = Math.max(1, Math.floor(quantity));
         let count = source.querySelector('.item-count');
-        if (normalized === 1) {
-          count?.remove();
-          return;
-        }
         if (!count) {
           count = document.createElement('span');
           count.className = 'item-count';
@@ -1218,12 +1389,7 @@
         else delete destination.dataset.compatibility;
         if (payload.weaponGroups?.length) destination.dataset.compatibleWeaponGroups = payload.weaponGroups.join(',');
         else delete destination.dataset.compatibleWeaponGroups;
-        if (payload.image) destination.style.backgroundImage = "url('" + payload.image + "')";
-        else destination.removeAttribute('style');
-        destination.replaceChildren();
-        if (['consumable', 'throwable', 'ammunition'].includes(payload.category)) {
-          setItemQuantity(destination, payload.count || 1);
-        }
+        renderLinearListItem(destination, payload.count || 1);
       }
 
       function restoreItemToList(regionSelector, payload) {
@@ -1548,8 +1714,9 @@
             }
             placementFocus = event.target;
           }
-          const weaponCard = event.target.closest('[data-weapon-card]');
-          if (weaponCard && event.target.classList.contains('attachment-slot')) lastWeaponCard = weaponCard;
+          if (event.target.classList.contains('attachment-slot') && event.target.closest('[data-weapon-card="p1911"]')) {
+            lastSidearmAttachmentSlot = event.target;
+          }
           updateFocusState(event.target);
         }
       });
@@ -1673,6 +1840,7 @@
         if (document.activeElement instanceof HTMLElement && root.contains(document.activeElement)) requestAnimationFrame(() => updateFocusState(document.activeElement));
       });
 
+      root.querySelectorAll('.tile-panel .item-tile').forEach((item) => renderLinearListItem(item));
       const firstItem = root.querySelector('.vicinity-region button:not(:disabled)');
       fitPrototypeToViewport();
       root.querySelectorAll('.tile-panel').forEach((panel) => {

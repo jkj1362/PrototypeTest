@@ -1,5 +1,7 @@
 # Inventory 2-b active asset audit
 
+Shared asset root: `../assets/`. This prototype does not own a separate asset copy.
+
 Status: complete for the selected active 2-b design.
 
 ## Asset decision
@@ -18,3 +20,7 @@ Reusable widget files and bindings are unchanged. UMG layout deltas include the
 Gear/Outfit slot sizing, Vicinity/Inventory placement, in-list horizontal
 capacity indicator, fixed Vicinity alignment line, and contextual-tooltip
 positions recorded in `IMPLEMENTATION-SPEC.md`.
+
+The browser gradient in the capacity indicator only previews the current fill
+while its label remains centered. Unreal should use a native ProgressBar fill
+with a centered TextBlock overlay, so this change requires no gradient asset.

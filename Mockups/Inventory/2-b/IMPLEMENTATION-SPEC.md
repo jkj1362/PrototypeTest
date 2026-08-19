@@ -24,7 +24,10 @@ earlier 2-b prototypes:
 
 - controller and keyboard navigation;
 - item stacking, pickup, drop, use, equip, and empty-list recovery;
-- attachment quick equip and modal placement;
+- replacing the equipped Throwable returns the previous Throwable to Inventory;
+- Vicinity attachment pickup with optional empty-slot quick equip, Inventory
+  attachment quick equip with replacement, and modal placement;
+- gamepad Menu toggling the Vicinity convenience, enabled by default;
 - green-only compatibility highlighting and A/X placement cues;
 - normal and selected-attachment comparison tooltips;
 - the View-key tooltip visibility toggle;
@@ -81,7 +84,8 @@ same light-gray border continued by its item panel, so the line and capacity
 bar visibly sit inside their respective list boundaries.
 
 The thumb displays the current/max preview value `210 / 350` through the new
-`Txt_InventoryCapacity` binding.
+`Txt_InventoryCapacity` binding. The value remains centered on the complete
+bar independently of the current-capacity fill.
 
 ## 6. Contextual tooltip placement
 
@@ -102,6 +106,7 @@ variant is centered at Y=365. The two-tooltip comparison layout remains at
 Y=60 and Y=530.
 
 View hides or restores all visible tooltip panels without changing focus.
+As a two-column grid-list prototype, 2-b starts with tooltips visible.
 
 ## 7. Validation checklist
 
@@ -111,6 +116,7 @@ View hides or restores all visible tooltip panels without changing focus.
 - Persistent group gaps are 150 px and 151 px.
 - Gear and Outfit slots are 72 x 72 px and their rails remain top-aligned.
 - The horizontal capacity indicator is inside the Inventory header.
+- Capacity text remains centered independently of the fill amount.
 - The fixed Vicinity line and Inventory bar are enclosed by their list borders
   and preserve item-row alignment.
 - Gear focus places both tooltip types at X=392.
@@ -118,9 +124,14 @@ View hides or restores all visible tooltip panels without changing focus.
 - Attachment or secondary focus places both tooltip types at X=902.
 - Normal and empty-slot tooltips are vertically centered.
 - Comparison tooltip Y positions remain unchanged.
+- Attachment list tiles do not display quantity badges.
 - Initial focus remains the first Vicinity item.
 - Left/Right navigation follows the visual order across the wider gaps.
 - View preserves focus while hiding or restoring tooltips.
 - All inherited item and attachment interactions remain functional.
+- Vicinity X never replaces an equipped attachment; occupied/off cases enter Inventory.
+- Inventory X retains replacement quick equip.
+- Menu toggles the Vicinity empty-slot convenience.
+- Replacing an equipped Throwable restores the previous item to Inventory.
 - All 30 UMG binding names, including `Txt_InventoryCapacity`, remain unique.
 - Browser console has no warnings or errors.
