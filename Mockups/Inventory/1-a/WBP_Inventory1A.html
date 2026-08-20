@@ -288,6 +288,7 @@
 
     #inventory-1a .tooltip-panel[hidden] { display:none; }
     #inventory-1a.tooltips-hidden .tooltip-panel { display:none; }
+    #inventory-1a.vicinity-tooltip-active .primary-tooltip { left:426px; }
     #inventory-1a.gear-tooltip-active .primary-tooltip { left:1309px; }
     #inventory-1a .tooltip-context { display:none; margin:0; font-size:14px; font-weight:700; color:#5a5a5a; }
     #inventory-1a .comparison-tooltip { top:60px; height:452px; }
@@ -499,7 +500,7 @@
     <section class="gear-region" data-umg-name="Box_GearAndOutfit">
       <h1 class="screen-title" data-umg-name="Txt_GearTitle">GEARS &amp; OUTFIT</h1>
       <div class="gear-layout">
-        <div class="gear-rail">
+        <div class="gear-rail equipment-rail">
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="헬멧 슬롯" data-item-type="장비 슬롯" data-silhouette="../assets/slot-helmet.svg"></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 배낭" data-item-type="장비" data-image="../assets/gear-backpack.png"><img src="../assets/gear-backpack.png" alt="3레벨 배낭"><span class="gear-level">Lv.3</span></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 조끼" data-item-type="장비" data-image="../assets/gear-vest.png"><img src="../assets/gear-vest.png" alt="3레벨 조끼"><span class="gear-level">Lv.3</span></button></div>
@@ -507,7 +508,7 @@
         <div class="character-preview" data-umg-name="Img_CharacterPreview">
           <img src="../assets/character.png" alt="Player character preview">
         </div>
-        <div class="gear-rail">
+        <div class="gear-rail outfit-rail">
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="모자 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-helmet.svg"></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="얼굴 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-face.svg"></button></div>
           <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="재킷 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-jacket.svg"></button></div>
@@ -937,6 +938,7 @@
         root.querySelectorAll('.confirm-equip-target').forEach((element) => element.classList.remove('confirm-equip-target'));
         root.querySelectorAll('.weapon-focused').forEach((element) => element.classList.remove('weapon-focused'));
         const context = itemContext(target);
+        root.classList.toggle('vicinity-tooltip-active', context === 'vicinity');
         root.classList.toggle('gear-tooltip-active', context === 'gear');
 
         if (target.matches('.tile-panel[tabindex="0"]')) {
@@ -1054,7 +1056,7 @@
       }
 
       function nearestGearSlot(current) {
-        const gearSlots = Array.from(root.querySelectorAll('.gear-region button:not(:disabled)'));
+        const gearSlots = Array.from(root.querySelectorAll('.equipment-rail button:not(:disabled)'));
         return nearestInDirection(current, 'right', gearSlots);
       }
 
@@ -1192,9 +1194,12 @@
           }
         }
 
-        const candidates = itemContext(current) === 'inventory'
+        let candidates = itemContext(current) === 'inventory'
           ? focusables.filter((candidate) => !candidate.dataset.secondarySlot)
           : focusables;
+        if (!current.closest('.gear-region')) {
+          candidates = candidates.filter((candidate) => !candidate.closest('.outfit-rail'));
+        }
         const next = nearestInDirection(current, direction, candidates);
         if (next) next.focus();
       }

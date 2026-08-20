@@ -45,11 +45,12 @@ logic. Attachment focus follows that visible grid: Left/Right moves within the
 current row, Up/Down moves within the current column, and vertical movement at
 a card edge continues in the same column of the next stacked card. Disabled
 cells are skipped vertically and block horizontal entry. Right from an enabled
-right-column attachment enters the nearest Gear/Outfit slot. Down from either
+right-column attachment enters the nearest Gear slot. Down from either
 lowermost enabled P1911 attachment enters Throwable. Up from either secondary
 slot returns to the most recently focused P1911 attachment, with the last
 enabled P1911 socket as the initial fallback. Right from Melee/Tool enters the
-nearest Gear/Outfit slot.
+nearest Gear slot. Any directional entry from outside Gear/Outfit excludes the
+Outfit rail until focus has first entered the Gear rail.
 
 M16, M249, and P1911 use their horizontal weapon exports, matching the live
 PUBG-style relationship of a socket grid on the left and a horizontal weapon
@@ -102,11 +103,10 @@ Layout placeholders are disabled and are not inventory or equipment data.
 Tooltips are hidden by default. View/V toggles the complete tooltip layer
 without moving focus or changing the placement state.
 
-Tooltip coordinates in this first pass are provisional. The normal/comparison
-layer begins at X=360, and Gear/Outfit focus moves the primary tooltip to
-X=1309 so the focused gear controls remain visible. These values are not an
-accepted design decision. They must be reviewed with the user after the first
-working run before being treated as production layout.
+Tooltip coordinates remain provisional. A normal Vicinity tooltip begins at
+X=426, directly against the right edge of the Vicinity panel. A normal Inventory
+tooltip and the comparison layout retain X=360. Gear/Outfit focus moves the
+primary tooltip to X=1309 so the focused gear controls remain visible.
 
 ## 5. UMG boundary
 
@@ -135,6 +135,7 @@ than moving with the current-capacity fill.
 - Initial focus remains the first Vicinity item.
 - Attachment Left/Right navigation follows rows; Up/Down follows columns across
   the vertically stacked cards. Right-edge attachments and Melee/Tool reach Gear,
+  never Outfit directly,
   both lowermost P1911 attachments reach Throwable, and both secondary slots move
   Up to the most recently focused P1911 attachment.
 - A left-column attachment with no enabled cell to its right also reaches Gear.

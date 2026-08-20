@@ -34,6 +34,10 @@ earlier 2-b prototypes:
 - Gear/Outfit, weapon, secondary-slot, and socket behavior; and
 - all previously recorded production deferments.
 
+Directional entry from any region outside Gear/Outfit must enter the Gear rail
+first. The Outfit rail is not an external-entry candidate and becomes eligible
+only after focus is already inside Gear/Outfit.
+
 The deprecated original `../2-b [Deprecated]/IMPLEMENTATION-SPEC.md` remains
 the detailed historical record for those mechanics. Layout and tooltip rules
 in this active document override it.
@@ -115,6 +119,7 @@ As a two-column grid-list prototype, 2-b starts with tooltips visible.
 - Weapons begin at X=1133 and remain fully inside the canvas.
 - Persistent group gaps are 150 px and 151 px.
 - Gear and Outfit slots are 72 x 72 px and their rails remain top-aligned.
+- Outside directional entry reaches Gear before Outfit.
 - The horizontal capacity indicator is inside the Inventory header.
 - Capacity text remains centered independently of the fill amount.
 - The fixed Vicinity line and Inventory bar are enclosed by their list borders

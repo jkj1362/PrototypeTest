@@ -2,7 +2,7 @@
 
 Status: accepted interactive HTML design prototype; manual controller acceptance pending
 
-Last updated: 2026-08-19
+Last updated: 2026-08-20
 
 ## 1. Purpose
 
@@ -112,6 +112,8 @@ Expansion and collapse use these deterministic recovery rules:
   moves to the first Gear slot (Helmet).
 - Collapse from an Outfit slot moves focus to the first Gear slot (Helmet).
 - Collapse preserves the focused Gear slot or any focus outside Outfit.
+- Directional entry from outside Gear/Outfit enters the Gear rail first; Outfit
+  is eligible only after focus is already inside the group.
 - Covered P1911 and secondary controls are removed from the active focus graph
   while expanded.
 - Sidearm-compatible attachment destinations are likewise unavailable while
@@ -189,6 +191,7 @@ Automated browser checks on 2026-08-12 confirmed:
   preserved;
 - firearm Up/Down movement wraps at rail boundaries;
 - P1911 -> Right -> Throwable -> Right -> Helmet works;
+- outside directional entry reaches Gear before Outfit;
 - Throwable -> Down -> Melee and Melee -> Up -> Throwable work;
 - secondary Up/Down movement wraps at column boundaries;
 - collapsed and expanded Gear rails, and the expanded Outfit rail, wrap at

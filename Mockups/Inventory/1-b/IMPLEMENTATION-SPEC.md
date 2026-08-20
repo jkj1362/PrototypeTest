@@ -56,6 +56,8 @@ Attachment navigation retains the visible 1-a grid:
 - Left from either secondary slot returns to the most recently focused firearm
   attachment, falling back to the first P1911 attachment.
 - Right from either secondary slot enters the first Gear slot.
+- Any directional entry from outside Gear/Outfit excludes the Outfit rail until
+  focus has first entered the Gear rail.
 
 When Gear is expanded, Right from a firearm edge enters Gear because the
 secondary column is covered and removed from the active focus graph.
@@ -94,7 +96,9 @@ All current 1-a behavior remains, including:
 - tooltips hidden by default and toggled by View/V; and
 - capacity text centered on the complete bar independently of fill.
 
-Tooltip positions remain provisional and inherit the 1-a first-pass values.
+Tooltip positions remain provisional. The normal Vicinity tooltip uses X=426
+at the Vicinity panel's right edge. Normal Inventory and attachment-comparison
+tooltips retain X=360; Gear/Outfit retains the inherited X=1309 position.
 
 ## 6. Bindable UMG API
 

@@ -79,6 +79,8 @@ Unlike 2-b, stack count `1` remains visible. The reusable row adds the binding
 - Up and Down move to the previous or next visible row in the current list.
 - Movement at the first or last row remains contained; 2-a does not loop.
 - The focused row is scrolled into view by native browser/ScrollBox behavior.
+- Directional entry from any region outside Gear/Outfit enters the Gear rail;
+  the Outfit rail becomes eligible only after focus is already inside the group.
 - Left and Right remain deliberate cross-region navigation using the inherited
   geometric focus engine.
 - Empty Vicinity or Inventory panels retain the inherited focusable-empty-list

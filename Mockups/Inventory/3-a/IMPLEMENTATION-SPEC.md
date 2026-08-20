@@ -2,7 +2,7 @@
 
 Status: first-milestone conservative interactive HTML prototype; manual controller acceptance pending
 
-Last updated: 2026-08-19
+Last updated: 2026-08-20
 
 ## 1. Purpose and naming
 
@@ -77,7 +77,8 @@ geometry rather than a two-column-wide card.
 All non-list focus rules remain exactly as documented for 3-b, except Right
 from either secondary slot—including Melee/Tool—moves to the first Gear slot
 (Helmet). Gear/Outfit collapse returns Outfit focus to Helmet while preserving
-any focused Gear slot or focus outside Outfit.
+any focused Gear slot or focus outside Outfit. Directional entry from outside
+Gear/Outfit excludes Outfit until focus has first entered the Gear rail.
 
 ## 5. Tooltip behavior
 
@@ -127,6 +128,7 @@ an API shared with its hand-written parent `UserWidget`.
 - List Left/Right transitions reach the expected neighboring region.
 - The collapsed and expanded Gear/Outfit states match 3-b behavior.
 - Right from both Throwable and Melee/Tool reaches Helmet.
+- Outside directional entry reaches Gear before Outfit.
 - Gear/Outfit collapse sends Outfit focus to Helmet and preserves Gear or
   outside focus.
 - Item mutation, attachment placement, and replacement rules remain functional.

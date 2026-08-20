@@ -1124,9 +1124,12 @@ function verticalColumnCandidates(current) {
           }
         }
 
-        const candidates = itemContext(current) === 'inventory'
+        let candidates = itemContext(current) === 'inventory'
           ? focusables.filter((candidate) => !candidate.dataset.secondarySlot)
           : focusables;
+        if (!current.closest('.gear-region')) {
+          candidates = candidates.filter((candidate) => !candidate.closest('.outfit-rail'));
+        }
         const next = nearestInDirection(current, direction, candidates);
         if (next) next.focus();
       }

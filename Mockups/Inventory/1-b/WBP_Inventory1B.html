@@ -334,6 +334,7 @@
 
     #inventory-1b .tooltip-panel[hidden] { display:none; }
     #inventory-1b.tooltips-hidden .tooltip-panel { display:none; }
+    #inventory-1b.vicinity-tooltip-active .primary-tooltip { left:426px; }
     #inventory-1b.gear-tooltip-active .primary-tooltip { left:1309px; }
     #inventory-1b .tooltip-context { display:none; margin:0; font-size:14px; font-weight:700; color:#5a5a5a; }
     #inventory-1b .comparison-tooltip { top:60px; height:452px; }
@@ -1042,6 +1043,7 @@
         root.querySelectorAll('.confirm-equip-target').forEach((element) => element.classList.remove('confirm-equip-target'));
         root.querySelectorAll('.weapon-focused').forEach((element) => element.classList.remove('weapon-focused'));
         const context = itemContext(target);
+        root.classList.toggle('vicinity-tooltip-active', context === 'vicinity');
         root.classList.toggle('gear-tooltip-active', context === 'gear');
 
         if (target.matches('.tile-panel[tabindex="0"]')) {
@@ -1304,9 +1306,12 @@
           }
         }
 
-        const candidates = itemContext(current) === 'inventory'
+        let candidates = itemContext(current) === 'inventory'
           ? focusables.filter((candidate) => !candidate.dataset.secondarySlot)
           : focusables;
+        if (!current.closest('.gear-region')) {
+          candidates = candidates.filter((candidate) => !candidate.closest('.outfit-rail'));
+        }
         const next = nearestInDirection(current, direction, candidates);
         if (next) next.focus();
       }

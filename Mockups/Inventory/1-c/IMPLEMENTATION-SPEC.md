@@ -72,7 +72,8 @@ firearm edges enter the nearest secondary slot, secondary Left returns to the
 latest firearm attachment, secondary Right enters Gear, and R/R3 toggles the
 drawer with deterministic focus recovery. Every successful collapse returns
 focus from Outfit to the first Gear slot (Helmet), while preserving any
-focused Gear slot or focus outside Outfit.
+focused Gear slot or focus outside Outfit. Directional entry from any outside
+region cannot jump directly into the Outfit rail; it enters the Gear rail first.
 
 Attachment groups remain packed against the top of each taller firearm card;
 only the cards themselves divide the 899 px weapon-column height proportionally.
