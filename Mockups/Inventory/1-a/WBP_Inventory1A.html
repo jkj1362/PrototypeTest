@@ -486,11 +486,9 @@
       height:1080px;
       pointer-events:none;
     }
-    #inventory-1a .connector-line { fill:none; stroke:#52e06f; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
-    #inventory-1a .connector-line.focused { stroke:#fff600; stroke-width:4; }
     #inventory-1a .socket-marker { fill:#acacac; stroke:#111111; stroke-width:1.5; }
-    #inventory-1a .socket-marker.compatible { fill:#52e06f; }
-    #inventory-1a .socket-marker.focused { fill:#fff600; stroke-width:2; }
+    #inventory-1a .socket-marker.compatible { fill:#64ff81; stroke:#f4fff6; stroke-width:3; }
+    #inventory-1a .socket-marker.focused { fill:#fff600; stroke:#fffde0; stroke-width:3; }
     #inventory-1a .weapon-card.weapon-dropped { opacity:0.38; }
   </style>
 </head>
@@ -845,7 +843,7 @@
             const marker = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
             marker.setAttribute('cx', point.x);
             marker.setAttribute('cy', point.y);
-            marker.setAttribute('r', '6');
+            marker.setAttribute('r', slot === focusedSlot ? '11' : slots.includes(slot) ? '10' : '6');
             marker.setAttribute('class', slot === focusedSlot
               ? 'socket-marker focused'
               : slots.includes(slot)
@@ -855,36 +853,6 @@
           });
         });
 
-        slots.forEach((slot) => {
-          if (slot.dataset.slotState === 'unavailable') return;
-          const weaponCard = slot.closest('[data-weapon-card]');
-          const point = socketPoint(weaponCard, slot.dataset.socket, rootRect, scale);
-          if (!point) return;
-
-          const slotRect = slot.getBoundingClientRect();
-          const x1 = (slotRect.right - rootRect.left) / scale;
-          const y1 = (slotRect.top + slotRect.height / 2 - rootRect.top) / scale;
-          const x2 = point.x;
-          const y2 = point.y;
-          const connector = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-          const horizontalDirection = x2 >= x1 ? 1 : -1;
-          const verticalDirection = y2 >= y1 ? 1 : -1;
-          const bendX = x1 + horizontalDirection * Math.min(22, Math.abs(x2 - x1) / 2);
-          const radius = Math.min(12, Math.abs(x2 - bendX) / 2, Math.abs(y2 - y1) / 2);
-          const path = radius < 1
-            ? 'M ' + x1 + ' ' + y1 + ' H ' + x2
-            : [
-                'M ' + x1 + ' ' + y1,
-                'H ' + (bendX - horizontalDirection * radius),
-                'Q ' + bendX + ' ' + y1 + ' ' + bendX + ' ' + (y1 + verticalDirection * radius),
-                'V ' + (y2 - verticalDirection * radius),
-                'Q ' + bendX + ' ' + y2 + ' ' + (bendX + horizontalDirection * radius) + ' ' + y2,
-                'H ' + x2
-              ].join(' ');
-          connector.setAttribute('d', path);
-          connector.setAttribute('class', slot === focusedSlot ? 'connector-line focused' : 'connector-line');
-          connectorLines.appendChild(connector);
-        });
       }
 
       function compatibleSlots(payload) {

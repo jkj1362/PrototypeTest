@@ -54,16 +54,14 @@ Outfit rail until focus has first entered the Gear rail.
 
 M16, M249, and P1911 use their horizontal weapon exports, matching the live
 PUBG-style relationship of a socket grid on the left and a horizontal weapon
-silhouette on the right. Persistent socket markers and active connector
-endpoints are mapped independently for each horizontal gun: M16 has Muzzle,
-Grip, Magazine, Scope, and Stock; M249 has Muzzle, Magazine, Scope, and Stock;
-P1911 has Muzzle, Magazine, and Scope. Unavailable sockets never create a
-marker or connector. Each active connector begins at the focused slot's own
-right edge. The root-level SVG is later in document order than the weapon rack,
-so a connector from a left-column slot remains visible above its neighboring
-right-column slot without introducing `z-index`. The P1911 render is deliberately
-smaller than both main firearms, and its socket markers are remapped to that
-smaller sidearm presentation.
+silhouette on the right. Socket markers are mapped independently for each gun:
+M16 has Muzzle, Grip, Magazine, Scope, and Stock; M249 has Muzzle, Magazine,
+Scope, and Stock; P1911 has Muzzle, Magazine, and Scope. Unavailable sockets do
+not create a marker. Interaction never draws slot-to-socket paths. Neutral
+markers remain 6 px gray circles; compatible markers brighten green and enlarge
+to 10 px; the focused socket brightens yellow and enlarges to 11 px. The P1911
+render remains deliberately smaller than both main firearms, with its markers
+remapped to that sidearm presentation.
 
 Gear/Outfit moves to the right edge. Helmet, backpack, and vest occupy the
 left rail; the six existing outfit slots occupy the right rail. Three disabled
@@ -128,8 +126,8 @@ than moving with the current-capacity fill.
 - Three weapon cards stack vertically and preserve all enabled socket actions.
 - All three guns render horizontally, with socket markers attached to the
   corresponding horizontal gun parts.
-- Compatibility and focused-slot connector lines begin at the actual source
-  cell, remain above neighboring cells, and terminate on those same markers.
+- Compatibility and focused-slot feedback enlarges and brightens the mapped
+  socket markers without drawing connector paths.
 - Disabled socket and gear placeholders never receive focus.
 - Gear/Outfit is right-aligned and existing enabled gear/outfit slots remain usable.
 - Initial focus remains the first Vicinity item.

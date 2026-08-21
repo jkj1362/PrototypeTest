@@ -90,7 +90,7 @@ All current 1-a behavior remains, including:
 - replaced Throwables returning to Inventory;
 - Vicinity X pickup with optional empty-slot quick equip, Inventory X quick
   equip with replacement, modal placement, comparison tooltips, detach/drop,
-  and connector feedback;
+  and socket-highlight feedback without connector paths;
 - gamepad Menu toggling the Vicinity convenience, enabled by default;
 - blocked Vicinity AUG equip simulation;
 - tooltips hidden by default and toggled by View/V; and
@@ -121,6 +121,8 @@ mutation, and gameplay behavior belong in the hand-written parent UserWidget.
 - Throwable and Melee/Tool form a separate vertical column beside the firearms.
 - Attachment-to-secondary, secondary-to-attachment, and secondary-to-Gear
   movement follow Section 3.
+- Attachment feedback brightens and enlarges mapped socket points without
+  drawing lines.
 - Default Gear state is collapsed; R/R3 expands and collapses it.
 - Expanded Gear covers only the secondary column.
 - Drawer focus recovery follows Section 4.

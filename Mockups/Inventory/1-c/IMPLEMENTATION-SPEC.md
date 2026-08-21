@@ -87,7 +87,7 @@ only the cards themselves divide the 899 px weapon-column height proportionally.
 - replaced Throwables returning to Inventory;
 - Vicinity X pickup with optional empty-slot quick equip, Inventory X quick
   equip with replacement, modal placement, comparison, detach/drop, and
-  connector feedback;
+  socket-highlight feedback without connector paths;
 - gamepad Menu toggling the Vicinity convenience, enabled by default;
 - blocked Vicinity AUG equip simulation;
 - tooltips visible by default in 1-c and toggled by View/V; and
@@ -114,6 +114,8 @@ hand-written parent UserWidget responsibilities are unchanged.
 - Expanded Gear covers only the secondary column.
 - Firearm and secondary columns fill the content area to Y=989.
 - Attachment rows remain gathered upward with no distributed vertical space.
+- Attachment feedback brightens and enlarges mapped socket points without
+  drawing lines.
 - Replaced Throwables return to Inventory.
 - Vicinity X never replaces an equipped attachment; occupied/off cases enter Inventory.
 - Inventory X retains replacement quick equip.
