@@ -45,4 +45,5 @@ GabrielOperation portability rule.
 |---|---|---|---|---|
 | 2026-08-11 | PUBG Console Inventory 2-b | [2026-08-11-Inventory-2-b.md](2026-08-11-Inventory-2-b.md) | [IMPLEMENTATION-SPEC.md](<../../Mockups/Inventory/2-b [Deprecated]/IMPLEMENTATION-SPEC.md>) | Superseded historical snapshot |
 | 2026-08-12 | PUBG Console Inventory next variation | [2026-08-12-Inventory-Next-Variation.md](2026-08-12-Inventory-Next-Variation.md) | [IMPLEMENTATION-SPEC.md](../../Mockups/Inventory/2-b/IMPLEMENTATION-SPEC.md) | Superseded; both proposed variations were built |
-| 2026-08-13 | PUBG Console Inventory prototype set | [2026-08-13-Inventory-Prototype-Set.md](2026-08-13-Inventory-Prototype-Set.md) | [IMPLEMENTATION-SPEC.md](../../Mockups/Inventory/2-b/IMPLEMENTATION-SPEC.md) | Active; choose comparison, controller acceptance, or Unreal implementation |
+| 2026-08-13 | PUBG Console Inventory prototype set | [2026-08-13-Inventory-Prototype-Set.md](2026-08-13-Inventory-Prototype-Set.md) | [IMPLEMENTATION-SPEC.md](../../Mockups/Inventory/2-b/IMPLEMENTATION-SPEC.md) | Superseded by the first-milestone suite handoff |
+| 2026-08-21 | PUBG Console Inventory first milestone | [2026-08-21-Inventory-First-Milestone.md](2026-08-21-Inventory-First-Milestone.md) | Per-prototype specs (see handoff) | Active; resolve folder reorganization, then define the second run |

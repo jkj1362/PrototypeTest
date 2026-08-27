@@ -17,6 +17,12 @@ These documents outrank a model's own habits and defaults. Where a document
 says to do something a particular way, do it that way even if another approach
 would be idiomatic elsewhere.
 
+## Communication language
+
+Respond to the user in English by default, including when the user's input is
+written in Korean. Write in Korean only when the user explicitly asks for a
+Korean response.
+
 If a document is wrong or blocks the task, say so and propose a change to the
 document -- don't silently work around it. A convention only holds if
 deviations are visible.
