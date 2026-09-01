@@ -2,7 +2,10 @@
 
 Status: interactive second-run prototype; manual controller acceptance pending
 
-Last updated: 2026-08-27
+Last updated: 2026-09-01
+
+Shared behavior authority: `../README.md`. This file records 4-a-specific
+layout and navigation overrides.
 
 ## 1. Purpose and authority
 
@@ -109,7 +112,10 @@ tooltips retain the anchor of the original attachment source for the complete
 placement state. A Vicinity source uses X=340, an Inventory source uses X=123,
 and an occupied weapon-slot source uses X=462. Moving focus among destination
 slots does not change that source anchor. Confirmation or cancellation clears
-the source state and restores normal context-based positioning.
+the source state and restores normal context-based positioning. The selected
+attachment keeps its natural content-driven height, and the target-slot
+tooltip is placed 18 px beneath it; the pair shifts upward together only when
+needed to stay above the controller guide.
 
 ## 7. Bindable UMG API
 
@@ -125,11 +131,12 @@ parent UserWidget.
 Figma node `468:2072` is a component-treatment reference only. Its 5-a frame
 must not become a separate prototype or replace 4-a's layout.
 
-- Vicinity and Inventory use colored category markers with a continuous rail:
+- Vicinity and Inventory use colored category markers with independent rails:
   green Recovery/Boost, red Throwable, ochre Ammunition, blue Attachment, and
   purple Weapon.
 - Rail markers are regenerated after pickup, drop, stacking, and category
-  compaction, so the icon remains on the first visible item in each category.
+  compaction, so one color-only marker remains above the first visible item in
+  each category.
 - Tooltips use the reference's dark panel, white border, icon-plus-category
   row, large item art, and concise effect lines with green values.
 - A 3 px divider plus the two native 8 px row gaps creates a 19 px category
@@ -157,7 +164,7 @@ must not become a separate prototype or replace 4-a's layout.
 Automated and browser checks on 2026-08-21 confirmed:
 
 - inline JavaScript parses and all local asset references resolve;
-- all 35 UMG binding names are unique;
+- all 37 UMG binding names are unique;
 - the default state is collapsed and expansion shows nine visible, focusable
   Outfit slots;
 - collapse from the final Outfit slot recovers focus to Helmet;

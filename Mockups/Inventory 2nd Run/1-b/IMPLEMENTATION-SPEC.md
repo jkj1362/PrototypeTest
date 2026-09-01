@@ -2,7 +2,10 @@
 
 Status: second-run interactive baseline; layout and controller review pending
 
-Last updated: 2026-08-21
+Last updated: 2026-09-01
+
+Shared behavior authority: `../README.md`. This file records 1-b-specific
+layout and navigation overrides.
 
 ## 1. Purpose and authority
 
@@ -101,13 +104,17 @@ All current 1-a behavior remains, including:
   equip with replacement, modal placement, comparison tooltips, detach/drop,
   and socket-highlight feedback without connector paths;
 - gamepad Menu toggling the Vicinity convenience, enabled by default;
-- blocked Vicinity AUG equip simulation;
+- shared Vicinity weapon switching: X swaps with primary slot 1, while A
+  selects primary slot 1 or 2 without changing that slot's attachments;
 - tooltips hidden by default and toggled by View/V; and
 - capacity text centered on the complete bar independently of fill.
 
-Tooltip positions remain provisional. The normal Vicinity tooltip uses X=426
+Tooltip positions are context-specific. The normal Vicinity tooltip uses X=426
 at the Vicinity panel's right edge. Normal Inventory and attachment-comparison
 tooltips retain X=360; Gear/Outfit retains the inherited X=1309 position.
+Tooltip height is content-driven. Same-corridor comparison panels form a
+vertical stack with an 18 px gap and move upward together if their natural
+combined height approaches the controller guide.
 
 ## 6. Bindable UMG API
 
@@ -130,8 +137,8 @@ mutation, and gameplay behavior belong in the hand-written parent UserWidget.
 Figma node `468:2072` is a component-treatment reference only. Its 5-a frame
 does not define a new prototype layout.
 
-- Vicinity and Inventory categories use a 10 px solid-color marker and a
-  continuous vertical rail: green Recovery/Boost, red Throwable, ochre
+- Vicinity and Inventory categories use 10 px solid-color markers and
+  independent category rails: green Recovery/Boost, red Throwable, ochre
   Ammunition, blue Attachment, and purple Weapon.
 - Pickup, drop, stacking, and compaction regenerate the rails so each populated
   category retains exactly one marker on its first visible item.

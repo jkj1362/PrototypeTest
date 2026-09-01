@@ -1289,6 +1289,7 @@ function verticalColumnCandidates(current) {
       }
 
       function moveFocus(direction) {
+        if (window.InventoryWeaponSwitch?.moveFocus(root, direction)) return;
         const focusables = currentFocusables();
         const current = document.activeElement instanceof HTMLElement && root.contains(document.activeElement)
           ? document.activeElement
@@ -1863,6 +1864,7 @@ function verticalColumnCandidates(current) {
       }
 
       function handleAction(action) {
+        if (window.InventoryWeaponSwitch?.handleAction(root, action)) return;
         if (pendingAttachment && action !== 'select' && action !== 'back') {
           message.textContent = '슬롯을 선택하거나 B를 눌러 취소하세요';
           return;
@@ -2036,5 +2038,6 @@ function verticalColumnCandidates(current) {
       requestAnimationFrame(pollGamepad);
     }());
   </script>
+  <script src="../shared/weapon-switch.js"></script>
 </body>
 </html>

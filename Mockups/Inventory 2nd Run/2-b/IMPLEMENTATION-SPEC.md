@@ -2,7 +2,10 @@
 
 Status: second-run interactive prototype; browser visual and controller-navigation QA passed
 
-Last updated: 2026-08-27
+Last updated: 2026-08-31
+
+Shared behavior authority: `../README.md`. This file records 2-b-specific
+layout and navigation overrides.
 
 ## 1. Purpose and authority
 
@@ -38,8 +41,10 @@ Grid-list tooltips are visible by default and remain toggleable with View/V.
 - Normal list tooltip: X=470, Y=392.
 - Attachment-slot tooltip: X=680, Y=392.
 - Gear/Outfit tooltip: X=1191, Y=421.
-- List-origin comparison panels: X=470, Y=297 and Y=529.
-- Weapon-slot-origin comparison panels: X=680; vertical positions reflow from Y=297 according to panel content.
+- List-origin comparison panels: X=470; the selected item starts from base
+  Y=297 and the target slot follows 18 px beneath its natural-height panel.
+- Weapon-slot-origin comparison panels: X=680 with the same content-driven
+  vertical stack.
 
 These anchors reproduce the five supplied Figma cases. The two comparison
 panels stay in one vertical stack and follow the source attachment context.

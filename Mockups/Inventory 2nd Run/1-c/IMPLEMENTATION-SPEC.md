@@ -2,7 +2,10 @@
 
 Status: second-run interactive baseline; layout and controller review pending
 
-Last updated: 2026-08-21
+Last updated: 2026-09-01
+
+Shared behavior authority: `../README.md`. This file records 1-c-specific
+layout and navigation overrides.
 
 ## 1. Purpose and authority
 
@@ -40,13 +43,15 @@ prototype remains structurally portable to a native UMG WrapBox.
 
 Vicinity ends at X=262 and Inventory begins at X=516, leaving 254 px between
 them. Inventory ends at X=736, leaving 253 px before Weapons at X=989. The
-divider sits at X=388. The provisional 225 px list tooltip is centered inside
+divider sits at X=388. The 225 px-wide list tooltip is centered inside
 the first gap at X=277 and does not overlap either list. Attachment-slot and
 Gear/Outfit focus move the primary tooltip to X=756, inside the second gap and
 8 px left of the Weapon region. During attachment comparison, the selected
 loose attachment remains at X=277 while the target-slot tooltip remains at
-X=756; both retain their normal vertically centered position instead of
-forming a vertical stack.
+X=756. This layout intentionally keeps the pair side by side rather than in a
+vertical stack. Both panels retain natural content-driven height, align to the
+same computed top, and shift together only when required to stay above the
+controller guide.
 
 ## 3. Grid navigation and mutation
 
@@ -96,11 +101,12 @@ only the cards themselves divide the 899 px weapon-column height proportionally.
   equip with replacement, modal placement, comparison, detach/drop, and
   socket-highlight feedback without connector paths;
 - gamepad Menu toggling the Vicinity convenience, enabled by default;
-- blocked Vicinity AUG equip simulation;
+- shared Vicinity weapon switching: X swaps with primary slot 1, while A
+  selects primary slot 1 or 2 without changing that slot's attachments;
 - tooltips visible by default in 1-c and toggled by View/V; and
 - the smaller P1911 image treatment.
 
-Tooltip positions remain provisional and are intentionally context-sensitive.
+Tooltip positions are intentionally context-sensitive.
 
 ## 6. Bindable UMG API
 
@@ -168,11 +174,12 @@ does not define a new prototype layout.
 - Tooltips are visible on entry and remain toggleable with View/V.
 - Attachment and Gear/Outfit tooltips occupy the Inventory-to-Weapons gap.
 - Comparison keeps the selected loose attachment in the list gap and the
-  target-slot tooltip in the equipment gap, with both vertically centered.
+  target-slot tooltip in the equipment gap, aligned side by side at their
+  computed top.
 - Attachment list tiles do not display quantity badges.
 - Both grid lists expose one marker per populated category, and rail state
   remains correct after category compaction.
 - Attachment tooltips show the blue Attachment badge and concise effect rows.
-- All 34 `data-umg-name` values are unique.
+- All 36 `data-umg-name` values are unique.
 - No media query, CSS grid, z-index, transform, or non-root absolute child is introduced.
 - Browser console has no errors.

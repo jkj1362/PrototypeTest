@@ -2,7 +2,10 @@
 
 Status: second-run conservative interactive baseline; manual controller acceptance pending
 
-Last updated: 2026-08-27
+Last updated: 2026-09-01
+
+Shared behavior authority: `../README.md`. This file records 3-a-specific
+layout and navigation overrides.
 
 ## 1. Purpose and naming
 
@@ -35,7 +38,8 @@ This includes:
 - conditional Vicinity empty-slot quick equip and the Menu toggle;
 - Inventory replacement quick equip;
 - attachment placement, comparison, socket connectors, detach, and drop;
-- blocked Vicinity AUG equip simulation;
+- shared Vicinity weapon switching through X quick-swap or A-based primary
+  slot selection, with attachment composition preserved per destination slot;
 - tooltip visibility controlled by View, with one-column text-list tooltips
   hidden by default;
 - collapsed/expanded Gear and Outfit behavior controlled by R3;
@@ -96,8 +100,9 @@ without changing focus.
 When a normal Vicinity or Inventory item has focus, the primary tooltip moves
 to X=704, immediately right of the 324 px Inventory list. Normal equipment
 tooltips keep the inherited X=504 position. Attachment comparison remains
-unchanged: both comparison panels stay at X=504, with the selected attachment
-at Y=60 and target slot at Y=530.
+at X=504. The selected attachment begins from base Y=60, the target-slot
+tooltip follows 18 px below its natural-height panel, and the pair shifts
+upward together when required to avoid the controller guide.
 
 ## 6. Bindable UMG API
 
@@ -168,7 +173,8 @@ envelope would overlap the attachment chain.
 - Capacity text remains centered independently of fill amount.
 - Tooltips are hidden on entry and remain toggleable with View.
 - Normal Vicinity/Inventory tooltips use X=704; equipment tooltips use X=504.
-- Comparison tooltips retain X=504 and their existing stacked Y positions.
+- Comparison tooltips retain X=504 and use a content-driven 18 px vertical
+  stack rather than fixed Y positions.
 - List Up/Down movement is linear and non-looping.
 - List Left/Right transitions reach the expected neighboring region.
 - The collapsed and expanded Gear/Outfit states match 3-b behavior.

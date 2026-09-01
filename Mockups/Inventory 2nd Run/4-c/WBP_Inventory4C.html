@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=1920, initial-scale=1">
-  <title>PUBG Console Inventory 2-b</title>
+  <title>PUBG Console Inventory 4-c Diagonal Weapon Rack</title>
   <style>
     * { box-sizing:border-box; }
     body { margin:0; background-color:#2c2c2c; overflow:hidden; }
@@ -16,7 +16,7 @@
       background-color:#2c2c2c;
     }
 
-    #inventory-1b {
+    #inventory-4c {
       position:relative;
       width:1920px;
       height:1080px;
@@ -26,7 +26,7 @@
       background-color:#2c2c2c;
     }
 
-    #inventory-1b .screen-title {
+    #inventory-4c .screen-title {
       margin:0;
       height:54px;
       font-family:"PUBG Headline", "Arial Narrow", Arial, sans-serif;
@@ -36,7 +36,7 @@
       color:#ffffff;
     }
 
-    #inventory-1b .gear-region {
+    #inventory-4c .gear-region {
       position:absolute;
       left:1515px;
       top:38px;
@@ -46,14 +46,14 @@
       flex-direction:column;
     }
 
-    #inventory-1b .gear-region.collapsed {
+    #inventory-4c .gear-region.collapsed {
       left:1776px;
       top:280px;
       width:112px;
       height:470px;
     }
 
-    #inventory-1b .gear-layout {
+    #inventory-4c .gear-layout {
       width:100%;
       height:100%;
       padding:6px;
@@ -65,8 +65,8 @@
       background-color:#2c2c2c;
     }
 
-    #inventory-1b .equipment-column,
-    #inventory-1b .outfit-column {
+    #inventory-4c .equipment-column,
+    #inventory-4c .outfit-column {
       width:90px;
       display:flex;
       flex-direction:column;
@@ -74,9 +74,9 @@
       gap:8px;
     }
 
-    #inventory-1b .drawer-title { margin:0; height:34px; font-size:24px; line-height:34px; }
+    #inventory-4c .drawer-title { margin:0; height:34px; font-size:24px; line-height:34px; }
 
-    #inventory-1b .gear-rail {
+    #inventory-4c .gear-rail {
       width:90px;
       display:flex;
       flex-direction:column;
@@ -84,10 +84,10 @@
       gap:18px;
     }
 
-    #inventory-1b .gear-rail-spacer { width:1px; height:14px; flex:0 0 14px; }
-    #inventory-1b .gear-rail-large-spacer { width:1px; height:33px; flex:0 0 33px; }
+    #inventory-4c .gear-rail-spacer { width:1px; height:14px; flex:0 0 14px; }
+    #inventory-4c .gear-rail-large-spacer { width:1px; height:33px; flex:0 0 33px; }
 
-    #inventory-1b .character-preview {
+    #inventory-4c .character-preview {
       width:167px;
       height:956px;
       display:flex;
@@ -97,14 +97,14 @@
       overflow:hidden;
     }
 
-    #inventory-1b .character-preview img {
+    #inventory-4c .character-preview img {
       width:167px;
       height:956px;
       object-fit:cover;
       object-position:center bottom;
     }
 
-    #inventory-1b .gear-slot {
+    #inventory-4c .gear-slot {
       width:75px;
       height:75px;
       padding:4px;
@@ -117,11 +117,11 @@
       color:#ffffff;
     }
 
-    #inventory-1b .gear-slot img { width:63px; height:63px; object-fit:contain; }
-    #inventory-1b .gear-slot .gear-level { margin-top:-18px; align-self:flex-end; font-size:16px; }
-    #inventory-1b .gear-slot.layout-placeholder { border-color:#d8d8d8; background-color:#5d5d5d; opacity:1; }
+    #inventory-4c .gear-slot img { width:63px; height:63px; object-fit:contain; }
+    #inventory-4c .gear-slot .gear-level { margin-top:-18px; align-self:flex-end; font-size:16px; }
+    #inventory-4c .gear-slot.layout-placeholder { border-color:#d8d8d8; background-color:#5d5d5d; opacity:1; }
 
-    #inventory-1b .gear-toggle {
+    #inventory-4c .gear-toggle {
       width:75px;
       height:72px;
       margin-top:12px;
@@ -138,13 +138,13 @@
       font-weight:700;
     }
 
-    #inventory-1b .gear-toggle img { width:30px; height:30px; object-fit:contain; }
-    #inventory-1b .gear-region.collapsed .character-preview,
-    #inventory-1b .gear-region.collapsed .outfit-column { display:none; }
-    #inventory-1b .gear-region.collapsed .gear-layout { padding:7px; }
-    #inventory-1b .gear-region.collapsed .equipment-column { width:96px; }
+    #inventory-4c .gear-toggle img { width:30px; height:30px; object-fit:contain; }
+    #inventory-4c .gear-region.collapsed .character-preview,
+    #inventory-4c .gear-region.collapsed .outfit-column { display:none; }
+    #inventory-4c .gear-region.collapsed .gear-layout { padding:7px; }
+    #inventory-4c .gear-region.collapsed .equipment-column { width:96px; }
 
-    #inventory-1b .region-divider {
+    #inventory-4c .region-divider {
       position:absolute;
       left:509px;
       top:68px;
@@ -153,7 +153,7 @@
       background-color:#8e8e8e;
     }
 
-    #inventory-1b .vicinity-region {
+    #inventory-4c .vicinity-region {
       position:absolute;
       left:42px;
       top:37px;
@@ -163,7 +163,7 @@
       flex-direction:column;
     }
 
-    #inventory-1b .inventory-region {
+    #inventory-4c .inventory-region {
       position:absolute;
       left:593px;
       top:37px;
@@ -173,7 +173,7 @@
       flex-direction:column;
     }
 
-    #inventory-1b .tile-panel {
+    #inventory-4c .tile-panel {
       flex:1;
       padding:1px 10px 6px;
       display:flex;
@@ -191,9 +191,9 @@
       scrollbar-width:none;
     }
 
-    #inventory-1b .tile-panel::-webkit-scrollbar { display:none; }
+    #inventory-4c .tile-panel::-webkit-scrollbar { display:none; }
 
-    #inventory-1b .list-header {
+    #inventory-4c .list-header {
       width:384px;
       height:68px;
       flex:0 0 68px;
@@ -208,7 +208,7 @@
       background-color:transparent;
     }
 
-    #inventory-1b .vicinity-region .list-header {
+    #inventory-4c .vicinity-region .list-header {
       width:384px;
       height:0;
       flex:0 0 0;
@@ -217,12 +217,12 @@
       border:0;
     }
 
-    #inventory-1b .vicinity-region .tile-panel {
+    #inventory-4c .vicinity-region .tile-panel {
       padding-top:10px;
       border-top:1px solid #d9d9d9;
     }
 
-    #inventory-1b .item-widget {
+    #inventory-4c .item-widget {
       width:364px;
       height:90px;
       flex:0 0 90px;
@@ -230,7 +230,7 @@
       flex-direction:column;
     }
 
-    #inventory-1b .item-tile {
+    #inventory-4c .item-tile {
       width:364px;
       height:90px;
       padding:3px;
@@ -244,8 +244,8 @@
       cursor:pointer;
     }
 
-    #inventory-1b .item-tile.empty { background-color:#323232; cursor:default; }
-    #inventory-1b .item-icon {
+    #inventory-4c .item-tile.empty { background-color:#323232; cursor:default; }
+    #inventory-4c .item-icon {
       width:90px;
       height:84px;
       flex:0 0 90px;
@@ -254,7 +254,7 @@
       background-position:center;
       background-size:contain;
     }
-    #inventory-1b .item-name {
+    #inventory-4c .item-name {
       height:84px;
       flex:1;
       padding:8px;
@@ -267,7 +267,7 @@
       line-height:24px;
       text-align:left;
     }
-    #inventory-1b .item-count {
+    #inventory-4c .item-count {
       width:30px;
       height:84px;
       flex:0 0 30px;
@@ -279,14 +279,14 @@
       font-weight:700;
     }
 
-    #inventory-1b .category-divider {
+    #inventory-4c .category-divider {
       width:364px;
       height:3px;
       flex:0 0 3px;
       background-color:#999999;
     }
 
-    #inventory-1b .wide-item-widget {
+    #inventory-4c .wide-item-widget {
       width:364px;
       height:90px;
       flex:0 0 90px;
@@ -294,9 +294,9 @@
       flex-direction:column;
     }
 
-    #inventory-1b .wide-item-widget .item-tile { width:364px; height:90px; }
+    #inventory-4c .wide-item-widget .item-tile { width:364px; height:90px; }
 
-    #inventory-1b .scroll-indicator {
+    #inventory-4c .scroll-indicator {
       width:364px;
       height:30px;
       padding:3px;
@@ -307,17 +307,17 @@
       background-color:#d9d9d9;
     }
 
-    #inventory-1b .scroll-thumb { width:354px; height:20px; display:flex; justify-content:center; align-items:center; background-image:linear-gradient(to right,#696969 0 60%,transparent 60% 100%); }
-    #inventory-1b .capacity-value { color:#ffffff; font-size:14px; font-weight:700; line-height:20px; white-space:nowrap; }
+    #inventory-4c .scroll-thumb { width:354px; height:20px; display:flex; justify-content:center; align-items:center; background-image:linear-gradient(to right,#696969 0 60%,transparent 60% 100%); }
+    #inventory-4c .capacity-value { color:#ffffff; font-size:14px; font-weight:700; line-height:20px; white-space:nowrap; }
 
-    #inventory-1b .vicinity-header-line {
+    #inventory-4c .vicinity-header-line {
       width:364px;
       height:3px;
       display:none;
       background-color:#999999;
     }
 
-    #inventory-1b .tooltip-panel {
+    #inventory-4c .tooltip-panel {
       position:absolute;
       left:360px;
       top:285px;
@@ -332,30 +332,30 @@
       color:#191919;
     }
 
-    #inventory-1b .tooltip-panel[hidden] { display:none; }
-    #inventory-1b.tooltips-hidden .tooltip-panel { display:none; }
-    #inventory-1b.vicinity-tooltip-active .primary-tooltip { left:426px; }
-    #inventory-1b.gear-tooltip-active .primary-tooltip { left:1309px; }
-    #inventory-1b .tooltip-context { display:none; margin:0; font-size:14px; font-weight:700; color:#5a5a5a; }
-    #inventory-1b .comparison-tooltip { top:60px; height:auto; }
-    #inventory-1b.comparison-active .primary-tooltip { top:530px; height:auto; }
-    #inventory-1b.comparison-active .tooltip-panel { gap:8px; }
-    #inventory-1b.comparison-active .tooltip-context { display:block; }
-    #inventory-1b.comparison-active .tooltip-image { height:165px; }
-    #inventory-1b.comparison-active .tooltip-description { font-size:17px; line-height:23px; }
-    #inventory-1b.comparison-active .tooltip-action { gap:5px; font-size:15px; }
-    #inventory-1b.comparison-active .tooltip-action-key { width:26px; height:26px; }
-    #inventory-1b .tooltip-panel.empty-slot { height:auto; }
-    #inventory-1b.comparison-active .tooltip-panel.empty-slot { height:auto; }
-    #inventory-1b .tooltip-panel.empty-slot .tooltip-image { opacity:0.58; }
-    #inventory-1b .tooltip-panel.empty-slot .tooltip-description,
-    #inventory-1b .tooltip-panel.empty-slot .tooltip-meta { display:none; }
-    #inventory-1b .tooltip-title { margin:0; font-size:25px; font-weight:700; line-height:30px; }
-    #inventory-1b .tooltip-type { margin:0; font-size:17px; color:#4d4d4d; }
-    #inventory-1b .tooltip-image { width:185px; height:165px; align-self:center; object-fit:contain; }
-    #inventory-1b .tooltip-description { margin:0; font-size:17px; line-height:23px; }
-    #inventory-1b .tooltip-meta { display:flex; flex-direction:row; justify-content:space-between; font-size:16px; }
-    #inventory-1b .tooltip-actions {
+    #inventory-4c .tooltip-panel[hidden] { display:none; }
+    #inventory-4c.tooltips-hidden .tooltip-panel { display:none; }
+    #inventory-4c.vicinity-tooltip-active .primary-tooltip { left:426px; }
+    #inventory-4c.gear-tooltip-active .primary-tooltip { left:1309px; }
+    #inventory-4c .tooltip-context { display:none; margin:0; font-size:14px; font-weight:700; color:#5a5a5a; }
+    #inventory-4c .comparison-tooltip { top:var(--comparison-selected-top, 60px); height:auto; }
+    #inventory-4c.comparison-active .primary-tooltip { top:var(--comparison-primary-top, 530px); height:auto; }
+    #inventory-4c.comparison-active .tooltip-panel { gap:8px; }
+    #inventory-4c.comparison-active .tooltip-context { display:block; }
+    #inventory-4c.comparison-active .tooltip-image { height:165px; }
+    #inventory-4c.comparison-active .tooltip-description { font-size:17px; line-height:23px; }
+    #inventory-4c.comparison-active .tooltip-action { gap:5px; font-size:15px; }
+    #inventory-4c.comparison-active .tooltip-action-key { width:26px; height:26px; }
+    #inventory-4c .tooltip-panel.empty-slot { height:auto; }
+    #inventory-4c.comparison-active .tooltip-panel.empty-slot { height:auto; }
+    #inventory-4c .tooltip-panel.empty-slot .tooltip-image { opacity:0.58; }
+    #inventory-4c .tooltip-panel.empty-slot .tooltip-description,
+    #inventory-4c .tooltip-panel.empty-slot .tooltip-meta { display:none; }
+    #inventory-4c .tooltip-title { margin:0; font-size:25px; font-weight:700; line-height:30px; }
+    #inventory-4c .tooltip-type { margin:0; font-size:17px; color:#4d4d4d; }
+    #inventory-4c .tooltip-image { width:185px; height:165px; align-self:center; object-fit:contain; }
+    #inventory-4c .tooltip-description { margin:0; font-size:17px; line-height:23px; }
+    #inventory-4c .tooltip-meta { display:flex; flex-direction:row; justify-content:space-between; font-size:16px; }
+    #inventory-4c .tooltip-actions {
       margin-top:auto;
       padding-top:8px;
       display:flex;
@@ -364,12 +364,12 @@
       gap:8px;
       border-top:2px solid #4c4c4c;
     }
-    #inventory-1b .tooltip-actions:empty { display:none; }
-    #inventory-1b .tooltip-action { display:flex; flex-direction:row; align-items:center; gap:5px; font-size:15px; font-weight:700; }
-    #inventory-1b .tooltip-action-key { width:26px; height:26px; display:flex; justify-content:center; align-items:center; border:2px solid #191919; border-radius:50%; }
-    #inventory-1b .tooltip-hold-label { padding:1px 4px; border:1px solid #191919; font-size:11px; }
+    #inventory-4c .tooltip-actions:empty { display:none; }
+    #inventory-4c .tooltip-action { display:flex; flex-direction:row; align-items:center; gap:5px; font-size:15px; font-weight:700; }
+    #inventory-4c .tooltip-action-key { width:26px; height:26px; display:flex; justify-content:center; align-items:center; border:2px solid #191919; border-radius:50%; }
+    #inventory-4c .tooltip-hold-label { padding:1px 4px; border:1px solid #191919; font-size:11px; }
 
-    #inventory-1b .weapon-region {
+    #inventory-4c .weapon-region {
       position:absolute;
       left:989px;
       top:90px;
@@ -380,9 +380,9 @@
       gap:8px;
     }
 
-    #inventory-1b .weapon-row { width:518px; height:899px; display:flex; flex-direction:column; gap:12px; }
+    #inventory-4c .weapon-row { width:518px; height:899px; display:flex; flex-direction:column; gap:12px; }
 
-    #inventory-1b .weapon-widget {
+    #inventory-4c .weapon-widget {
       flex:1;
       width:518px;
       height:auto;
@@ -393,7 +393,7 @@
       background-color:transparent;
     }
 
-    #inventory-1b .weapon-card {
+    #inventory-4c .weapon-card {
       flex:1;
       padding:0;
       display:flex;
@@ -403,22 +403,22 @@
       background-color:#474747;
     }
 
-    #inventory-1b .weapon-card.held { background-color:#808080; }
-    #inventory-1b .weapon-details { flex:1; height:auto; padding:3px 6px; display:flex; flex-direction:column; gap:2px; overflow:hidden; }
-    #inventory-1b .weapon-heading { height:26px; flex:0 0 26px; display:flex; flex-direction:row; align-items:center; gap:6px; }
-    #inventory-1b .weapon-name { margin:0; font-size:20px; font-weight:700; }
-    #inventory-1b .weapon-class { padding:1px 4px; font-size:12px; font-weight:700; background-color:#080808; }
-    #inventory-1b .held-label { margin-left:auto; font-size:11px; font-weight:700; }
-    #inventory-1b .ammo-row { height:28px; flex:0 0 28px; display:flex; flex-direction:row; align-items:center; gap:3px; }
-    #inventory-1b .ammo-loaded { font-size:20px; font-weight:700; }
-    #inventory-1b .ammo-reserve { padding-top:4px; font-size:11px; color:#c8c8c8; }
-    #inventory-1b .ammo-icon { width:28px; height:28px; object-fit:contain; }
-    #inventory-1b .ammo-type { padding:1px 3px; font-size:12px; font-weight:700; background-color:#159431; }
-    #inventory-1b .ammo-type.nine { background-color:#b12b2b; }
+    #inventory-4c .weapon-card.held { background-color:#808080; }
+    #inventory-4c .weapon-details { flex:1; height:auto; padding:3px 6px; display:flex; flex-direction:column; gap:2px; overflow:hidden; }
+    #inventory-4c .weapon-heading { height:26px; flex:0 0 26px; display:flex; flex-direction:row; align-items:center; gap:6px; }
+    #inventory-4c .weapon-name { margin:0; font-size:20px; font-weight:700; }
+    #inventory-4c .weapon-class { padding:1px 4px; font-size:12px; font-weight:700; background-color:#080808; }
+    #inventory-4c .held-label { margin-left:auto; font-size:11px; font-weight:700; }
+    #inventory-4c .ammo-row { height:28px; flex:0 0 28px; display:flex; flex-direction:row; align-items:center; gap:3px; }
+    #inventory-4c .ammo-loaded { font-size:20px; font-weight:700; }
+    #inventory-4c .ammo-reserve { padding-top:4px; font-size:11px; color:#c8c8c8; }
+    #inventory-4c .ammo-icon { width:28px; height:28px; object-fit:contain; }
+    #inventory-4c .ammo-type { padding:1px 3px; font-size:12px; font-weight:700; background-color:#159431; }
+    #inventory-4c .ammo-type.nine { background-color:#b12b2b; }
 
-    #inventory-1b .weapon-body { flex:1; display:flex; flex-direction:row; gap:8px; overflow:hidden; }
-    #inventory-1b .attachment-rail { width:138px; height:auto; flex:0 0 138px; display:flex; flex-direction:row; flex-wrap:wrap; align-content:flex-start; gap:2px; }
-    #inventory-1b .attachment-slot {
+    #inventory-4c .weapon-body { flex:1; display:flex; flex-direction:row; gap:8px; overflow:hidden; }
+    #inventory-4c .attachment-rail { width:138px; height:auto; flex:0 0 138px; display:flex; flex-direction:row; flex-wrap:wrap; align-content:flex-start; gap:2px; }
+    #inventory-4c .attachment-slot {
       width:68px;
       height:68px;
       padding:3px;
@@ -430,20 +430,20 @@
       background-color:#3c3c3c;
       color:#ffffff;
     }
-    #inventory-1b .attachment-slot img { width:60px; height:60px; object-fit:contain; opacity:0.72; }
-    #inventory-1b .attachment-slot.unavailable {
+    #inventory-4c .attachment-slot img { width:60px; height:60px; object-fit:contain; opacity:0.72; }
+    #inventory-4c .attachment-slot.unavailable {
       border-color:#666666;
       background-color:#242424;
       opacity:0.55;
       cursor:default;
     }
-    #inventory-1b .attachment-slot[data-slot-state="occupied"] img { opacity:1; }
-    #inventory-1b .attachment-slot.placement-inactive {
+    #inventory-4c .attachment-slot[data-slot-state="occupied"] img { opacity:1; }
+    #inventory-4c .attachment-slot.placement-inactive {
       border-color:#484848;
       background-color:#181818;
       opacity:0.16;
     }
-    #inventory-1b .attachment-slot.quick-equip-target {
+    #inventory-4c .attachment-slot.quick-equip-target {
       border-color:#52e06f;
       outline:none;
       background-color:#315d3b;
@@ -452,43 +452,43 @@
       background-position:right 12px bottom 10px,right 4px bottom 4px,right 5px bottom 5px,right 4px bottom 4px;
       background-size:9px 12px,24px 24px,22px 22px,24px 24px;
     }
-    #inventory-1b .attachment-slot.quick-equip-target img { opacity:0.62; }
-    #inventory-1b .attachment-slot.confirm-equip-target {
+    #inventory-4c .attachment-slot.quick-equip-target img { opacity:0.62; }
+    #inventory-4c .attachment-slot.confirm-equip-target {
       background-color:#315d3b;
       background-image:url('../assets/controller-a-letter.svg'),url('../assets/controller-x-vector.svg'),url('../assets/controller-x-fill.svg'),url('../assets/controller-x-shadow.svg');
       background-repeat:no-repeat,no-repeat,no-repeat,no-repeat;
       background-position:right 12px bottom 10px,right 4px bottom 4px,right 5px bottom 5px,right 4px bottom 4px;
       background-size:9px 12px,24px 24px,22px 22px,24px 24px;
     }
-    #inventory-1b .attachment-slot.confirm-equip-target img { opacity:0.62; }
+    #inventory-4c .attachment-slot.confirm-equip-target img { opacity:0.62; }
 
-    #inventory-1b .weapon-visual {
+    #inventory-4c .weapon-visual {
       flex:1;
       min-height:0;
       background-repeat:no-repeat;
       background-position:center;
     }
-    #inventory-1b .weapon-visual.m16 {
+    #inventory-4c .weapon-visual.m16 {
       background-image:url('../assets/weapon-m16.png');
       background-size:345px 210px;
     }
-    #inventory-1b .weapon-visual.m249 {
+    #inventory-4c .weapon-visual.m249 {
       background-image:url('../assets/weapon-m249.png');
       background-size:345px 108px;
     }
-    #inventory-1b .weapon-visual.p1911 {
+    #inventory-4c .weapon-visual.p1911 {
       background-image:url('../assets/weapon-p1911.png');
       background-size:400px 165px;
       background-position:center;
     }
 
-    #inventory-1b .secondary-weapons { width:176px; height:899px; padding:6px; display:flex; flex-direction:column; gap:6px; border:1px solid #d9d9d9; background-color:transparent; }
-    #inventory-1b .secondary-slot { flex:1; padding:10px; display:flex; flex-direction:column; border:0; background-color:#474747; color:#ffffff; font:inherit; text-align:left; }
-    #inventory-1b .secondary-slot p { margin:0; font-size:20px; font-weight:700; }
-    #inventory-1b .secondary-icon-area { flex:1; display:flex; align-items:center; justify-content:center; }
-    #inventory-1b .secondary-slot img { width:140px; height:220px; object-fit:contain; }
+    #inventory-4c .secondary-weapons { width:176px; height:899px; padding:6px; display:flex; flex-direction:column; gap:6px; border:1px solid #d9d9d9; background-color:transparent; }
+    #inventory-4c .secondary-slot { flex:1; padding:10px; display:flex; flex-direction:column; border:0; background-color:#474747; color:#ffffff; font:inherit; text-align:left; }
+    #inventory-4c .secondary-slot p { margin:0; font-size:20px; font-weight:700; }
+    #inventory-4c .secondary-icon-area { flex:1; display:flex; align-items:center; justify-content:center; }
+    #inventory-4c .secondary-slot img { width:140px; height:220px; object-fit:contain; }
 
-    #inventory-1b .top-status {
+    #inventory-4c .top-status {
       position:absolute;
       left:1615px;
       top:18px;
@@ -504,7 +504,7 @@
       display:none;
     }
 
-    #inventory-1b .controller-guide {
+    #inventory-4c .controller-guide {
       position:absolute;
       left:24px;
       top:1018px;
@@ -519,18 +519,18 @@
       font-size:16px;
     }
 
-    #inventory-1b .controller-key { padding:2px 7px; border:2px solid #ffffff; font-weight:700; }
-    #inventory-1b .controller-action[hidden] { display:none; }
-    #inventory-1b .tooltip-meta[hidden] { display:none; }
-    #inventory-1b .interaction-message { color:#f7cf26; }
-    #inventory-1b .gamepad-status { margin-left:auto; color:#a8a8a8; }
+    #inventory-4c .controller-key { padding:2px 7px; border:2px solid #ffffff; font-weight:700; }
+    #inventory-4c .controller-action[hidden] { display:none; }
+    #inventory-4c .tooltip-meta[hidden] { display:none; }
+    #inventory-4c .interaction-message { color:#f7cf26; }
+    #inventory-4c .gamepad-status { margin-left:auto; color:#a8a8a8; }
 
-    #inventory-1b button:focus { outline:5px solid #f3d521; outline-offset:-5px; }
-    #inventory-1b .tile-panel[tabindex="0"]:focus { outline:5px solid #f3d521; outline-offset:-5px; }
-    #inventory-1b .compatible { border-color:#52e06f; background-color:#315d3b; }
-    #inventory-1b .weapon-focused { border-color:#f3d521; }
+    #inventory-4c button:focus { outline:5px solid #f3d521; outline-offset:-5px; }
+    #inventory-4c .tile-panel[tabindex="0"]:focus { outline:5px solid #f3d521; outline-offset:-5px; }
+    #inventory-4c .compatible { border-color:#52e06f; background-color:#315d3b; }
+    #inventory-4c .weapon-focused { border-color:#f3d521; }
 
-    #inventory-1b .attachment-connectors {
+    #inventory-4c .attachment-connectors {
       position:absolute;
       left:0;
       top:0;
@@ -538,38 +538,36 @@
       height:1080px;
       pointer-events:none;
     }
-    #inventory-1b .connector-line { fill:none; stroke:#52e06f; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
-    #inventory-1b .connector-line.focused { stroke:#fff600; stroke-width:4; }
-    #inventory-1b .socket-marker { fill:#acacac; stroke:#111111; stroke-width:1.5; }
-    #inventory-1b .socket-marker.compatible { fill:#64ff81; stroke:#f4fff6; stroke-width:3; }
-    #inventory-1b .socket-marker.focused { fill:#fff600; stroke:#fffde0; stroke-width:3; }
-    #inventory-1b .weapon-card.weapon-dropped { opacity:0.38; }
+    #inventory-4c .socket-marker { fill:#acacac; stroke:#111111; stroke-width:1.5; }
+    #inventory-4c .socket-marker.compatible { fill:#64ff81; stroke:#f4fff6; stroke-width:3; }
+    #inventory-4c .socket-marker.focused { fill:#fff600; stroke:#fffde0; stroke-width:3; }
+    #inventory-4c .weapon-card.weapon-dropped { opacity:0.38; }
 
-    /* Shared second-run equipment behavior; final 2-b geometry is defined below. */
-    #inventory-1b .region-divider { display:none; }
+    /* 4-a: Figma 464:399, scaled from 2560 x 1440 to the 1920 x 1080 UMG canvas. */
+    #inventory-4c .region-divider { display:none; }
 
-    #inventory-1b .vicinity-region {
+    #inventory-4c .vicinity-region {
       left:16px;
       top:37px;
       width:324px;
       height:963px;
     }
 
-    #inventory-1b .inventory-region {
+    #inventory-4c .inventory-region {
       left:356px;
       top:37px;
       width:324px;
       height:963px;
     }
 
-    #inventory-1b .list-header {
+    #inventory-4c .list-header {
       width:324px;
       height:52px;
       flex:0 0 52px;
       padding:0 8px;
     }
 
-    #inventory-1b .vicinity-region .list-header {
+    #inventory-4c .vicinity-region .list-header {
       width:324px;
       height:52px;
       flex:0 0 52px;
@@ -581,25 +579,25 @@
       border-left:1px solid #d9d9d9;
     }
 
-    #inventory-1b .vicinity-region .tile-panel {
+    #inventory-4c .vicinity-region .tile-panel {
       padding-top:1px;
       border-top:0;
     }
 
-    #inventory-1b .tile-panel { padding:1px 8px 6px; }
-    #inventory-1b .item-widget,
-    #inventory-1b .wide-item-widget,
-    #inventory-1b .item-tile,
-    #inventory-1b .wide-item-widget .item-tile { width:306px; }
-    #inventory-1b .item-icon { width:84px; height:84px; flex:0 0 84px; }
-    #inventory-1b .category-divider,
-    #inventory-1b .scroll-indicator,
-    #inventory-1b .vicinity-header-line { width:306px; }
-    #inventory-1b .vicinity-header-line { display:block; }
-    #inventory-1b .scroll-indicator { height:30px; }
-    #inventory-1b .scroll-thumb { width:296px; }
+    #inventory-4c .tile-panel { padding:1px 8px 6px; }
+    #inventory-4c .item-widget,
+    #inventory-4c .wide-item-widget,
+    #inventory-4c .item-tile,
+    #inventory-4c .wide-item-widget .item-tile { width:306px; }
+    #inventory-4c .item-icon { width:84px; height:84px; flex:0 0 84px; }
+    #inventory-4c .category-divider,
+    #inventory-4c .scroll-indicator,
+    #inventory-4c .vicinity-header-line { width:306px; }
+    #inventory-4c .vicinity-header-line { display:block; }
+    #inventory-4c .scroll-indicator { height:30px; }
+    #inventory-4c .scroll-thumb { width:296px; }
 
-    #inventory-1b .weapon-region {
+    #inventory-4c .weapon-region {
       left:695px;
       top:37px;
       width:1209px;
@@ -609,7 +607,7 @@
       gap:0;
     }
 
-    #inventory-1b .weapon-row {
+    #inventory-4c .weapon-row {
       width:1209px;
       height:611px;
       flex:0 0 611px;
@@ -618,7 +616,7 @@
       gap:7px;
     }
 
-    #inventory-1b .weapon-widget {
+    #inventory-4c .weapon-widget {
       flex:0 0 448px;
       width:448px;
       height:611px;
@@ -627,12 +625,12 @@
       flex-direction:column;
     }
 
-    #inventory-1b .weapon-widget:nth-child(3) {
+    #inventory-4c .weapon-widget:nth-child(3) {
       flex-basis:299px;
       width:299px;
     }
 
-    #inventory-1b .weapon-card {
+    #inventory-4c .weapon-card {
       flex:1;
       padding:6px;
       display:flex;
@@ -642,7 +640,7 @@
       background-color:#474747;
     }
 
-    #inventory-1b .weapon-details {
+    #inventory-4c .weapon-details {
       width:100%;
       height:auto;
       flex:0 0 auto;
@@ -651,17 +649,17 @@
       overflow:visible;
     }
 
-    #inventory-1b .weapon-heading { height:34px; flex:0 0 34px; gap:7px; }
-    #inventory-1b .weapon-name { font-size:30px; }
-    #inventory-1b .weapon-class { padding:2px 5px; font-size:16px; }
-    #inventory-1b .held-label { font-size:15px; }
-    #inventory-1b .ammo-row { height:44px; flex:0 0 44px; gap:4px; }
-    #inventory-1b .ammo-loaded { font-size:30px; }
-    #inventory-1b .ammo-reserve { padding-top:9px; font-size:15px; }
-    #inventory-1b .ammo-icon { width:54px; height:54px; }
-    #inventory-1b .ammo-type { padding:2px 4px; font-size:18px; }
+    #inventory-4c .weapon-heading { height:34px; flex:0 0 34px; gap:7px; }
+    #inventory-4c .weapon-name { font-size:30px; }
+    #inventory-4c .weapon-class { padding:2px 5px; font-size:16px; }
+    #inventory-4c .held-label { font-size:15px; }
+    #inventory-4c .ammo-row { height:44px; flex:0 0 44px; gap:4px; }
+    #inventory-4c .ammo-loaded { font-size:30px; }
+    #inventory-4c .ammo-reserve { padding-top:9px; font-size:15px; }
+    #inventory-4c .ammo-icon { width:54px; height:54px; }
+    #inventory-4c .ammo-type { padding:2px 4px; font-size:18px; }
 
-    #inventory-1b .weapon-body {
+    #inventory-4c .weapon-body {
       flex:1;
       min-height:0;
       display:flex;
@@ -671,7 +669,7 @@
       background-repeat:no-repeat;
     }
 
-    #inventory-1b .attachment-rail {
+    #inventory-4c .attachment-rail {
       width:90px;
       height:auto;
       flex:0 0 90px;
@@ -682,38 +680,38 @@
       gap:6px;
     }
 
-    #inventory-1b .attachment-slot { width:90px; height:90px; }
-    #inventory-1b .attachment-slot img { width:80px; height:80px; }
+    #inventory-4c .attachment-slot { width:90px; height:90px; }
+    #inventory-4c .attachment-slot img { width:80px; height:80px; }
 
-    #inventory-1b .weapon-visual,
-    #inventory-1b .weapon-visual.m16,
-    #inventory-1b .weapon-visual.m249,
-    #inventory-1b .weapon-visual.p1911 {
+    #inventory-4c .weapon-visual,
+    #inventory-4c .weapon-visual.m16,
+    #inventory-4c .weapon-visual.m249,
+    #inventory-4c .weapon-visual.p1911 {
       flex:1;
       min-height:0;
       background-image:none;
       background-size:auto;
     }
 
-    #inventory-1b .weapon-card[data-weapon-card="m16"] .weapon-body {
-      background-image:url('../assets/weapon-m16-oriented.png');
+    #inventory-4c .weapon-card[data-weapon-card="m16"] .weapon-body {
+      background-image:url('../assets/weapon-m16-diagonal-4a.png');
       background-size:414px 414px;
       background-position:right -24px center;
     }
 
-    #inventory-1b .weapon-card[data-weapon-card="m249"] .weapon-body {
-      background-image:url('../assets/weapon-m249-oriented.png');
+    #inventory-4c .weapon-card[data-weapon-card="m249"] .weapon-body {
+      background-image:url('../assets/weapon-m249-diagonal-4a.png');
       background-size:395px 395px;
       background-position:right -24px center;
     }
 
-    #inventory-1b .weapon-card[data-weapon-card="p1911"] .weapon-body {
-      background-image:url('../assets/weapon-p1911-oriented.png');
+    #inventory-4c .weapon-card[data-weapon-card="p1911"] .weapon-body {
+      background-image:url('../assets/weapon-p1911-diagonal-4a.png');
       background-size:224px 224px;
       background-position:right 0 center;
     }
 
-    #inventory-1b .secondary-weapons {
+    #inventory-4c .secondary-weapons {
       width:897px;
       height:311px;
       flex:0 0 311px;
@@ -724,37 +722,37 @@
       gap:6px;
     }
 
-    #inventory-1b .secondary-slot { padding:8px 12px; }
-    #inventory-1b .secondary-slot p { font-size:22px; }
-    #inventory-1b .secondary-slot img { width:168px; height:220px; }
+    #inventory-4c .secondary-slot { padding:8px 12px; }
+    #inventory-4c .secondary-slot p { font-size:22px; }
+    #inventory-4c .secondary-slot img { width:168px; height:220px; }
 
-    #inventory-1b .gear-region {
+    #inventory-4c .gear-region {
       left:1531px;
       top:37px;
       width:373px;
       height:983px;
     }
 
-    #inventory-1b .gear-region.collapsed {
+    #inventory-4c .gear-region.collapsed {
       left:1599px;
       top:709px;
       width:305px;
       height:311px;
     }
 
-    #inventory-1b .gear-region.collapsed .gear-layout { padding:6px; }
-    #inventory-1b .gear-region.collapsed .equipment-column {
+    #inventory-4c .gear-region.collapsed .gear-layout { padding:6px; }
+    #inventory-4c .gear-region.collapsed .equipment-column {
       width:291px;
       align-items:flex-start;
     }
-    #inventory-1b .gear-region.collapsed .drawer-title {
+    #inventory-4c .gear-region.collapsed .drawer-title {
       width:100%;
       height:45px;
       flex:0 0 45px;
       font-size:18px;
       line-height:30px;
     }
-    #inventory-1b .gear-region.collapsed .gear-rail {
+    #inventory-4c .gear-region.collapsed .gear-rail {
       width:291px;
       flex-direction:row;
       flex-wrap:wrap;
@@ -762,45 +760,45 @@
       align-content:center;
       gap:12px 18px;
     }
-    #inventory-1b .gear-region.collapsed .gear-slot,
-    #inventory-1b .gear-region.collapsed .gear-toggle {
+    #inventory-4c .gear-region.collapsed .gear-slot,
+    #inventory-4c .gear-region.collapsed .gear-toggle {
       width:96px;
       height:96px;
       flex:0 0 96px;
       margin:0;
     }
-    #inventory-1b .gear-region.collapsed .gear-slot img { width:82px; height:82px; }
-    #inventory-1b .gear-region.collapsed .gear-toggle img { width:34px; height:34px; }
-    #inventory-1b .gear-region.collapsed .gear-toggle-label { font-size:11px; }
+    #inventory-4c .gear-region.collapsed .gear-slot img { width:82px; height:82px; }
+    #inventory-4c .gear-region.collapsed .gear-toggle img { width:34px; height:34px; }
+    #inventory-4c .gear-region.collapsed .gear-toggle-label { font-size:11px; }
 
-    #inventory-1b .tooltip-panel { left:700px; }
-    #inventory-1b.vicinity-tooltip-active .primary-tooltip { left:340px; }
-    #inventory-1b.inventory-tooltip-active .primary-tooltip { left:123px; }
-    #inventory-1b.weapon-slot-tooltip-active .primary-tooltip { left:462px; }
-    #inventory-1b.gear-tooltip-active .primary-tooltip { left:1300px; }
-    #inventory-1b.comparison-source-vicinity .tooltip-panel { left:340px; }
-    #inventory-1b.comparison-source-inventory .tooltip-panel { left:123px; }
-    #inventory-1b.comparison-source-weapon-slot .tooltip-panel { left:462px; }
-    #inventory-1b .top-status { display:none; }
-    #inventory-1b .controller-guide { top:1024px; }
+    #inventory-4c .tooltip-panel { left:700px; }
+    #inventory-4c.vicinity-tooltip-active .primary-tooltip { left:340px; }
+    #inventory-4c.inventory-tooltip-active .primary-tooltip { left:123px; }
+    #inventory-4c.weapon-slot-tooltip-active .primary-tooltip { left:462px; }
+    #inventory-4c.gear-tooltip-active .primary-tooltip { left:1300px; }
+    #inventory-4c.comparison-source-vicinity .tooltip-panel { left:340px; }
+    #inventory-4c.comparison-source-inventory .tooltip-panel { left:123px; }
+    #inventory-4c.comparison-source-weapon-slot .tooltip-panel { left:462px; }
+    #inventory-4c .top-status { display:none; }
+    #inventory-4c .controller-guide { top:1024px; }
 
-    /* 2-b list delta: two-column item grids with the shared second-run behavior. */
-    #inventory-1b .tile-panel,
-    #inventory-1b .vicinity-region .tile-panel {
+    /* 4-c: compact two-column loose-item grids plus two-column attachment grids. */
+    #inventory-4c .tile-panel,
+    #inventory-4c .vicinity-region .tile-panel {
       padding:10px 8px 6px 27px;
       flex-direction:row;
       flex-wrap:wrap;
       align-content:flex-start;
       gap:8px;
     }
-    #inventory-1b .item-widget {
+    #inventory-4c .item-widget {
       position:relative;
       width:135px;
       height:135px;
       flex:0 0 135px;
       padding-left:0;
     }
-    #inventory-1b .item-tile {
+    #inventory-4c .item-tile {
       width:135px;
       height:135px;
       padding:5px;
@@ -813,163 +811,242 @@
       background-position:center;
       background-size:contain;
     }
-    #inventory-1b .item-tile .item-count {
+    #inventory-4c .item-tile .item-count {
       width:auto;
       height:auto;
       flex:none;
       padding:1px 4px;
       background-color:rgba(0,0,0,0.58);
     }
-    #inventory-1b .wide-item-widget {
+    #inventory-4c .wide-item-widget {
       position:relative;
       width:278px;
       height:278px;
       flex:0 0 278px;
       padding-left:0;
     }
-    #inventory-1b .wide-item-widget .item-tile { width:278px; height:278px; }
-    #inventory-1b .category-divider { width:278px; height:3px; flex:0 0 278px; background-color:transparent; }
-    #inventory-1b .category-rail-segment { position:absolute; left:-18px; width:18px; pointer-events:none; }
-    #inventory-1b .category-rail-line { position:absolute; left:7px; top:5px; width:4px; }
-    #inventory-1b .category-consumable .category-rail-line { background-color:#009744; }
-    #inventory-1b .category-throwable .category-rail-line { background-color:#970000; }
-    #inventory-1b .category-ammunition .category-rail-line { background-color:#968037; }
-    #inventory-1b .category-attachment .category-rail-line { background-color:#3b65cf; }
-    #inventory-1b .category-weapon .category-rail-line { background-color:#a53bcf; }
-    #inventory-1b .category-rail-marker { position:absolute; left:4px; top:0; width:10px; height:10px; border-radius:5px; }
-    #inventory-1b .category-consumable .category-rail-marker { background-color:#009744; }
-    #inventory-1b .category-throwable .category-rail-marker { background-color:#970000; }
-    #inventory-1b .category-ammunition .category-rail-marker { background-color:#968037; }
-    #inventory-1b .category-attachment .category-rail-marker { background-color:#3b65cf; }
-    #inventory-1b .category-weapon .category-rail-marker { background-color:#a53bcf; }
+    #inventory-4c .wide-item-widget .item-tile { width:278px; height:278px; }
+    #inventory-4c .category-divider { width:278px; height:3px; flex:0 0 278px; background-color:transparent; }
+    #inventory-4c .category-rail-segment { position:absolute; left:-18px; width:18px; pointer-events:none; }
+    #inventory-4c .category-rail-line { position:absolute; left:7px; top:5px; width:4px; }
+    #inventory-4c .category-consumable .category-rail-line { background-color:#009744; }
+    #inventory-4c .category-throwable .category-rail-line { background-color:#970000; }
+    #inventory-4c .category-ammunition .category-rail-line { background-color:#968037; }
+    #inventory-4c .category-attachment .category-rail-line { background-color:#3b65cf; }
+    #inventory-4c .category-weapon .category-rail-line { background-color:#a53bcf; }
+    #inventory-4c .category-rail-marker { position:absolute; left:4px; top:0; width:10px; height:10px; border-radius:5px; }
+    #inventory-4c .category-consumable .category-rail-marker { background-color:#009744; }
+    #inventory-4c .category-throwable .category-rail-marker { background-color:#970000; }
+    #inventory-4c .category-ammunition .category-rail-marker { background-color:#968037; }
+    #inventory-4c .category-attachment .category-rail-marker { background-color:#3b65cf; }
+    #inventory-4c .category-weapon .category-rail-marker { background-color:#a53bcf; }
 
-    #inventory-1b .tooltip-panel { border-color:#ffffff; background-color:rgba(58,58,58,0.98); color:#ffffff; }
-    #inventory-1b .tooltip-context { color:#bdbdbd; }
-    #inventory-1b .tooltip-category { display:flex; flex-direction:row; align-items:center; gap:8px; }
-    #inventory-1b .tooltip-category-badge { width:32px; height:32px; flex:0 0 32px; display:flex; align-items:center; justify-content:center; border-radius:16px; }
-    #inventory-1b .tooltip-category-badge img { width:24px; height:24px; object-fit:contain; }
-    #inventory-1b .tooltip-category-badge.category-consumable,
-    #inventory-1b .tooltip-category-badge.category-throwable { background-color:transparent; }
-    #inventory-1b .tooltip-category-badge.category-ammunition { background-color:#968037; }
-    #inventory-1b .tooltip-category-badge.category-attachment { background-color:#3b65cf; }
-    #inventory-1b .tooltip-category-badge.category-weapon { background-color:transparent; }
-    #inventory-1b .tooltip-category-badge.category-consumable img,
-    #inventory-1b .tooltip-category-badge.category-throwable img,
-    #inventory-1b .tooltip-category-badge.category-weapon img { width:32px; height:32px; }
-    #inventory-1b .tooltip-type { color:#ffffff; }
-    #inventory-1b .tooltip-description { display:flex; flex-direction:column; color:#ffffff; }
-    #inventory-1b .tooltip-effect-line { display:flex; flex-direction:row; gap:5px; }
-    #inventory-1b .tooltip-effect-value { color:#00d56b; }
-    #inventory-1b .tooltip-meta { color:#ffffff; }
-    #inventory-1b .tooltip-actions { border-top-color:#d9d9d9; }
-    #inventory-1b .tooltip-action-key { border-color:#ffffff; }
-    #inventory-1b .tooltip-panel.empty-slot .tooltip-category-badge { display:none; }
+    #inventory-4c .tooltip-panel { border-color:#ffffff; background-color:rgba(58,58,58,0.98); color:#ffffff; }
+    #inventory-4c .tooltip-context { color:#bdbdbd; }
+    #inventory-4c .tooltip-category { display:flex; flex-direction:row; align-items:center; gap:8px; }
+    #inventory-4c .tooltip-category-badge { width:32px; height:32px; flex:0 0 32px; display:flex; align-items:center; justify-content:center; border-radius:16px; }
+    #inventory-4c .tooltip-category-badge img { width:24px; height:24px; object-fit:contain; }
+    #inventory-4c .tooltip-category-badge.category-consumable,
+    #inventory-4c .tooltip-category-badge.category-throwable { background-color:transparent; }
+    #inventory-4c .tooltip-category-badge.category-ammunition { background-color:#968037; }
+    #inventory-4c .tooltip-category-badge.category-attachment { background-color:#3b65cf; }
+    #inventory-4c .tooltip-category-badge.category-weapon { background-color:transparent; }
+    #inventory-4c .tooltip-category-badge.category-consumable img,
+    #inventory-4c .tooltip-category-badge.category-throwable img,
+    #inventory-4c .tooltip-category-badge.category-weapon img { width:32px; height:32px; }
+    #inventory-4c .tooltip-type { color:#ffffff; }
+    #inventory-4c .tooltip-description { display:flex; flex-direction:column; color:#ffffff; }
+    #inventory-4c .tooltip-effect-line { display:flex; flex-direction:row; gap:5px; }
+    #inventory-4c .tooltip-effect-value { color:#00d56b; }
+    #inventory-4c .tooltip-meta { color:#ffffff; }
+    #inventory-4c .tooltip-actions { border-top-color:#d9d9d9; }
+    #inventory-4c .tooltip-action-key { border-color:#ffffff; }
+    #inventory-4c .tooltip-panel.empty-slot .tooltip-category-badge { display:none; }
 
-    /* 2-b: Figma 487:698, scaled from 2560 x 1439 to the 1920 x 1080 UMG canvas. */
-    #inventory-1b .vicinity-region { left:23px; top:38px; width:220px; height:960px; }
-    #inventory-1b .inventory-region { left:251px; top:38px; width:220px; height:963px; }
-    #inventory-1b .list-header { display:none; }
-    #inventory-1b .tile-panel,
-    #inventory-1b .vicinity-region .tile-panel { padding:10px 8px 6px 27px; border-top:1px solid #d9d9d9; }
-    #inventory-1b .item-widget { position:relative; width:84px; height:84px; flex:0 0 84px; padding-left:0; }
-    #inventory-1b .item-tile { width:84px; height:84px; }
-    #inventory-1b .wide-item-widget { position:relative; width:174px; height:174px; flex:0 0 174px; padding-left:0; }
-    #inventory-1b .wide-item-widget .item-tile { width:174px; height:174px; }
-    #inventory-1b .category-divider { width:174px; height:3px; flex:0 0 174px; }
-    #inventory-1b .root-capacity-indicator {
+    #inventory-4c .vicinity-region {
+      left:20px;
+      width:240px;
+    }
+    #inventory-4c .inventory-region {
+      left:268px;
+      width:240px;
+    }
+    #inventory-4c .list-header,
+    #inventory-4c .vicinity-region .list-header { width:240px; }
+    #inventory-4c .tile-panel,
+    #inventory-4c .vicinity-region .tile-panel {
+      padding:10px 8px 6px 27px;
+      gap:10px;
+    }
+    #inventory-4c .item-widget,
+    #inventory-4c .item-tile {
+      width:96px;
+      height:96px;
+      flex-basis:96px;
+    }
+    #inventory-4c .wide-item-widget {
+      width:202px;
+      height:202px;
+      flex-basis:202px;
+    }
+    #inventory-4c .wide-item-widget .item-tile {
+      width:202px;
+      height:202px;
+      flex:0 0 202px;
+    }
+    #inventory-4c .category-divider { width:202px; flex-basis:202px; }
+    #inventory-4c .category-rail-segment { left:-18px; }
+
+    #inventory-4c .weapon-region {
+      left:640px;
+      width:1264px;
+    }
+    #inventory-4c .weapon-row {
+      width:1264px;
+      height:611px;
+      flex-basis:611px;
+      gap:4px;
+    }
+    #inventory-4c .weapon-widget {
+      width:456px;
+      flex-basis:456px;
+    }
+    #inventory-4c .weapon-widget:nth-child(3) {
+      width:348px;
+      flex-basis:348px;
+    }
+    #inventory-4c .weapon-details { align-items:flex-end; }
+    #inventory-4c .weapon-body {
+      flex-direction:column-reverse;
+      justify-content:flex-end;
+      align-items:flex-start;
+      gap:0;
+    }
+    #inventory-4c .attachment-rail {
+      width:174px;
+      height:258px;
+      flex:0 0 258px;
+      flex-direction:row;
+      flex-wrap:wrap;
+      align-content:flex-start;
+      gap:3px;
+    }
+    #inventory-4c .attachment-slot,
+    #inventory-4c .attachment-grid-spacer {
+      width:84px;
+      height:84px;
+      flex:0 0 84px;
+    }
+    #inventory-4c .attachment-grid-spacer { background-color:transparent; }
+    #inventory-4c .attachment-slot img { width:74px; height:74px; }
+    #inventory-4c .weapon-card[data-weapon-card="m16"] .weapon-body {
+      background-size:414px 414px;
+      background-position:right -24px top 0;
+    }
+    #inventory-4c .weapon-card[data-weapon-card="m249"] .weapon-body {
+      background-size:395px 395px;
+      background-position:right -24px top 0;
+    }
+    #inventory-4c .weapon-card[data-weapon-card="p1911"] .weapon-body {
+      background-size:224px 224px;
+      background-position:right 30px top 92px;
+    }
+    #inventory-4c .secondary-weapons {
+      width:916px;
+      gap:4px;
+    }
+    #inventory-4c .gear-region.collapsed {
+      left:1556px;
+      width:348px;
+    }
+    #inventory-4c .gear-region.collapsed .equipment-column,
+    #inventory-4c .gear-region.collapsed .gear-rail { width:334px; }
+
+    #inventory-4c .tooltip-panel { left:478px; }
+    #inventory-4c.vicinity-tooltip-active .primary-tooltip { left:240px; }
+    #inventory-4c.inventory-tooltip-active .primary-tooltip { left:0; }
+    #inventory-4c.weapon-slot-tooltip-active .primary-tooltip { left:382px; }
+    #inventory-4c.gear-tooltip-active .primary-tooltip { left:1296px; }
+    #inventory-4c.comparison-source-vicinity .tooltip-panel { left:240px; }
+    #inventory-4c.comparison-source-inventory .tooltip-panel { left:0; }
+    #inventory-4c.comparison-source-weapon-slot .tooltip-panel { left:382px; }
+
+    /* Figma 493:2176 correction pass: exact 1920 x 1080 geometry. */
+    #inventory-4c .list-header,
+    #inventory-4c .vicinity-region .list-header { display:none; }
+    #inventory-4c .tile-panel,
+    #inventory-4c .vicinity-region .tile-panel {
+      border-top:1px solid #d9d9d9;
+      padding-top:8px;
+    }
+    #inventory-4c .inventory-vertical-scroll {
       position:absolute;
-      left:477px;
-      top:91px;
+      left:515px;
+      top:89px;
       width:30px;
       height:251px;
-      padding:3px;
       display:flex;
       flex-direction:column;
-      justify-content:flex-end;
+      align-items:center;
       border:2px solid #ffffff;
       background-color:#d9d9d9;
     }
-    #inventory-1b .root-capacity-indicator .scroll-thumb { width:20px; height:158px; background:#696969; }
-    #inventory-1b .root-capacity-indicator .capacity-value { display:none; }
+    #inventory-4c .inventory-scroll-spacer { width:1px; height:90px; flex:0 0 90px; }
+    #inventory-4c .inventory-scroll-thumb { width:24px; height:157px; flex:0 0 157px; background-color:#696969; }
 
-    #inventory-1b .weapon-region { left:949px; top:91px; width:842px; height:910px; }
-    #inventory-1b .weapon-region > .screen-title { display:none; }
-    #inventory-1b .weapon-row { width:842px; height:710px; gap:7px; }
-    #inventory-1b .weapon-widget,
-    #inventory-1b .weapon-widget:nth-child(3) { flex:1; width:auto; height:710px; }
-    #inventory-1b .weapon-card { padding:6px; }
-    #inventory-1b .weapon-body { background-repeat:no-repeat; background-position:center center; }
-    #inventory-1b .attachment-rail { width:75px; flex:0 0 75px; gap:6px; }
-    #inventory-1b .attachment-slot { width:75px; height:75px; }
-    #inventory-1b .attachment-slot img { width:67px; height:67px; }
-    #inventory-1b .weapon-card[data-weapon-card="m16"] .weapon-body {
-      background-image:url('../assets/weapon-m16-oriented.png');
-      background-size:auto 100%;
-      background-position:center center;
+    #inventory-4c .weapon-row { height:603px; flex-basis:603px; }
+    #inventory-4c .weapon-widget { height:603px; }
+    #inventory-4c .weapon-body { padding-bottom:16px; }
+    #inventory-4c .weapon-card[data-weapon-card="m16"] .weapon-body {
+      background-size:492px 492px;
+      background-position:left -52px top -32px;
     }
-    #inventory-1b .weapon-card[data-weapon-card="m249"] .weapon-body {
-      background-image:url('../assets/weapon-m249-oriented.png');
-      background-size:auto 100%;
-      background-position:center center;
+    #inventory-4c .weapon-card[data-weapon-card="m249"] .weapon-body {
+      background-size:503px 503px;
+      background-position:left -44px top -32px;
     }
-    #inventory-1b .weapon-card[data-weapon-card="p1911"] .weapon-body {
-      background-image:url('../assets/weapon-p1911-oriented.png');
-      background-size:auto 56%;
-      background-position:center 72%;
+    #inventory-4c .weapon-card[data-weapon-card="p1911"] .weapon-body {
+      background-size:298px 298px;
+      background-position:left 4px top 45px;
     }
-    #inventory-1b .secondary-weapons { width:842px; height:192px; flex:0 0 192px; margin-top:7px; }
-    #inventory-1b .secondary-slot img { width:150px; height:168px; }
+    #inventory-4c .secondary-weapons {
+      height:304px;
+      flex-basis:304px;
+    }
+    #inventory-4c .gear-region.collapsed {
+      top:701px;
+      height:304px;
+    }
+    #inventory-4c .gear-region.collapsed .equipment-column {
+      align-items:center;
+    }
+    #inventory-4c .gear-region.collapsed .gear-rail {
+      width:210px;
+      justify-content:center;
+      gap:12px 18px;
+    }
 
-    #inventory-1b .gear-region { left:1448px; top:52px; width:472px; height:977px; }
-    #inventory-1b .gear-region.collapsed { left:1808px; top:315px; width:112px; height:450px; }
-    #inventory-1b .gear-region:not(.collapsed) .gear-layout { padding:7px; }
-    #inventory-1b .gear-region:not(.collapsed) .equipment-column,
-    #inventory-1b .gear-region:not(.collapsed) .outfit-column { width:112px; }
-    #inventory-1b .gear-region:not(.collapsed) .character-preview { width:auto; flex:1; }
-    #inventory-1b .gear-region:not(.collapsed) .gear-rail { gap:10px; }
-    #inventory-1b .gear-region:not(.collapsed) .gear-slot { width:84px; height:84px; }
-    #inventory-1b .gear-region:not(.collapsed) .gear-slot img { width:74px; height:74px; }
-    #inventory-1b .gear-region:not(.collapsed) .outfit-column .gear-slot { width:84px; height:84px; }
-    #inventory-1b .gear-region:not(.collapsed) .outfit-column .gear-slot img { width:74px; height:74px; }
-    #inventory-1b.gear-expanded .weapon-region { opacity:0.38; }
-    #inventory-1b .gear-region.collapsed .gear-layout { padding:8px; }
-    #inventory-1b .gear-region.collapsed .equipment-column { width:96px; align-items:center; }
-    #inventory-1b .gear-region.collapsed .drawer-title { width:96px; height:35px; flex:0 0 35px; font-size:18px; line-height:30px; text-align:center; }
-    #inventory-1b .gear-region.collapsed .gear-rail { width:96px; flex-direction:column; flex-wrap:nowrap; justify-content:flex-start; align-items:center; gap:14px; }
-    #inventory-1b .gear-region.collapsed .gear-slot { width:96px; height:96px; flex:0 0 96px; }
-    #inventory-1b .gear-region.collapsed .gear-toggle { width:85px; height:62px; flex:0 0 62px; margin-top:-8px; }
-    #inventory-1b .gear-region.collapsed .gear-slot img { width:84px; height:84px; }
-    #inventory-1b .gear-region.collapsed .gear-toggle-label { font-size:9px; line-height:11px; }
-
-    #inventory-1b .tooltip-panel { left:470px; top:392px; width:259px; height:auto; min-height:0; }
-    #inventory-1b.vicinity-tooltip-active .primary-tooltip,
-    #inventory-1b.inventory-tooltip-active .primary-tooltip { left:470px; }
-    #inventory-1b.weapon-slot-tooltip-active .primary-tooltip { left:680px; }
-    #inventory-1b.gear-tooltip-active .primary-tooltip { left:1191px; top:421px; }
-    #inventory-1b.comparison-source-vicinity .tooltip-panel,
-    #inventory-1b.comparison-source-inventory .tooltip-panel { left:470px; }
-    #inventory-1b.comparison-source-weapon-slot .tooltip-panel { left:680px; }
-    #inventory-1b.comparison-active .comparison-tooltip { top:var(--comparison-selected-top, 297px); height:auto; min-height:0; }
-    #inventory-1b.comparison-active .primary-tooltip { top:var(--comparison-primary-top, 529px); height:auto; min-height:0; }
-    #inventory-1b .tooltip-panel.empty-slot { height:auto; min-height:0; }
-    #inventory-1b.comparison-active .tooltip-panel.empty-slot { height:auto; min-height:0; }
-    #inventory-1b .tooltip-title { font-size:22px; line-height:26px; }
-    #inventory-1b .tooltip-image,
-    #inventory-1b.comparison-active .tooltip-image,
-    #inventory-1b .tooltip-panel.empty-slot .tooltip-image { height:165px; }
-    #inventory-1b.comparison-active .tooltip-description { font-size:17px; line-height:23px; }
-    #inventory-1b.comparison-active .tooltip-action { gap:5px; font-size:15px; }
-    #inventory-1b.comparison-active .tooltip-action-key { width:26px; height:26px; }
-    #inventory-1b .controller-guide { top:1034px; }
+    #inventory-4c .tooltip-panel { width:260px; left:469px; }
+    #inventory-4c.vicinity-tooltip-active .primary-tooltip { left:509px; top:var(--list-tooltip-top, 320px); }
+    #inventory-4c.inventory-tooltip-active .primary-tooltip { left:0; top:var(--list-tooltip-top, 320px); }
+    #inventory-4c.weapon-slot-tooltip-active .primary-tooltip { left:381px; top:422px; }
+    #inventory-4c.secondary-tooltip-active .primary-tooltip { left:381px; top:704px; }
+    #inventory-4c.gear-tooltip-active .primary-tooltip { left:381px; top:726px; }
+    #inventory-4c.comparison-source-vicinity .tooltip-panel { left:509px; }
+    #inventory-4c.comparison-source-inventory .tooltip-panel { left:0; }
+    #inventory-4c.comparison-source-weapon-slot .tooltip-panel { left:381px; }
+    #inventory-4c.comparison-active .primary-tooltip { top:var(--comparison-primary-top, 530px); }
+    #inventory-4c .tooltip-title { font-size:30px; line-height:34px; }
   </style>
 </head>
 <body>
   <div id="preview-stage" data-preview-only="viewport-fitter">
-  <main id="inventory-1b" data-prototype="2-b" data-umg-name="Panel_Root" data-umg-type="Overlay">
+  <main id="inventory-4c" data-prototype="4-c" data-umg-name="Panel_Root" data-umg-type="Overlay">
     <div class="region-divider" aria-hidden="true"></div>
 
     <section class="vicinity-region" data-umg-name="Box_Vicinity">
-      <h1 class="screen-title" data-umg-name="Txt_VicinityTitle">VICINITY</h1>
+      <h1 class="screen-title" data-umg-name="Txt_VicinityTitle">주변</h1>
+      <div class="list-header"><div class="vicinity-header-line" aria-hidden="true"></div></div>
       <div class="tile-panel" data-umg-name="Box_VicinityGrid" data-umg-type="WrapBox">
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" autofocus data-default-focus="true" style="background-image:url('../assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."><span class="item-count">2</span></button></div>
@@ -988,7 +1065,7 @@
     </section>
 
     <section class="inventory-region" data-umg-name="Box_Inventory">
-      <h1 class="screen-title" data-umg-name="Txt_InventoryTitle">INVENTORY</h1>
+      <h1 class="screen-title" data-umg-name="Txt_InventoryTitle">인벤토리</h1>
       <div class="tile-panel" data-umg-name="Box_InventoryGrid" data-umg-type="WrapBox">
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."></button></div>
@@ -1010,8 +1087,9 @@
       </div>
     </section>
 
-    <div class="root-capacity-indicator" data-umg-name="Bar_InventoryScroll" aria-label="Inventory capacity 210 of 350">
-      <div class="scroll-thumb"><span class="capacity-value" data-umg-name="Txt_InventoryCapacity">210 / 350</span></div>
+    <div class="inventory-vertical-scroll" data-umg-name="Bar_InventoryScroll" aria-hidden="true">
+      <div class="inventory-scroll-spacer"></div>
+      <div class="inventory-scroll-thumb"></div>
     </div>
 
     <section class="weapon-region" data-umg-name="Box_WeaponRack">
@@ -1026,12 +1104,13 @@
             <div class="weapon-body">
               <div class="attachment-rail">
                 <button class="attachment-slot" data-slot-state="empty" data-socket="muzzle" data-silhouette="../assets/attachment-muzzle.png" data-item-name="총구 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-muzzle.png" alt="총구 부착물 실루엣"></button>
+                <div class="attachment-grid-spacer" aria-hidden="true"></div>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="grip" data-silhouette="../assets/attachment-grip.png" data-item-name="손잡이 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-grip.png" alt="손잡이 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="mag" data-silhouette="../assets/attachment-mag.png" data-item-name="탄창 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-mag.png" alt="탄창 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="scope" data-silhouette="../assets/attachment-scope.png" data-item-name="조준경 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-scope.png" alt="조준경 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="stock" data-silhouette="../assets/attachment-stock.png" data-item-name="개머리판 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-stock.png" alt="개머리판 부착물 실루엣"></button>
               </div>
-              <div class="weapon-visual m16" data-umg-type="Overlay" role="img" aria-label="Vertical M16 rifle with attachment socket positions"></div>
+              <div class="weapon-visual m16" data-umg-type="Overlay" role="img" aria-label="Diagonal M16 rifle with attachment socket positions"></div>
             </div>
           </div>
         </article>
@@ -1045,12 +1124,13 @@
             <div class="weapon-body">
               <div class="attachment-rail">
                 <button class="attachment-slot" data-slot-state="empty" data-socket="muzzle" data-silhouette="../assets/attachment-muzzle.png" data-item-name="총구 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-muzzle.png" alt="총구 부착물 실루엣"></button>
+                <div class="attachment-grid-spacer" aria-hidden="true"></div>
                 <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="grip" data-item-name="손잡이 사용 불가" data-item-type="사용 불가" disabled aria-label="손잡이 부착물 사용 불가"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="mag" data-silhouette="../assets/attachment-mag.png" data-item-name="탄창 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-mag.png" alt="탄창 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="scope" data-silhouette="../assets/attachment-scope.png" data-item-name="조준경 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-scope.png" alt="조준경 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="stock" data-silhouette="../assets/attachment-stock.png" data-item-name="개머리판 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-stock.png" alt="개머리판 부착물 실루엣"></button>
               </div>
-              <div class="weapon-visual m249" data-umg-type="Overlay" role="img" aria-label="Vertical M249 light machine gun with attachment socket positions"></div>
+              <div class="weapon-visual m249" data-umg-type="Overlay" role="img" aria-label="Diagonal M249 light machine gun with attachment socket positions"></div>
             </div>
           </div>
         </article>
@@ -1064,12 +1144,13 @@
             <div class="weapon-body">
               <div class="attachment-rail">
                 <button class="attachment-slot" data-slot-state="empty" data-socket="muzzle" data-silhouette="../assets/attachment-muzzle.png" data-item-name="총구 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-muzzle.png" alt="총구 부착물 실루엣"></button>
+                <div class="attachment-grid-spacer" aria-hidden="true"></div>
                 <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="grip" data-item-name="손잡이 사용 불가" data-item-type="사용 불가" disabled aria-label="손잡이 부착물 사용 불가"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="mag" data-silhouette="../assets/attachment-mag.png" data-item-name="탄창 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-mag.png" alt="탄창 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="scope" data-silhouette="../assets/attachment-scope.png" data-item-name="조준경 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-scope.png" alt="조준경 부착물 실루엣"></button>
                 <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="stock" data-item-name="개머리판 사용 불가" data-item-type="사용 불가" disabled aria-label="개머리판 부착물 사용 불가"></button>
               </div>
-              <div class="weapon-visual p1911" data-umg-type="Overlay" role="img" aria-label="Vertical P1911 pistol with attachment socket positions"></div>
+              <div class="weapon-visual p1911" data-umg-type="Overlay" role="img" aria-label="Diagonal P1911 pistol with attachment socket positions"></div>
             </div>
           </div>
         </article>
@@ -1149,7 +1230,7 @@
 
   <script>
     (function () {
-      const root = document.getElementById('inventory-1b');
+      const root = document.getElementById('inventory-4c');
       const previewStage = document.getElementById('preview-stage');
       const tooltip = root.querySelector('.primary-tooltip');
       const selectedTooltip = root.querySelector('.comparison-tooltip');
@@ -1341,86 +1422,42 @@
 
       const socketMaps = {
         m16: {
-          naturalWidth:256, naturalHeight:811, heightFraction:1,
-          points:{ muzzle:[0.700,0.018], grip:[0.640,0.360], mag:[0.081,0.643], scope:[0.919,0.679], stock:[0.600,0.982] }
+          imageWidth:492, imageHeight:492, offsetLeft:-52, offsetTop:-32,
+          points:{ muzzle:[0.19,0.09], grip:[0.43,0.44], mag:[0.50,0.64], scope:[0.68,0.50], stock:[0.84,0.84] }
         },
         m249: {
-          naturalWidth:256, naturalHeight:811, heightFraction:1,
-          points:{ muzzle:[0.513,0.018], mag:[0.480,0.524], scope:[0.925,0.686], stock:[0.600,0.982] }
+          imageWidth:503, imageHeight:503, offsetLeft:-44, offsetTop:-32,
+          points:{ muzzle:[0.19,0.09], mag:[0.46,0.56], scope:[0.52,0.40], stock:[0.87,0.85] }
         },
         p1911: {
-          naturalWidth:216, naturalHeight:377, heightFraction:0.56,
-          points:{ muzzle:[0.625,0.048], mag:[0.020,0.860], scope:[0.929,0.710] }
+          imageWidth:298, imageHeight:298, offsetLeft:4, offsetTop:45,
+          points:{ muzzle:[0.38,0.10], mag:[0.59,0.87], scope:[0.71,0.44] }
         }
       };
 
       function socketPoint(weaponCard, socket, rootRect, scale) {
         const map = socketMaps[weaponCard?.dataset.weaponCard];
         const point = map?.points[socket];
-        const body = weaponCard?.querySelector('.weapon-body');
-        if (!map || !point || !body) return null;
-        const bodyRect = body.getBoundingClientRect();
-        const bodyLeft = (bodyRect.left - rootRect.left) / scale;
-        const bodyTop = (bodyRect.top - rootRect.top) / scale;
-        const bodyWidth = bodyRect.width / scale;
-        const bodyHeight = bodyRect.height / scale;
-        const imageHeight = bodyHeight * map.heightFraction;
-        const imageWidth = imageHeight * map.naturalWidth / map.naturalHeight;
-        const imageLeft = bodyLeft + (bodyWidth - imageWidth) / 2;
-        const imageTop = bodyTop + (bodyHeight - imageHeight) * (weaponCard.dataset.weaponCard === 'p1911' ? 0.72 : 0.5);
-        let x = imageLeft + imageWidth * point[0];
-        const y = imageTop + imageHeight * point[1];
-        const attachmentRail = weaponCard.querySelector('.attachment-rail');
-        if (attachmentRail) {
-          const railRect = attachmentRail.getBoundingClientRect();
-          const railLeft = (railRect.left - rootRect.left) / scale;
-          const railRight = (railRect.right - rootRect.left) / scale;
-          const railTop = (railRect.top - rootRect.top) / scale;
-          const railBottom = (railRect.bottom - rootRect.top) / scale;
-          const markerEnvelope = 14;
-          const overlapsRail = x + markerEnvelope > railLeft
-            && x - markerEnvelope < railRight
-            && y + markerEnvelope > railTop
-            && y - markerEnvelope < railBottom;
-          if (overlapsRail) x = railRight + markerEnvelope + 8;
-        }
-        return { x, y };
+        const visual = weaponCard?.querySelector('.weapon-body');
+        if (!point || !visual) return null;
+        const visualRect = visual.getBoundingClientRect();
+        const visualLeft = (visualRect.left - rootRect.left) / scale;
+        const visualRight = (visualRect.right - rootRect.left) / scale;
+        const visualTop = (visualRect.top - rootRect.top) / scale;
+        const imageLeft = Number.isFinite(map.offsetLeft)
+          ? visualLeft + map.offsetLeft
+          : visualRight - map.imageWidth + (map.offsetRight || 0);
+        const imageTop = visualTop + (map.offsetTop || 0);
+        return {
+          x:imageLeft + map.imageWidth * point[0],
+          y:imageTop + map.imageHeight * point[1]
+        };
       }
 
       function updateConnectorLines(slots, focusedSlot) {
         connectorLines.replaceChildren();
         const rootRect = root.getBoundingClientRect();
         const scale = rootRect.width / 1920;
-
-        slots.forEach((slot) => {
-          if (slot.dataset.slotState === 'unavailable') return;
-          const weaponCard = slot.closest('[data-weapon-card]');
-          const point = socketPoint(weaponCard, slot.dataset.socket, rootRect, scale);
-          if (!point) return;
-          const slotRect = slot.getBoundingClientRect();
-          const x1 = (slotRect.right - rootRect.left) / scale;
-          const y1 = (slotRect.top + slotRect.height / 2 - rootRect.top) / scale;
-          const x2 = point.x;
-          const y2 = point.y;
-          const horizontalDirection = x2 >= x1 ? 1 : -1;
-          const verticalDirection = y2 >= y1 ? 1 : -1;
-          const bendX = x1 + horizontalDirection * Math.min(22, Math.abs(x2 - x1) / 2);
-          const radius = Math.min(12, Math.abs(x2 - bendX) / 2, Math.abs(y2 - y1) / 2);
-          const path = radius < 1
-            ? 'M ' + x1 + ' ' + y1 + ' H ' + x2
-            : [
-                'M ' + x1 + ' ' + y1,
-                'H ' + (bendX - horizontalDirection * radius),
-                'Q ' + bendX + ' ' + y1 + ' ' + bendX + ' ' + (y1 + verticalDirection * radius),
-                'V ' + (y2 - verticalDirection * radius),
-                'Q ' + bendX + ' ' + y2 + ' ' + (bendX + horizontalDirection * radius) + ' ' + y2,
-                'H ' + x2
-              ].join(' ');
-          const connector = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-          connector.setAttribute('d', path);
-          connector.setAttribute('class', slot === focusedSlot ? 'connector-line focused' : 'connector-line');
-          connectorLines.appendChild(connector);
-        });
 
         root.querySelectorAll('[data-weapon-card]').forEach((weaponCard) => {
           const map = socketMaps[weaponCard.dataset.weaponCard];
@@ -1582,10 +1619,16 @@
         if (!root.classList.contains('comparison-active') || selectedTooltip.hidden || tooltip.hidden) return;
         if (!selectedTooltip.offsetHeight || !tooltip.offsetHeight) return;
 
-        if (!selectedTooltip.dataset.comparisonBaseTop) {
-          selectedTooltip.dataset.comparisonBaseTop = String(parseFloat(getComputedStyle(selectedTooltip).top) || 60);
-        }
-        const baseTop = Number.parseFloat(selectedTooltip.dataset.comparisonBaseTop) || 60;
+        const listSourceRegion = root.classList.contains('comparison-source-vicinity')
+          ? root.querySelector('.vicinity-region')
+          : root.classList.contains('comparison-source-inventory')
+            ? root.querySelector('.inventory-region')
+            : null;
+        const baseTop = root.classList.contains('comparison-source-weapon-slot')
+          ? 422
+          : listSourceRegion
+            ? centeredTooltipTop(selectedTooltip, listSourceRegion)
+            : 320;
         const selectedLeft = Number.parseFloat(getComputedStyle(selectedTooltip).left) || 0;
         const primaryLeft = Number.parseFloat(getComputedStyle(tooltip).left) || 0;
         const sideBySide = Math.abs(primaryLeft - selectedLeft) > 40;
@@ -1601,7 +1644,28 @@
         root.style.setProperty('--comparison-primary-top', primaryTop + 'px');
       }
 
-      const tooltipLayoutObserver = new ResizeObserver(syncComparisonTooltipLayout);
+      function centeredTooltipTop(panel, region) {
+        if (!panel || !region || !panel.offsetHeight) return 320;
+        const canvasBottom = Math.min(root.clientHeight || 1080, 1020);
+        const centeredTop = region.offsetTop + (region.offsetHeight - panel.offsetHeight) / 2;
+        return Math.max(20, Math.min(centeredTop, canvasBottom - panel.offsetHeight));
+      }
+
+      function syncListTooltipLayout() {
+        if (root.classList.contains('comparison-active') || tooltip.hidden) return;
+        const region = root.classList.contains('vicinity-tooltip-active')
+          ? root.querySelector('.vicinity-region')
+          : root.classList.contains('inventory-tooltip-active')
+            ? root.querySelector('.inventory-region')
+            : null;
+        if (!region) return;
+        root.style.setProperty('--list-tooltip-top', centeredTooltipTop(tooltip, region) + 'px');
+      }
+
+      const tooltipLayoutObserver = new ResizeObserver(() => {
+        syncComparisonTooltipLayout();
+        syncListTooltipLayout();
+      });
       tooltipLayoutObserver.observe(selectedTooltip);
       tooltipLayoutObserver.observe(tooltip);
 
@@ -1631,6 +1695,7 @@
         root.classList.toggle('vicinity-tooltip-active', context === 'vicinity');
         root.classList.toggle('inventory-tooltip-active', context === 'inventory');
         root.classList.toggle('weapon-slot-tooltip-active', context === 'weapon-slot');
+        root.classList.toggle('secondary-tooltip-active', context === 'secondary');
         root.classList.toggle('gear-tooltip-active', context === 'gear');
 
         if (target.matches('.tile-panel[tabindex="0"]')) {
@@ -1709,6 +1774,7 @@
             image.hidden = true;
           }
           tooltip.hidden = false;
+          requestAnimationFrame(syncListTooltipLayout);
           return;
         }
 
@@ -1726,6 +1792,7 @@
           image.hidden = true;
         }
         tooltip.hidden = false;
+        requestAnimationFrame(syncListTooltipLayout);
       }
 
       function nearestInDirection(current, direction, candidates) {
@@ -1762,7 +1829,8 @@
       }
 
       function attachmentGridCells(weaponCard) {
-        return weaponCard ? Array.from(weaponCard.querySelectorAll('.attachment-slot')) : [];
+        const rail = weaponCard?.querySelector('.attachment-rail');
+        return rail ? Array.from(rail.children) : [];
       }
 
       function attachmentGridCell(weaponCard, row, column) {
@@ -1777,31 +1845,56 @@
 
         const row = Math.floor(cellIndex / 2);
         const column = cellIndex % 2;
+        const isFocusableCell = (candidate) => candidate instanceof HTMLButtonElement
+          && candidate.classList.contains('attachment-slot')
+          && !candidate.disabled
+          && candidate.getClientRects().length > 0;
+        const candidateAt = (card, candidateRow, candidateColumn) => {
+          const candidate = attachmentGridCell(card, candidateRow, candidateColumn);
+          return isFocusableCell(candidate) ? candidate : null;
+        };
 
         if (direction === 'left' || direction === 'right') {
           const nextColumn = column + (direction === 'right' ? 1 : -1);
-          if (nextColumn > 1) return nearestSecondarySlot(current);
-          if (nextColumn < 0) return null;
-          const candidate = attachmentGridCell(weaponCard, row, nextColumn);
-          if (candidate && !candidate.disabled) return candidate;
-          return direction === 'right' ? nearestSecondarySlot(current) : current;
+          const localCandidate = nextColumn >= 0 && nextColumn <= 1
+            ? candidateAt(weaponCard, row, nextColumn)
+            : null;
+          if (localCandidate) return localCandidate;
+
+          const weaponCards = Array.from(root.querySelectorAll('[data-weapon-card]'));
+          const cardIndex = weaponCards.indexOf(weaponCard);
+          const adjacentCard = weaponCards[cardIndex + (direction === 'right' ? 1 : -1)];
+          if (adjacentCard) {
+            const columnOrder = direction === 'right' ? [0, 1] : [1, 0];
+            for (const candidateColumn of columnOrder) {
+              const sameRowCandidate = candidateAt(adjacentCard, row, candidateColumn);
+              if (sameRowCandidate) return sameRowCandidate;
+            }
+            const adjacentFocusables = attachmentGridCells(adjacentCard).filter(isFocusableCell);
+            return nearestInDirection(current, direction, adjacentFocusables) || adjacentFocusables[0] || current;
+          }
+
+          if (direction === 'left') {
+            const inventoryCandidates = currentFocusables().filter((candidate) => candidate.closest('.inventory-region'));
+            return nearestInDirection(current, 'left', inventoryCandidates) || current;
+          }
+          return current;
         }
 
         const rowStep = direction === 'down' ? 1 : -1;
         for (let nextRow = row + rowStep; nextRow >= 0 && nextRow < 3; nextRow += rowStep) {
-          const candidate = attachmentGridCell(weaponCard, nextRow, column);
-          if (candidate && !candidate.disabled) return candidate;
+          const sameColumnCandidate = candidateAt(weaponCard, nextRow, column);
+          if (sameColumnCandidate) return sameColumnCandidate;
+          const alternateColumnCandidate = candidateAt(weaponCard, nextRow, column === 0 ? 1 : 0);
+          if (alternateColumnCandidate) return alternateColumnCandidate;
         }
 
-        const weaponCards = Array.from(root.querySelectorAll('[data-weapon-card]'));
-        const cardIndex = weaponCards.indexOf(weaponCard);
-        for (let nextCardIndex = cardIndex + rowStep; nextCardIndex >= 0 && nextCardIndex < weaponCards.length; nextCardIndex += rowStep) {
-          const rowOrder = direction === 'down' ? [0, 1, 2] : [2, 1, 0];
-          for (const nextRow of rowOrder) {
-            const candidate = attachmentGridCell(weaponCards[nextCardIndex], nextRow, column);
-            if (candidate && !candidate.disabled) return candidate;
-          }
-        }
+        if (direction === 'up') return current;
+
+        const weaponName = weaponCard.dataset.weaponCard;
+        if (weaponName === 'm16') return root.querySelector('[data-secondary-slot="throwable"]') || current;
+        if (weaponName === 'm249') return root.querySelector('[data-secondary-slot="melee"]') || current;
+        if (weaponName === 'p1911') return firstGearSlot() || current;
 
         return current;
       }
@@ -1847,10 +1940,13 @@
         const controls = Array.from(rail.querySelectorAll('button:not(:disabled)'))
           .filter((button) => button.getClientRects().length > 0);
         const currentIndex = controls.indexOf(current);
-        if (currentIndex < 0) return null;
-        const offset = direction === 'down' ? 1 : direction === 'up' ? -1 : 0;
-        if (!offset) return null;
-        return controls[currentIndex + offset] || null;
+        if (currentIndex < 0 || controls.length !== 4) return null;
+        const row = Math.floor(currentIndex / 2);
+        const column = currentIndex % 2;
+        const nextRow = row + (direction === 'down' ? 1 : direction === 'up' ? -1 : 0);
+        const nextColumn = column + (direction === 'right' ? 1 : direction === 'left' ? -1 : 0);
+        if (nextRow < 0 || nextRow > 1 || nextColumn < 0 || nextColumn > 1) return null;
+        return controls[nextRow * 2 + nextColumn] || null;
       }
 
       function attachmentChainSlots(current) {
@@ -1877,37 +1973,8 @@
         }
 
         if (current.classList.contains('attachment-slot')) {
-          const weaponCard = current.closest('[data-weapon-card]');
-          const chainSlots = attachmentChainSlots(current);
-          const chainIndex = chainSlots.indexOf(current);
-          const isChainBottom = chainIndex === chainSlots.length - 1;
-
-          if (direction === 'up' && chainIndex >= 0) {
-            if (chainIndex > 0) chainSlots[chainIndex - 1]?.focus();
-            return;
-          }
-
-          if (direction === 'down' && chainIndex >= 0 && !isChainBottom) {
-            chainSlots[chainIndex + 1]?.focus();
-            return;
-          }
-
-          if (direction === 'down' && isChainBottom && weaponCard?.dataset.weaponCard === 'm16') {
-            root.querySelector('[data-secondary-slot="throwable"]')?.focus();
-            return;
-          }
-
-          if (direction === 'right' && gearExpanded && isChainBottom && weaponCard?.dataset.weaponCard === 'm249') {
-            firstGearSlot()?.focus();
-            return;
-          }
-
-          let attachmentCandidates = focusables;
-          if (!current.closest('.gear-region')) {
-            attachmentCandidates = attachmentCandidates.filter((candidate) => !candidate.closest('.outfit-rail'));
-          }
-          const nextPhysicalSlot = nearestInDirection(current, direction, attachmentCandidates);
-          if (nextPhysicalSlot) nextPhysicalSlot.focus();
+          const nextGridSlot = attachmentGridTarget(current, direction);
+          if (nextGridSlot && nextGridSlot !== current) nextGridSlot.focus();
           return;
         }
 
@@ -1927,11 +1994,11 @@
             nextGridControl.focus();
             return;
           }
-          if (direction === 'left') {
+          if (direction === 'up') {
             closestSidearmAttachment(current)?.focus();
             return;
           }
-          return;
+          if (direction !== 'left') return;
         }
 
         if (gearRail && (direction === 'up' || direction === 'down')) {

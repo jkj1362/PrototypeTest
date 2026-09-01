@@ -2,7 +2,10 @@
 
 Status: second-run interactive baseline; manual controller acceptance pending
 
-Last updated: 2026-08-27
+Last updated: 2026-09-01
+
+Shared behavior authority: `../README.md`. This file records 3-b-specific
+layout and navigation overrides.
 
 ## 1. Purpose
 
@@ -36,7 +39,8 @@ historical original 2-b behavior in
 - list categories, mutation, stacking, empty-list focus, and initial content;
 - replacing the equipped Throwable returns the previous Throwable to Inventory;
 - initial focus on the first Vicinity item;
-- item actions and the blocked vicinity AUG actions;
+- item actions and shared Vicinity weapon switching through X quick-swap or
+  A-based primary-slot selection, preserving destination attachments;
 - attachment compatibility, placement lock, conditional Vicinity empty-slot
   quick equip, Inventory replacement quick equip, detach, and drop;
 - gamepad Menu toggling the Vicinity convenience, enabled by default;
@@ -190,6 +194,10 @@ tooltips retain the exported icon and
 category label. Empty-slot guidance tooltips omit the category
 badge but retain the slot-specific guidance label and representative artwork.
 The surrounding 3-b composition and navigation are unchanged.
+
+Tooltip panels use natural content-driven height. Comparison panels share the
+source attachment's anchor, keep an 18 px vertical gap, and shift upward as a
+unit only when required to remain above the controller guide.
 
 ## Compact vertical weapon presentation (2026-08-27)
 

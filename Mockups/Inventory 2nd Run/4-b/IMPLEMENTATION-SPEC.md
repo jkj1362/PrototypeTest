@@ -2,7 +2,10 @@
 
 Status: interactive second-run prototype; manual controller acceptance pending
 
-Last updated: 2026-08-27
+Last updated: 2026-09-01
+
+Shared behavior authority: `../README.md`. This file records 4-b-specific
+layout and navigation overrides.
 
 ## 1. Purpose
 
@@ -83,6 +86,7 @@ Scope slot; unavailable sidearm sockets are never considered.
 - A-based modal placement with ineligible slots dimmed until confirm/cancel;
 - lower-right X/A slot cues that leave attachment art visible;
 - source-anchored comparison tooltips;
+- content-driven tooltip height with an 18 px vertical comparison gap;
 - connector lines and socket highlights on all three diagonal weapons;
 - the 24 px right crop for M16 and M249 art plus matching socket offsets;
 - empty attachment, Gear, Outfit, and Melee/Tool guidance tooltips;
@@ -96,7 +100,7 @@ Scope slot; unavailable sidearm sockets are never considered.
 The reusable `WBP_InventoryItemTile` omits `Txt_ItemName` because the compact
 grid tile does not render item names; `Panel_ItemTile`, `Box_CategoryRail`,
 `Badge_Category`, `Box_ItemContent`, `Img_ItemIcon`, and `Txt_StackCount`
-remain available.
+remain available. The root HTML exposes 37 unique `data-umg-name` bindings.
 
 ## 7. Validation checklist
 
