@@ -1,0 +1,58 @@
+/* Exact Figma 550:663 export at 0.75 scale. The head overlays the first
+   item's left border; the solid stem grows with the category's contents.
+   UMG: Overlay + atlas brush region for the head + tinted Border stem. */
+#inventory-1b .item-widget,
+#inventory-1b .wide-item-widget { padding-left:0; }
+#inventory-1b .item-tile,
+#inventory-1b .wide-item-widget .item-tile { width:306px; }
+#inventory-1b .category-rail-segment {
+  position:absolute;
+  left:0;
+  top:0;
+  width:36px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  background-color:transparent;
+  pointer-events:none;
+  z-index:10;
+}
+#inventory-1b .item-widget:focus-within,
+#inventory-1b .wide-item-widget:focus-within {
+  position:relative;
+}
+#inventory-1b .item-widget .item-tile:focus,
+#inventory-1b .wide-item-widget .item-tile:focus {
+  position:relative;
+  outline:none;
+}
+#inventory-1b .item-widget:focus-within::after,
+#inventory-1b .wide-item-widget:focus-within::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  box-shadow:inset 0 0 0 5px #f3d521;
+  pointer-events:none;
+  z-index:20;
+}
+#inventory-1b .category-flag-head {
+  width:36px;
+  height:31.5px;
+  flex:0 0 31.5px;
+  background-image:url('../assets/category-flags-550-663.png');
+  background-repeat:no-repeat;
+  background-size:369.75px 306.75px;
+}
+#inventory-1b .category-flag-stem { width:4.5px; flex:1; }
+#inventory-1b .category-ammunition .category-flag-head { background-position:0 0; }
+#inventory-1b .category-throwable .category-flag-head { background-position:-66.75px 0; }
+#inventory-1b .category-attachment .category-flag-head { background-position:-133.5px 0; }
+#inventory-1b .category-weapon .category-flag-head { background-position:-200.25px 0; }
+#inventory-1b .category-consumable .category-flag-head { background-position:-267px 0; }
+#inventory-1b .category-gear .category-flag-head { background-position:-333.75px 0; }
+#inventory-1b .category-ammunition .category-flag-stem { background-color:#be9305; }
+#inventory-1b .category-throwable .category-flag-stem { background-color:#970000; }
+#inventory-1b .category-attachment .category-flag-stem { background-color:#3b65cf; }
+#inventory-1b .category-weapon .category-flag-stem { background-color:#a53bcf; }
+#inventory-1b .category-consumable .category-flag-stem { background-color:#009744; }
+#inventory-1b .category-gear .category-flag-stem { background-color:#695f3e; }

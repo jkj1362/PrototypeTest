@@ -4,19 +4,23 @@ Started: 2026-09-21
 
 ## Baseline selection
 
-The second run is closed. Its folder is preserved as historical reference at
-`../[Closed]Inventory 2nd Run/`. The third run carries forward only two
-second-run prototypes:
+The first and second runs are closed historical references. Only prototype
+families 1 and 2 continue in this directory. Series 3 and 4 and all two-column
+loose-item variants remain in the archives.
 
-- `1-b`
-- `2-a`
+The active designs replace the earlier third-run layouts:
 
-Series 3 (`3-a`, `3-b`) and series 4 (`4-a`, `4-b`, `4-c`) are not transferred
-to this run.
+| Prototype | Figma frame | Current design |
+|---|---|---|
+| [1-b](1-b/WBP_Inventory1B.html) | 545:1887 | Stacked horizontal weapons, icon-based attachment cells, right-side secondary/Gear column |
+| [2-a](2-a/WBP_Inventory2A.html) | 545:2625 | Vertical weapons, Gear beside Inventory, two-cell secondary footer |
 
-`2-c` is also carried forward as a one-column layout variant of `2-a` that
-keeps the live PUBG-style center Gear/Outfit rail; it and `1-b` remain in this
-run alongside `2-a`.
+Prototype 2-c was closed on 2026-09-22 and moved to [[Closed]2-c](<[Closed]2-c/WBP_Inventory2C.html>).
+It remains a frozen historical prototype and receives no further third-run changes.
+
+The former 2-d experiment was deleted by user request. Its Figma direction
+was assigned to the now-closed 2-c snapshot; the former center-bridge 2-c
+layout was replaced before closure.
 
 ## New third-run rule
 
@@ -27,9 +31,16 @@ forward. Every prototype in this run uses a one-column list.
 
 ## Shared behavior (inherited from the second run)
 
-`1-b`, `2-a`, and `2-c` carry forward unchanged, so the complete second-run
-interaction contract remains in force until a spec in this run documents a
-delta:
+The second-run interaction contract remains in force except where the current
+per-prototype specification records a layout or focus delta. Both active
+variants retain six categories (Ammunition, Throwable, Attachment, Weapon,
+Heal/Boost, Gear), flag markers, category icons, and the same item/equipment
+information, including attachment art and Gear levels.
+
+The no-two-column-list rule applies to Vicinity/Inventory. Prototype 1's
+two-column attachment controls are a separate equipment control.
+
+Inherited behavior:
 
 - Gear/Outfit opens collapsed and remains expandable.
 - During modal A-based attachment placement, focus remains restricted to
@@ -61,8 +72,8 @@ delta:
   nine navigable slots. Boundary behavior remains prototype-specific.
 - Vicinity/Inventory categories use colored list rails and matching category
   badges plus concise effect rows in tooltips, per Figma section `468:2072`.
-- List badges are solid category-color circles without icons. Populated-item
-  tooltips retain the exported category icon and text label.
+- List badges use flag markers with category icons. Populated-item tooltips
+  retain the exported category icon and text label.
 - Empty-slot guidance tooltips omit the category badge.
 - Tooltip panels use content-driven height. Vertical comparison pairs
   preserve an 18 px gap and reposition as a unit when their natural combined
@@ -72,5 +83,31 @@ delta:
 
 All prototypes share `assets/` through their existing `../assets/`
 references and use `shared/weapon-switch.js` for the common primary-firearm
-swap state. No new image assets were introduced when forking these three
-prototypes into this run. See each prototype's `ASSET-AUDIT.md`.
+swap state. The initial forks added no image assets; subsequent category
+work added the Gear badge and category glyph assets documented in
+`2-a/ASSET-AUDIT.md`.
+
+Latest replacement validation: inline JavaScript parsing, local asset references,
+unique bindings, component references, and diff whitespace checks. Browser visual
+review was blocked by the local-file URL policy; visual and physical-controller
+acceptance remain pending. Expanded drawers are inherited interaction states,
+since the supplied frames show collapsed Gear only. The reference geometry also
+extends beyond the convention's 5% safe zone; console-safe adaptation and font
+licensing/import remain production work, not an accepted UMG delivery.
+
+## Category flag alignment
+
+Both active layouts use the exact Figma 550:663 flag heads from
+assets/category-flags-550-663.png. shared/category-flags.css overlays each
+head on the first item slot's top-left border with zero gutter; the stem
+ends at the final category item. The head and glyph scale together. The old
+24 px gutter, negative top offset, and clipped tooltip-badge icons are removed.
+
+## Character key guide
+
+Both active prototypes treat Show/Hide Character as a non-focusable key guide.
+R3/R toggles the drawer, with no guide click action or navigation stop. The
+1-b guide is screen-level; the 2-a guide is grouped inside Gear. Empty
+Gear/Outfit and Melee slots show representative icons. Yellow weapon-card
+borders indicate attachment focus only; being equipped does not add a yellow
+border.

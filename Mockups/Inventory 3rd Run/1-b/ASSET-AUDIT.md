@@ -1,46 +1,51 @@
-# Inventory 1-b asset audit
+# Inventory Prototype 1 asset audit
 
-Shared asset root: `../assets/`. This prototype does not own a separate asset copy.
+Date: 2026-09-21
 
-Status: complete for the third-run 1-b HTML baseline, carried forward unchanged from the second run; visual acceptance pending.
+Source: Figma frame 545:1887 ("개선 1").
 
-## Asset decision
+This prototype reuses the existing weapon and item assets:
 
-1-b reuses the complete 1-a image, silhouette, font, and socket-map set. No
-weapon, item, character, Gear, or Outfit asset is regenerated.
+- The plain (non-oriented) weapon renders `weapon-m16.png`, `weapon-m249.png`,
+  and `weapon-p1911.png` -- the same files the second-run `1-b`/`1-a`/`1-c`
+  used -- contained without stretching inside the wide/short card rather than
+  the "2-series" oriented portrait crops, since this prototype's cards are
+  wide, not narrow.
+- Every asset already audited for `2-a`, including the six-category rail
+  markers and glyphs from Figma `550:663` (see `../2-a/ASSET-AUDIT.md`) and
+  the Gear slot renders (`slot-helmet.svg`, `gear-backpack.png`,
+  `gear-vest.png`).
+- The shared controller-cue and attachment-connector assets used for the
+  X/A badges and on-weapon socket markers.
 
-The only added file is `../assets/controller-r3.png`, copied from the accepted
-3-a prototype for the collapsed/expanded Gear control. Production should use
-the approved shared controller-glyph system instead of importing a duplicate.
+Attachment cells reuse attachment-muzzle.png, attachment-grip.png,
+attachment-mag.png, attachment-scope.png, and attachment-stock.png. Occupied
+slots show the same item art as 2-a/2-c.
 
-## Presentation decisions
+## Exact category flag correction
 
-- Secondary slots move into a CSS/UMG vertical column.
-- The expanded drawer is a solid-color root overlay and needs no new material.
-- The browser capacity gradient remains a preview of a native ProgressBar fill
-  with a centered TextBlock overlay.
-- Existing horizontal firearm images and the smaller P1911 presentation are
-  unchanged from 1-a.
+category-flags-550-663.png is the unmodified Figma 550:663 export (493 x 409,
+RGBA). Its six heads are used as atlas regions at 0.75 scale: X offsets
+0, 66.75, 133.5, 200.25, 267, 333.75; head size 36 x 31.5. The stem is
+a 4.5 px tinted Border extending to the last category item. No badge icons
+are clipped or substituted inside the heads. Existing category badge/glyph
+files remain available for tooltips; they no longer construct list flags.
+See ../shared/category-flags.css. Native UMG uses an atlas brush and Overlay
+with no gutter or extra slot padding.
 
-Generated Widget Blueprints remain layout artifacts; collapse state, focus
-recovery, and item behavior belong in the hand-written parent UserWidget.
+## 2026-09-22 1-b-only correction
 
-## Second-run cue decision
+No new image assets. A triangular alpha mask removes the dark empty area
+from the atlas flag head without changing its exported glyph. M16 retains
+the original transparent PNG and scales by width, with matching socket math.
+Socket circles remain procedural; connector lines are no longer rendered.
 
-No new asset is required. The existing X and A controller layers are scaled to
-a centered 24 px lower-right badge, while the attachment image remains visible at 62%
-opacity. Placement dimming is a procedural slot-state tint and opacity change.
+## Empty Melee icon (2026-09-22)
 
-## Shared category exports (2026-08-24)
+slot-melee.svg is the exact melee silhouette exported by the previously
+inspected Figma 545:1887 frame. Existing Gear/Outfit silhouettes are reused.
 
-Figma sections `468:2072` and `468:2378` contribute five exact shared
-category assets:
-
-- `category-attachment.png` from node `468:1098`;
-- `category-ammunition.svg` from node `468:1070`;
-- `category-consumable.svg` from node `468:1156`;
-- `category-throwable.svg` from node `468:1165`; and
-- `category-weapon.svg` from node `468:2382`.
-
-These exact exports drive populated-item tooltip category badges. List rails
-and their solid-color markers use CSS/UMG color primitives without icon assets.
+The three weapon-*-tilted-1b.svg files embed the unchanged local PNG bytes
+with a -12 degree vector rotation and trimmed transparent canvas bounds.
+They introduce no new drawn weapon art. For UMG, rasterize these audited
+vector wrappers at import; socket transforms use the matching asset bounds.

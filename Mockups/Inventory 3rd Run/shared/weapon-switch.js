@@ -28,6 +28,7 @@
   function cardImage(root, key) {
     const prototype = prototypeCode(root);
     if (key === 'aug') return listImages.aug;
+    if (prototype === '1-b') return '../assets/weapon-' + key + '-tilted-1b.svg';
     if (prototype.startsWith('4-')) return '../assets/weapon-' + key + '-diagonal-4a.png';
     if (prototype.startsWith('2-') || prototype.startsWith('3-')) return '../assets/weapon-' + key + '-oriented.png';
     return listImages[key] || '';

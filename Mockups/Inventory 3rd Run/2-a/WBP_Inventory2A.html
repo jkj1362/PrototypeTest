@@ -403,7 +403,12 @@
       background-color:#474747;
     }
 
-    #inventory-1b .weapon-card.held { background-color:#808080; }
+    #inventory-1b .weapon-card.held {
+      background-color:#808080;
+      border-width:3px;
+      border-color:#f3d521;
+      padding:4px;
+    }
     #inventory-1b .weapon-details { flex:1; height:auto; padding:3px 6px; display:flex; flex-direction:column; gap:2px; overflow:hidden; }
     #inventory-1b .weapon-heading { height:26px; flex:0 0 26px; display:flex; flex-direction:row; align-items:center; gap:6px; }
     #inventory-1b .weapon-name { margin:0; font-size:20px; font-weight:700; }
@@ -787,23 +792,18 @@
     #inventory-1b .tile-panel,
     #inventory-1b .vicinity-region .tile-panel { padding-top:10px; }
     #inventory-1b .item-widget,
-    #inventory-1b .wide-item-widget { position:relative; padding-left:18px; }
+    #inventory-1b .wide-item-widget { position:relative; padding-left:0; }
     #inventory-1b .item-tile,
-    #inventory-1b .wide-item-widget .item-tile { width:288px; }
+    #inventory-1b .wide-item-widget .item-tile { width:306px; }
     #inventory-1b .category-divider { height:3px; flex:0 0 3px; background-color:transparent; }
-    #inventory-1b .category-rail-segment { position:absolute; left:0; width:18px; pointer-events:none; }
-    #inventory-1b .category-rail-line { position:absolute; left:7px; top:5px; width:4px; }
-    #inventory-1b .category-consumable .category-rail-line { background-color:#009744; }
-    #inventory-1b .category-throwable .category-rail-line { background-color:#970000; }
-    #inventory-1b .category-ammunition .category-rail-line { background-color:#968037; }
-    #inventory-1b .category-attachment .category-rail-line { background-color:#3b65cf; }
-    #inventory-1b .category-weapon .category-rail-line { background-color:#a53bcf; }
-    #inventory-1b .category-rail-marker { position:absolute; left:4px; top:0; width:10px; height:10px; border-radius:5px; }
-    #inventory-1b .category-consumable .category-rail-marker { background-color:#009744; }
-    #inventory-1b .category-throwable .category-rail-marker { background-color:#970000; }
-    #inventory-1b .category-ammunition .category-rail-marker { background-color:#968037; }
-    #inventory-1b .category-attachment .category-rail-marker { background-color:#3b65cf; }
-    #inventory-1b .category-weapon .category-rail-marker { background-color:#a53bcf; }
+
+    #inventory-1b .category-ammunition { background-color:#be9305; }
+    #inventory-1b .category-throwable { background-color:#970000; }
+    #inventory-1b .category-attachment { background-color:#3b65cf; }
+    #inventory-1b .category-weapon { background-color:#a53bcf; }
+    #inventory-1b .category-consumable { background-color:#009744; }
+    #inventory-1b .category-gear { background-color:#695f3e; }
+
 
     #inventory-1b .tooltip-panel { border-color:#ffffff; background-color:rgba(58,58,58,0.98); color:#ffffff; }
     #inventory-1b .tooltip-context { color:#bdbdbd; }
@@ -815,9 +815,11 @@
     #inventory-1b .tooltip-category-badge.category-ammunition { background-color:#968037; }
     #inventory-1b .tooltip-category-badge.category-attachment { background-color:#3b65cf; }
     #inventory-1b .tooltip-category-badge.category-weapon { background-color:transparent; }
+    #inventory-1b .tooltip-category-badge.category-gear { background-color:transparent; }
     #inventory-1b .tooltip-category-badge.category-consumable img,
     #inventory-1b .tooltip-category-badge.category-throwable img,
-    #inventory-1b .tooltip-category-badge.category-weapon img { width:32px; height:32px; }
+    #inventory-1b .tooltip-category-badge.category-weapon img,
+    #inventory-1b .tooltip-category-badge.category-gear img { width:32px; height:32px; }
     #inventory-1b .tooltip-type { color:#ffffff; }
     #inventory-1b .tooltip-description { display:flex; flex-direction:column; color:#ffffff; }
     #inventory-1b .tooltip-effect-line { display:flex; flex-direction:row; gap:5px; }
@@ -827,7 +829,7 @@
     #inventory-1b .tooltip-action-key { border-color:#ffffff; }
     #inventory-1b .tooltip-panel.empty-slot .tooltip-category-badge { display:none; }
 
-    /* 2-a: Figma 468:1535, scaled from 2559 x 1439 to the 1920 x 1080 UMG canvas. */
+    /* 2-a: Figma 545:2625, scaled from 2559 x 1439 to the 1920 x 1080 UMG canvas. */
     #inventory-1b .vicinity-region { left:18px; top:60px; width:324px; height:962px; }
     #inventory-1b .inventory-region { left:351px; top:59px; width:324px; height:962px; }
     #inventory-1b .weapon-region { left:949px; top:109px; width:842px; height:910px; }
@@ -869,7 +871,7 @@
     #inventory-1b .gear-region:not(.collapsed) .gear-slot img { width:74px; height:74px; }
     #inventory-1b .gear-region:not(.collapsed) .outfit-column .gear-slot { width:84px; height:84px; }
     #inventory-1b .gear-region:not(.collapsed) .outfit-column .gear-slot img { width:74px; height:74px; }
-    #inventory-1b.gear-expanded .weapon-region { opacity:0.38; }
+    #inventory-1b.gear-expanded .attachment-connectors { display:none; }
     #inventory-1b .gear-region.collapsed .gear-layout { padding:8px; }
     #inventory-1b .gear-region.collapsed .equipment-column { width:96px; align-items:center; }
     #inventory-1b .gear-region.collapsed .drawer-title { width:96px; height:35px; flex:0 0 35px; font-size:18px; line-height:30px; text-align:center; }
@@ -899,6 +901,112 @@
     #inventory-1b.comparison-active .tooltip-action { gap:5px; font-size:15px; }
     #inventory-1b.comparison-active .tooltip-action-key { width:26px; height:26px; }
     #inventory-1b .controller-guide { top:1034px; }
+
+    /* Current reference layout, 1920 x 1080. */
+
+    #inventory-1b .weapon-region { left:1036px; width:875px; height:922px; }
+    #inventory-1b .weapon-row { width:875px; height:706px; gap:6px; }
+    #inventory-1b .weapon-widget { flex:400; height:706px; }
+    #inventory-1b .weapon-widget:nth-child(3) { flex:342; height:706px; }
+    #inventory-1b .secondary-weapons { width:875px; height:209px; flex:0 0 209px; margin-top:7px; }
+    #inventory-1b .gear-toggle { background-color:transparent; color:#ffffff; }
+    #inventory-1b .tooltip-panel,
+    #inventory-1b.vicinity-tooltip-active .primary-tooltip,
+    #inventory-1b.inventory-tooltip-active .primary-tooltip,
+    #inventory-1b.weapon-slot-tooltip-active .primary-tooltip,
+    #inventory-1b.gear-tooltip-active .primary-tooltip,
+    #inventory-1b.comparison-source-vicinity .tooltip-panel,
+    #inventory-1b.comparison-source-inventory .tooltip-panel,
+    #inventory-1b.comparison-source-weapon-slot .tooltip-panel { left:780px; width:250px; }
+
+    #inventory-1b .vicinity-region { top:46px; }
+    #inventory-1b .inventory-region { top:44px; }
+    #inventory-1b .weapon-region { top:92px; }
+    #inventory-1b .gear-region.collapsed { left:684px; top:99px; width:87px; height:342px; }
+    #inventory-1b .gear-region.collapsed .gear-layout { padding:7px; }
+    #inventory-1b .gear-region.collapsed .equipment-column { width:71px; gap:6px; }
+    #inventory-1b .gear-region.collapsed .drawer-title { width:auto; height:22px; flex:0 0 22px; font-size:18px; line-height:22px; }
+    #inventory-1b .gear-region.collapsed .gear-rail { width:71px; gap:8px; }
+    #inventory-1b .gear-region.collapsed .gear-slot { width:71px; height:71px; flex:0 0 71px; }
+    #inventory-1b .gear-region.collapsed .gear-slot img { width:60px; height:60px; }
+    #inventory-1b .gear-region.collapsed .gear-toggle { width:71px; height:53px; flex:0 0 53px; margin-top:0; }
+
+  </style>
+  <link rel="stylesheet" href="../shared/category-flags.css">
+  <style>
+    /* 2-a review: compact lists, tilted weapons, and Gear-owned capacity. */
+    #inventory-1b .tile-panel { gap:4px; padding-top:4px; }
+    #inventory-1b .vicinity-region .tile-panel,
+    #inventory-1b .inventory-region .tile-panel { border-top:2px solid #d9d9d9; }
+    #inventory-1b .category-divider { display:none; }
+    #inventory-1b .category-flag-head { clip-path:polygon(0 0, 100% 0, 4.5px 100%, 0 100%); }
+    #inventory-1b .vicinity-region .list-header,
+    #inventory-1b .inventory-region .list-header { display:none; }
+
+    #inventory-1b .weapon-card,
+    #inventory-1b .weapon-card.held { border:3px solid #d9d9d9; padding:6px; }
+    #inventory-1b .weapon-card.weapon-focused { border-color:#fff600; }
+    #inventory-1b .attachment-rail { width:88px; flex-basis:88px; gap:6px; }
+    #inventory-1b .attachment-slot { width:88px; height:88px; }
+    #inventory-1b .attachment-slot img { width:78px; height:78px; }
+    #inventory-1b .weapon-body { background-image:none !important; }
+    #inventory-1b .weapon-visual { position:relative; overflow:hidden; background-image:none !important; }
+    #inventory-1b .weapon-visual::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background-repeat:no-repeat;
+      background-position:center;
+      transform:rotate(-6deg);
+      transform-origin:center;
+    }
+    #inventory-1b .weapon-visual.m16::before { background-image:url('../assets/weapon-m16-oriented.png'); background-size:auto 76%; }
+    #inventory-1b .weapon-visual.m249::before { background-image:url('../assets/weapon-m249-oriented.png'); background-size:auto 76%; }
+    #inventory-1b .weapon-visual.p1911::before { background-image:url('../assets/weapon-p1911-oriented.png'); background-size:82% auto; }
+    #inventory-1b .secondary-icon-area { min-height:0; overflow:hidden; }
+    #inventory-1b .secondary-slot img { width:auto; height:auto; max-width:85%; max-height:100%; object-fit:contain; }
+
+    #inventory-1b .gear-region:not(.collapsed) { left:684px; top:92px; width:346px; height:927px; }
+    #inventory-1b .gear-region:not(.collapsed) .equipment-column,
+    #inventory-1b .gear-region:not(.collapsed) .outfit-column { width:78px; }
+    #inventory-1b .gear-region:not(.collapsed) .gear-slot { width:68px; height:68px; }
+    #inventory-1b .gear-region:not(.collapsed) .gear-slot img { width:58px; height:58px; }
+    #inventory-1b .gear-region:not(.collapsed) .outfit-column { min-height:0; overflow:hidden; }
+    #inventory-1b .gear-region:not(.collapsed) .outfit-rail { gap:8px; min-height:0; }
+    #inventory-1b .gear-region:not(.collapsed) .outfit-column .gear-slot { width:64px; height:64px; }
+    #inventory-1b .gear-region:not(.collapsed) .outfit-column .gear-slot img { width:54px; height:54px; }
+    #inventory-1b .gear-region:not(.collapsed) .gear-toggle { width:68px; height:28px; margin:0; padding:2px; flex-direction:row; gap:3px; }
+    #inventory-1b .gear-region:not(.collapsed) .gear-toggle img { width:18px; height:18px; }
+    #inventory-1b .gear-region:not(.collapsed) .gear-toggle-label { font-size:9px; line-height:11px; }
+    #inventory-1b .gear-region:not(.collapsed) .character-preview { width:auto; flex:1; }
+
+    #inventory-1b .gear-stack { display:flex; flex-direction:row; align-items:flex-start; gap:4px; }
+    #inventory-1b .gear-capacity { width:10px; height:229px; min-height:0; flex:0 0 10px; padding:1px; border:1px solid #d9d9d9; background-color:#242424; }
+    #inventory-1b .gear-capacity .scroll-thumb { width:6px; height:225px; background-image:linear-gradient(to top,#d9d9d9 0 60%,#5d5d5d 60% 100%); }
+    #inventory-1b .gear-region:not(.collapsed) .equipment-column { width:92px; }
+    #inventory-1b .gear-region:not(.collapsed) .gear-capacity { height:224px; }
+    #inventory-1b .gear-region:not(.collapsed) .gear-capacity .scroll-thumb { height:220px; }
+    #inventory-1b .gear-region.collapsed { left:684px; top:703px; width:99px; height:303px; }
+    #inventory-1b .gear-region.collapsed .equipment-column,
+    #inventory-1b .gear-region.collapsed .drawer-title { width:85px; }
+    #inventory-1b .gear-region.collapsed .gear-rail { gap:8px; }
+    #inventory-1b .gear-region.collapsed .gear-toggle { width:71px; height:24px; flex:0 0 24px; margin:0; padding:1px; flex-direction:row; gap:3px; background-color:transparent; color:#ffffff; }
+    #inventory-1b .gear-region.collapsed .gear-toggle img { width:18px; height:18px; }
+    #inventory-1b .gear-region.collapsed .gear-toggle-label { font-size:9px; line-height:10px; }
+    #inventory-1b .gear-toggle { pointer-events:none; }
+    #inventory-1b .controller-guide { width:1650px; }
+
+    /* Source-specific tooltip anchors. */
+    #inventory-1b .tooltip-panel,
+    #inventory-1b.vicinity-tooltip-active .primary-tooltip,
+    #inventory-1b.inventory-tooltip-active .primary-tooltip { left:684px; }
+    #inventory-1b.weapon-slot-tooltip-active .primary-tooltip,
+    #inventory-1b.secondary-tooltip-active .primary-tooltip { left:780px; }
+    #inventory-1b:not(.gear-expanded).gear-tooltip-active .primary-tooltip { left:684px; top:auto; bottom:385px; }
+    #inventory-1b.gear-expanded.gear-tooltip-active .primary-tooltip { left:780px; top:392px; bottom:auto; }
+    #inventory-1b.comparison-source-vicinity .tooltip-panel,
+    #inventory-1b.comparison-source-inventory .tooltip-panel { left:684px; }
+    #inventory-1b.comparison-source-weapon-slot .tooltip-panel { left:780px; }
   </style>
 </head>
 <body>
@@ -908,38 +1016,35 @@
 
     <section class="vicinity-region" data-umg-name="Box_Vicinity">
       <h1 class="screen-title" data-umg-name="Txt_VicinityTitle">VICINITY</h1>
-      <div class="list-header"><div class="vicinity-header-line" aria-hidden="true"></div></div>
       <div class="tile-panel" data-umg-name="Box_VicinityGrid" data-umg-type="ScrollBox">
-        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" autofocus data-default-focus="true" style="background-image:url('../assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
-        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."><span class="item-count">2</span></button></div>
-        <div class="category-divider" data-category-break="consumables-throwables"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" autofocus data-default-focus="true" style="background-image:url('../assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="../assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">30</span></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="../assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">15</span></button></div>
+        <div class="category-divider" data-category-break="ammo-throwables"></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-molotov.png')" data-item-name="화염병" data-item-type="투척 무기" data-item-category="throwable" data-image="../assets/item-molotov.png" data-description="충돌 지점에 불길을 생성합니다."><span class="item-count">4</span></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-frag-grenade.png')" data-item-name="수류탄" data-item-type="투척 무기" data-item-category="throwable" data-image="../assets/item-frag-grenade.png" data-description="일정 시간이 지나면 폭발하는 파편 수류탄입니다."></button></div>
-        <div class="category-divider" data-category-break="throwables-ammo"></div>
-        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="../assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">30</span></button></div>
-        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="../assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">15</span></button></div>
-        <div class="category-divider" data-category-break="ammo-attachments"></div>
+        <div class="category-divider" data-category-break="throwables-attachments"></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-magazine.png')" data-item-name="대용량 퀵드로우 탄창" data-item-type="부착물" data-item-category="attachment" data-compatibility="mag" data-compatible-weapon-groups="main" data-image="../assets/item-magazine.png" data-description="탄창 용량을 늘리고 재장전 속도를 높입니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-magazine.png')" data-item-name="퀵드로우 탄창" data-item-type="부착물" data-item-category="attachment" data-compatibility="mag" data-compatible-weapon-groups="main" data-image="../assets/item-magazine.png" data-description="재장전 시간을 줄입니다."></button></div>
         <div class="category-divider" data-category-break="attachments-weapons"></div>
         <div class="wide-item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-vicinity-weapon.png')" data-item-name="AUG" data-item-type="돌격소총" data-item-category="weapon" data-image="../assets/item-vicinity-weapon.png" data-description="5.56mm 탄약을 사용하는 불펍 돌격소총입니다."></button></div>
+        <div class="category-divider" data-category-break="weapons-heal"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."><span class="item-count">2</span></button></div>
+        <div class="category-divider" data-category-break="heal-gear"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/gear-backpack.png')" data-item-name="2레벨 배낭" data-item-type="장비" data-item-category="gear" data-image="../assets/gear-backpack.png" data-description="현재 장착한 배낭보다 낮은 단계입니다."></button></div>
       </div>
     </section>
 
     <section class="inventory-region" data-umg-name="Box_Inventory">
       <h1 class="screen-title" data-umg-name="Txt_InventoryTitle">INVENTORY</h1>
-      <div class="list-header"><div class="scroll-indicator" data-umg-name="Bar_InventoryScroll"><div class="scroll-thumb"><span class="capacity-value" data-umg-name="Txt_InventoryCapacity">210 / 350</span></div></div></div>
       <div class="tile-panel" data-umg-name="Box_InventoryGrid" data-umg-type="ScrollBox">
-        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
-        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."></button></div>
-        <div class="category-divider" data-category-break="consumables-throwables"></div>
-        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-molotov.png')" data-item-name="화염병" data-item-type="투척 무기" data-item-category="throwable" data-image="../assets/item-molotov.png" data-description="충돌 지점에 불길을 생성합니다."></button></div>
-        <div class="category-divider" data-category-break="throwables-ammo"></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="../assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">30</span></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="../assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">30</span></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="../assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">15</span></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/ammo-9mm.png')" data-item-name="9mm" data-item-type="탄약" data-item-category="ammunition" data-image="../assets/ammo-9mm.png" data-description="권총과 기관단총에 사용하는 탄약입니다."><span class="item-count">30</span></button></div>
-        <div class="category-divider" data-category-break="ammo-attachments"></div>
+        <div class="category-divider" data-category-break="ammo-throwables"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-molotov.png')" data-item-name="화염병" data-item-type="투척 무기" data-item-category="throwable" data-image="../assets/item-molotov.png" data-description="충돌 지점에 불길을 생성합니다."></button></div>
+        <div class="category-divider" data-category-break="throwables-attachments"></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-magazine.png')" data-item-name="대용량 퀵드로우 탄창" data-item-type="부착물" data-item-category="attachment" data-compatibility="mag" data-compatible-weapon-groups="main" data-image="../assets/item-magazine.png" data-description="탄창 용량을 늘리고 재장전 속도를 높입니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-muzzle.png')" data-item-name="소염기" data-item-type="부착물" data-item-category="attachment" data-compatibility="muzzle" data-compatible-weapon-groups="main" data-image="../assets/item-muzzle.png" data-description="총구 화염을 줄이고 반동 제어를 돕습니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-magazine.png')" data-item-name="퀵드로우 탄창" data-item-type="부착물" data-item-category="attachment" data-compatibility="mag" data-compatible-weapon-groups="main" data-image="../assets/item-magazine.png" data-description="재장전 시간을 줄입니다."></button></div>
@@ -947,6 +1052,11 @@
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-stock.png')" data-item-name="전술 개머리판" data-item-type="부착물" data-item-category="attachment" data-compatibility="stock" data-compatible-weapon-groups="main" data-image="../assets/item-stock.png" data-description="반동 회복과 무기 안정성을 높입니다."></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-grip.png')" data-item-name="앵글 손잡이" data-item-type="부착물" data-item-category="attachment" data-compatibility="grip" data-compatible-weapon-groups="main" data-image="../assets/item-grip.png" data-description="수평 반동을 줄이고 조준 전환을 돕습니다."></button></div>
         <div class="category-divider" data-category-break="attachments-weapons"></div>
+        <div class="category-divider" data-category-break="weapons-heal"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-first-aid.png')" data-item-name="붕대" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-first-aid.png" data-description="사용 시 일정 시간에 걸쳐 체력을 회복합니다."></button></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/item-med-kit.png')" data-item-name="의료용 키트" data-item-type="소모품" data-item-category="consumable" data-image="../assets/item-med-kit.png" data-description="사용 시 체력을 완전히 회복합니다."></button></div>
+        <div class="category-divider" data-category-break="heal-gear"></div>
+        <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/gear-vest.png')" data-item-name="3레벨 조끼" data-item-type="장비" data-item-category="gear" data-image="../assets/gear-vest.png" data-description="아직 착용하지 않은 여분 조끼입니다."></button></div>
       </div>
     </section>
 
@@ -981,7 +1091,7 @@
             <div class="weapon-body">
               <div class="attachment-rail">
                 <button class="attachment-slot" data-slot-state="empty" data-socket="muzzle" data-silhouette="../assets/attachment-muzzle.png" data-item-name="총구 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-muzzle.png" alt="총구 부착물 실루엣"></button>
-                <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="grip" data-item-name="손잡이 사용 불가" data-item-type="사용 불가" disabled aria-label="손잡이 부착물 사용 불가"></button>
+                <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="grip" data-item-name="손잡이 사용 불가" data-item-type="사용 불가" aria-disabled="true" aria-label="손잡이 부착물 사용 불가"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="mag" data-silhouette="../assets/attachment-mag.png" data-item-name="탄창 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-mag.png" alt="탄창 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="scope" data-silhouette="../assets/attachment-scope.png" data-item-name="조준경 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-scope.png" alt="조준경 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="stock" data-silhouette="../assets/attachment-stock.png" data-item-name="개머리판 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-stock.png" alt="개머리판 부착물 실루엣"></button>
@@ -1000,10 +1110,10 @@
             <div class="weapon-body">
               <div class="attachment-rail">
                 <button class="attachment-slot" data-slot-state="empty" data-socket="muzzle" data-silhouette="../assets/attachment-muzzle.png" data-item-name="총구 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-muzzle.png" alt="총구 부착물 실루엣"></button>
-                <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="grip" data-item-name="손잡이 사용 불가" data-item-type="사용 불가" disabled aria-label="손잡이 부착물 사용 불가"></button>
+                <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="grip" data-item-name="손잡이 사용 불가" data-item-type="사용 불가" aria-disabled="true" aria-label="손잡이 부착물 사용 불가"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="mag" data-silhouette="../assets/attachment-mag.png" data-item-name="탄창 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-mag.png" alt="탄창 부착물 실루엣"></button>
                 <button class="attachment-slot" data-slot-state="empty" data-socket="scope" data-silhouette="../assets/attachment-scope.png" data-item-name="조준경 슬롯" data-item-type="빈 슬롯"><img src="../assets/attachment-scope.png" alt="조준경 부착물 실루엣"></button>
-                <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="stock" data-item-name="개머리판 사용 불가" data-item-type="사용 불가" disabled aria-label="개머리판 부착물 사용 불가"></button>
+                <button class="attachment-slot unavailable" data-slot-state="unavailable" data-socket="stock" data-item-name="개머리판 사용 불가" data-item-type="사용 불가" aria-disabled="true" aria-label="개머리판 부착물 사용 불가"></button>
               </div>
               <div class="weapon-visual p1911" data-umg-type="Overlay" role="img" aria-label="Vertical P1911 pistol with attachment socket positions"></div>
             </div>
@@ -1012,7 +1122,7 @@
       </div>
       <div class="secondary-weapons" data-umg-name="Box_SecondarySlots">
         <button class="secondary-slot" data-secondary-slot="throwable" data-item-name="수류탄" data-item-type="투척 무기" data-item-category="throwable" data-image="../assets/item-frag-grenade.png" data-description="현재 장착된 투척 무기입니다."><p>수류탄 &nbsp; <span class="weapon-class">투척 무기</span></p><div class="secondary-icon-area"><img src="../assets/item-frag-grenade.png" alt="수류탄"></div></button>
-        <button class="secondary-slot" data-secondary-slot="melee" data-empty-slot="true" data-item-name="근접 무기 / 도구 슬롯" data-item-type="근접 무기 또는 도구 장착 가능" data-description="근접 무기 또는 도구를 장착할 수 있습니다." aria-label="빈 근접 무기 및 도구 슬롯"><p>— &nbsp; <span class="weapon-class">근접 무기 / 도구</span></p><div class="secondary-icon-area"></div></button>
+        <button class="secondary-slot" data-secondary-slot="melee" data-empty-slot="true" data-item-name="근접 무기 / 도구 슬롯" data-item-type="근접 무기 또는 도구 장착 가능" data-description="근접 무기 또는 도구를 장착할 수 있습니다." aria-label="빈 근접 무기 및 도구 슬롯" data-silhouette="../assets/slot-melee.svg"><p>— &nbsp; <span class="weapon-class">근접 무기 / 도구</span></p><div class="secondary-icon-area"><img src="../assets/slot-melee.svg" alt="Melee weapon or tool slot"></div></button>
       </div>
     </section>
 
@@ -1020,14 +1130,17 @@
       <div class="gear-layout">
         <div class="equipment-column">
           <h1 class="drawer-title" data-umg-name="Txt_GearTitle">GEAR</h1>
-          <div class="gear-rail equipment-rail">
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="헬멧 슬롯" data-item-type="장비 슬롯" data-silhouette="../assets/slot-helmet.svg"></button></div>
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 배낭" data-item-type="장비" data-image="../assets/gear-backpack.png"><img src="../assets/gear-backpack.png" alt="3레벨 배낭"><span class="gear-level">Lv.3</span></button></div>
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 조끼" data-item-type="장비" data-image="../assets/gear-vest.png"><img src="../assets/gear-vest.png" alt="3레벨 조끼"><span class="gear-level">Lv.3</span></button></div>
-            <button class="gear-toggle" data-umg-name="Btn_ToggleGearOutfit" type="button" aria-expanded="false">
-              <img src="../assets/controller-r3.png" alt="Press right stick">
-              <span class="gear-toggle-label" data-umg-name="Txt_GearToggleLabel">SHOW CHARACTER</span>
-            </button>
+          <div class="gear-stack">
+            <div class="scroll-indicator gear-capacity" data-umg-name="Bar_InventoryScroll" role="meter" aria-label="인벤토리 용량" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60"><div class="scroll-thumb"></div></div>
+            <div class="gear-rail equipment-rail">
+              <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="헬멧 슬롯" data-item-type="장비 슬롯" data-silhouette="../assets/slot-helmet.svg"><img src="../assets/slot-helmet.svg" alt="Empty slot"></button></div>
+              <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 배낭" data-item-type="장비" data-image="../assets/gear-backpack.png"><img src="../assets/gear-backpack.png" alt="3레벨 배낭"><span class="gear-level">Lv.3</span></button></div>
+              <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-item-name="3레벨 조끼" data-item-type="장비" data-image="../assets/gear-vest.png"><img src="../assets/gear-vest.png" alt="3레벨 조끼"><span class="gear-level">Lv.3</span></button></div>
+              <div class="gear-toggle" data-umg-name="Box_GearKeyGuide">
+                <img src="../assets/controller-r3.png" alt="오른쪽 스틱 누르기">
+                <span class="gear-toggle-label" data-umg-name="Txt_GearToggleLabel">의상 보기</span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="character-preview" data-umg-name="Img_CharacterPreview">
@@ -1036,17 +1149,17 @@
         <div class="outfit-column">
           <h1 class="drawer-title" data-umg-name="Txt_OutfitTitle">OUTFIT</h1>
           <div class="gear-rail outfit-rail">
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="모자 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-helmet.svg"></button></div>
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="얼굴 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-face.svg"></button></div>
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="재킷 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-jacket.svg"></button></div>
+            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="모자 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-helmet.svg"><img src="../assets/slot-helmet.svg" alt="Empty slot"></button></div>
+            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="얼굴 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-face.svg"><img src="../assets/slot-face.svg" alt="Empty slot"></button></div>
+            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="재킷 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-jacket.svg"><img src="../assets/slot-jacket.svg" alt="Empty slot"></button></div>
             <div class="gear-rail-spacer"></div>
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="장갑 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-gloves.svg"></button></div>
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="바지 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-pants.svg"></button></div>
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="부츠 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-boots.svg"></button></div>
+            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="장갑 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-gloves.svg"><img src="../assets/slot-gloves.svg" alt="Empty slot"></button></div>
+            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="바지 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-pants.svg"><img src="../assets/slot-pants.svg" alt="Empty slot"></button></div>
+            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="부츠 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-boots.svg"><img src="../assets/slot-boots.svg" alt="Empty slot"></button></div>
             <div class="gear-rail-large-spacer"></div>
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="벨트 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-utility.svg"></button></div>
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="유틸리티 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-utility.svg"></button></div>
-            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="장식 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-utility.svg"></button></div>
+            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="벨트 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-utility.svg"><img src="../assets/slot-utility.svg" alt="Empty slot"></button></div>
+            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="유틸리티 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-utility.svg"><img src="../assets/slot-utility.svg" alt="Empty slot"></button></div>
+            <div data-umg-widget="WBP_GearSlot"><button class="gear-slot" data-empty-slot="true" data-item-name="장식 슬롯" data-item-type="의상 슬롯" data-silhouette="../assets/slot-utility.svg"><img src="../assets/slot-utility.svg" alt="Empty slot"></button></div>
           </div>
         </div>
       </div>
@@ -1111,8 +1224,8 @@
       const controllerActions = Array.from(root.querySelectorAll('[data-controller-action]'));
       const connectorLines = document.getElementById('connector-lines');
       const gearRegion = root.querySelector('.gear-region');
-      const gearToggle = root.querySelector('.gear-toggle');
-      const gearToggleLabel = gearToggle.querySelector('.gear-toggle-label');
+      const gearGuide = root.querySelector('.gear-toggle');
+      const gearGuideLabel = gearGuide.querySelector('.gear-toggle-label');
       let pendingAttachment = null;
       let pendingSourceSlot = null;
       let pendingSourceContext = '';
@@ -1148,7 +1261,7 @@
       }
 
       function isCoveredByGearDrawer(target) {
-        return Boolean(target?.closest('[data-weapon-card="p1911"]'));
+        return Boolean(target?.closest('.secondary-weapons'));
       }
 
       function firstGearSlot() {
@@ -1157,7 +1270,7 @@
 
       function setGearExpanded(expanded) {
         if (pendingAttachment) {
-          message.textContent = '부착물 슬롯 선택 중에는 캐릭터 보기를 변경할 수 없습니다';
+          message.textContent = '부착물 슬롯 선택 중에는 의상 보기를 변경할 수 없습니다';
           return;
         }
 
@@ -1168,8 +1281,8 @@
         gearRegion.classList.toggle('collapsed', !gearExpanded);
         gearRegion.dataset.expanded = String(gearExpanded);
         root.classList.toggle('gear-expanded', gearExpanded);
-        gearToggle.setAttribute('aria-expanded', String(gearExpanded));
-        gearToggleLabel.textContent = gearExpanded ? 'HIDE CHARACTER' : 'SHOW CHARACTER';
+        gearGuide.dataset.expanded = String(gearExpanded);
+        gearGuideLabel.textContent = gearExpanded ? '의상 숨기기' : '의상 보기';
 
         let recoveryTarget = active;
         if (!gearExpanded && focusWasInOutfit) {
@@ -1180,7 +1293,7 @@
         if (recoveryTarget instanceof HTMLElement && recoveryTarget.getClientRects().length > 0) {
           recoveryTarget.focus({ preventScroll:true });
         }
-        message.textContent = gearExpanded ? '캐릭터, 장비 및 의상 보기' : '캐릭터 숨기기';
+        message.textContent = gearExpanded ? '장비 및 의상 보기' : '의상 숨기기';
         requestAnimationFrame(() => {
           const focused = document.activeElement;
           if (focused instanceof HTMLElement && root.contains(focused)) updateFocusState(focused);
@@ -1277,15 +1390,15 @@
 
       const socketMaps = {
         m16: {
-          naturalWidth:256, naturalHeight:811, heightFraction:1,
+          naturalWidth:256, naturalHeight:811, heightFraction:0.76, angle:-6,
           points:{ muzzle:[0.700,0.018], grip:[0.640,0.360], mag:[0.081,0.643], scope:[0.919,0.679], stock:[0.600,0.982] }
         },
         m249: {
-          naturalWidth:256, naturalHeight:811, heightFraction:1,
+          naturalWidth:256, naturalHeight:811, heightFraction:0.76, angle:-6,
           points:{ muzzle:[0.513,0.018], mag:[0.480,0.524], scope:[0.925,0.686], stock:[0.600,0.982] }
         },
         p1911: {
-          naturalWidth:216, naturalHeight:377, heightFraction:0.56,
+          naturalWidth:216, naturalHeight:377, widthFraction:0.82, angle:-6,
           points:{ muzzle:[0.625,0.048], mag:[0.020,0.860], scope:[0.929,0.710] }
         }
       };
@@ -1293,19 +1406,28 @@
       function socketPoint(weaponCard, socket, rootRect, scale) {
         const map = socketMaps[weaponCard?.dataset.weaponCard];
         const point = map?.points[socket];
-        const body = weaponCard?.querySelector('.weapon-body');
-        if (!map || !point || !body) return null;
-        const bodyRect = body.getBoundingClientRect();
-        const bodyLeft = (bodyRect.left - rootRect.left) / scale;
-        const bodyTop = (bodyRect.top - rootRect.top) / scale;
-        const bodyWidth = bodyRect.width / scale;
-        const bodyHeight = bodyRect.height / scale;
-        const imageHeight = bodyHeight * map.heightFraction;
-        const imageWidth = imageHeight * map.naturalWidth / map.naturalHeight;
-        const imageLeft = bodyLeft + (bodyWidth - imageWidth) / 2;
-        const imageTop = bodyTop + (bodyHeight - imageHeight) * (weaponCard.dataset.weaponCard === 'p1911' ? 0.72 : 0.5);
-        let x = imageLeft + imageWidth * point[0];
-        const y = imageTop + imageHeight * point[1];
+        const visual = weaponCard?.querySelector('.weapon-visual');
+        if (!map || !point || !visual) return null;
+        const visualRect = visual.getBoundingClientRect();
+        const visualLeft = (visualRect.left - rootRect.left) / scale;
+        const visualTop = (visualRect.top - rootRect.top) / scale;
+        const visualWidth = visualRect.width / scale;
+        const visualHeight = visualRect.height / scale;
+        const imageWidth = map.widthFraction
+          ? visualWidth * map.widthFraction
+          : visualHeight * map.heightFraction * map.naturalWidth / map.naturalHeight;
+        const imageHeight = map.widthFraction
+          ? imageWidth * map.naturalHeight / map.naturalWidth
+          : visualHeight * map.heightFraction;
+        const imageLeft = visualLeft + (visualWidth - imageWidth) / 2;
+        const imageTop = visualTop + (visualHeight - imageHeight) / 2;
+        const rawX = imageLeft + imageWidth * point[0];
+        const rawY = imageTop + imageHeight * point[1];
+        const centerX = visualLeft + visualWidth / 2;
+        const centerY = visualTop + visualHeight / 2;
+        const angle = map.angle * Math.PI / 180;
+        let x = centerX + (rawX - centerX) * Math.cos(angle) - (rawY - centerY) * Math.sin(angle);
+        let y = centerY + (rawX - centerX) * Math.sin(angle) + (rawY - centerY) * Math.cos(angle);
         const attachmentRail = weaponCard.querySelector('.attachment-rail');
         if (attachmentRail) {
           const railRect = attachmentRail.getBoundingClientRect();
@@ -1320,6 +1442,13 @@
             && y - markerEnvelope < railBottom;
           if (overlapsRail) x = railRight + markerEnvelope + 8;
         }
+        const cardRect = weaponCard.getBoundingClientRect();
+        const cardLeft = (cardRect.left - rootRect.left) / scale;
+        const cardRight = (cardRect.right - rootRect.left) / scale;
+        const cardTop = (cardRect.top - rootRect.top) / scale;
+        const cardBottom = (cardRect.bottom - rootRect.top) / scale;
+        x = Math.min(cardRight - 14, Math.max(cardLeft + 14, x));
+        y = Math.min(cardBottom - 14, Math.max(cardTop + 14, y));
         return { x, y };
       }
 
@@ -1397,7 +1526,8 @@
         throwable:{ label:'투척 무기', icon:'../assets/category-throwable.svg' },
         ammunition:{ label:'탄약', icon:'../assets/category-ammunition.svg' },
         attachment:{ label:'부착물', icon:'../assets/category-attachment.png' },
-        weapon:{ label:'무기', icon:'../assets/category-weapon.svg' }
+        weapon:{ label:'무기', icon:'../assets/category-weapon.svg' },
+        gear:{ label:'장비', icon:'../assets/category-gear.svg' }
       };
 
       const itemEffects = {
@@ -1452,35 +1582,22 @@
 
       function decorateCategoryRails(panel) {
         panel.querySelectorAll('.category-rail-segment').forEach((segment) => segment.remove());
-        let previousCategoryBottom = null;
-        ['consumable', 'throwable', 'ammunition', 'attachment', 'weapon'].forEach((category) => {
+        ['ammunition', 'throwable', 'attachment', 'weapon', 'consumable', 'gear'].forEach((category) => {
           const wrappers = categoryWrappers(panel, category);
           if (!wrappers.length) return;
           const firstWrapper = wrappers[0];
           const firstTop = firstWrapper.offsetTop;
           const categoryBottom = Math.max(...wrappers.map((wrapper) => wrapper.offsetTop + wrapper.offsetHeight));
-          const panelTop = firstTop - parseFloat(getComputedStyle(panel).paddingTop || '0');
-          const gapStart = previousCategoryBottom === null ? panelTop : previousCategoryBottom;
-          const gapHeight = Math.max(0, firstTop - gapStart);
-          const markerTop = -gapHeight + ((gapHeight - 10) / 2);
-          const lineTop = markerTop + 5;
-
           const segment = document.createElement('span');
           segment.className = 'category-rail-segment category-' + category;
           segment.setAttribute('aria-hidden', 'true');
-          segment.style.top = markerTop + 'px';
-          segment.style.height = (categoryBottom - firstTop - markerTop) + 'px';
-
-          const line = document.createElement('span');
-          line.className = 'category-rail-line';
-          line.style.height = (categoryBottom - firstTop - lineTop) + 'px';
-          segment.appendChild(line);
-
-          const marker = document.createElement('span');
-          marker.className = 'category-rail-marker';
-          segment.appendChild(marker);
+          segment.style.height = (categoryBottom - firstTop) + 'px';
+          const head = document.createElement('span');
+          head.className = 'category-flag-head';
+          const stem = document.createElement('span');
+          stem.className = 'category-flag-stem';
+          segment.append(head, stem);
           firstWrapper.appendChild(segment);
-          previousCategoryBottom = categoryBottom;
         });
       }
 
@@ -1518,19 +1635,17 @@
         if (!root.classList.contains('comparison-active') || selectedTooltip.hidden || tooltip.hidden) return;
         if (!selectedTooltip.offsetHeight || !tooltip.offsetHeight) return;
 
-        if (!selectedTooltip.dataset.comparisonBaseTop) {
-          selectedTooltip.dataset.comparisonBaseTop = String(parseFloat(getComputedStyle(selectedTooltip).top) || 60);
-        }
-        const baseTop = Number.parseFloat(selectedTooltip.dataset.comparisonBaseTop) || 60;
         const selectedLeft = Number.parseFloat(getComputedStyle(selectedTooltip).left) || 0;
         const primaryLeft = Number.parseFloat(getComputedStyle(tooltip).left) || 0;
         const sideBySide = Math.abs(primaryLeft - selectedLeft) > 40;
         const gap = 18;
-        const canvasBottom = Math.min(root.clientHeight || 1080, 1020);
+        const screenHeight = root.clientHeight || 1080;
+        const canvasBottom = Math.min(screenHeight, 1020);
         const combinedHeight = sideBySide
           ? Math.max(selectedTooltip.offsetHeight, tooltip.offsetHeight)
           : selectedTooltip.offsetHeight + gap + tooltip.offsetHeight;
-        const selectedTop = Math.max(20, Math.min(baseTop, canvasBottom - combinedHeight));
+        const centeredTop = (screenHeight - combinedHeight) / 2;
+        const selectedTop = Math.max(20, Math.min(centeredTop, canvasBottom - combinedHeight));
         const primaryTop = sideBySide ? selectedTop : selectedTop + selectedTooltip.offsetHeight + gap;
 
         root.style.setProperty('--comparison-selected-top', selectedTop + 'px');
@@ -1567,6 +1682,7 @@
         root.classList.toggle('vicinity-tooltip-active', context === 'vicinity');
         root.classList.toggle('inventory-tooltip-active', context === 'inventory');
         root.classList.toggle('weapon-slot-tooltip-active', context === 'weapon-slot');
+        root.classList.toggle('secondary-tooltip-active', context === 'secondary');
         root.classList.toggle('gear-tooltip-active', context === 'gear');
 
         if (target.matches('.tile-panel[tabindex="0"]')) {
@@ -1789,6 +1905,83 @@
         return controls[currentIndex + offset] || null;
       }
 
+      function visibleControls(selector) {
+        return Array.from(root.querySelectorAll(selector)).filter((control) => {
+          if (control.disabled || control.getClientRects().length === 0) return false;
+          const rect = control.getBoundingClientRect();
+          const panel = control.closest('.tile-panel');
+          if (!panel) return rect.width > 0 && rect.height > 0;
+          const panelRect = panel.getBoundingClientRect();
+          const centerY = rect.top + rect.height / 2;
+          return centerY >= panelRect.top && centerY <= panelRect.bottom;
+        });
+      }
+
+      function nearestByVertical(current, candidates) {
+        const currentRect = current.getBoundingClientRect();
+        const currentY = currentRect.top + currentRect.height / 2;
+        return candidates.reduce((winner, candidate) => {
+          if (candidate === current) return winner;
+          const rect = candidate.getBoundingClientRect();
+          const distance = Math.abs(rect.top + rect.height / 2 - currentY);
+          return !winner || distance < winner.distance ? { element:candidate, distance } : winner;
+        }, null)?.element || null;
+      }
+
+      function overlapsCollapsedGearBand(target) {
+        if (gearExpanded) return false;
+        const targetRect = target.getBoundingClientRect();
+        const gearRect = gearRegion.getBoundingClientRect();
+        const centerY = targetRect.top + targetRect.height / 2;
+        return centerY >= gearRect.top && centerY <= gearRect.bottom;
+      }
+
+      function nearestInventoryRouteTarget(current) {
+        return nearestByVertical(current, visibleControls('.inventory-region .item-tile:not(:disabled)'));
+      }
+
+      function nearestGearRouteTarget(current) {
+        return nearestByVertical(current, visibleControls('.equipment-rail .gear-slot:not(:disabled)'));
+      }
+
+      function nearestWeaponRouteTarget(current) {
+        return nearestByVertical(current, visibleControls('.attachment-slot:not(:disabled), .secondary-slot:not(:disabled)'));
+      }
+
+      function inventoryRightRouteTarget(current) {
+        return overlapsCollapsedGearBand(current)
+          ? nearestGearRouteTarget(current)
+          : nearestByVertical(current, visibleControls('.attachment-slot:not(:disabled)'));
+      }
+
+      function weaponLeftRouteTarget(current) {
+        return overlapsCollapsedGearBand(current)
+          ? nearestGearRouteTarget(current)
+          : nearestInventoryRouteTarget(current);
+      }
+
+      function adjacentAttachmentChainTarget(current, direction) {
+        if (direction !== 'left' && direction !== 'right') return null;
+        const weaponCard = current.closest('[data-weapon-card]');
+        if (!weaponCard) return null;
+        const weaponCards = Array.from(root.querySelectorAll('[data-weapon-card]'));
+        const cardIndex = weaponCards.indexOf(weaponCard);
+        const targetCard = weaponCards[cardIndex + (direction === 'right' ? 1 : -1)];
+        if (!targetCard) return null;
+        const sourceSlots = Array.from(weaponCard.querySelectorAll('.attachment-slot:not(:disabled)'));
+        const targetSlots = Array.from(targetCard.querySelectorAll('.attachment-slot:not(:disabled)'));
+        const sourceIndex = sourceSlots.indexOf(current);
+        return targetSlots[sourceIndex] || nearestByVertical(current, targetSlots);
+      }
+
+      function adjacentSecondaryTarget(current, direction) {
+        if (direction !== 'left' && direction !== 'right') return null;
+        const secondarySlots = visibleControls('.secondary-slot:not(:disabled)');
+        const currentIndex = secondarySlots.indexOf(current);
+        if (currentIndex < 0) return null;
+        return secondarySlots[currentIndex + (direction === 'right' ? 1 : -1)] || null;
+      }
+
       function attachmentChainSlots(current) {
         const weaponCard = current.closest('[data-weapon-card]');
         return weaponCard
@@ -1812,7 +2005,23 @@
           return;
         }
 
+        if (!gearExpanded && itemContext(current) === 'inventory' && direction === 'right') {
+          inventoryRightRouteTarget(current)?.focus();
+          return;
+        }
+
         if (current.classList.contains('attachment-slot')) {
+          if (direction === 'left' || direction === 'right') {
+            const adjacentChainSlot = adjacentAttachmentChainTarget(current, direction);
+            if (adjacentChainSlot) {
+              adjacentChainSlot.focus();
+              return;
+            }
+            if (!gearExpanded && direction === 'left') {
+              weaponLeftRouteTarget(current)?.focus();
+            }
+            return;
+          }
           const weaponCard = current.closest('[data-weapon-card]');
           const chainSlots = attachmentChainSlots(current);
           const chainIndex = chainSlots.indexOf(current);
@@ -1828,18 +2037,13 @@
             return;
           }
 
-          if (direction === 'down' && isChainBottom && weaponCard?.dataset.weaponCard === 'm16') {
+          if (!gearExpanded && direction === 'down' && isChainBottom && weaponCard?.dataset.weaponCard === 'm16') {
             root.querySelector('[data-secondary-slot="throwable"]')?.focus();
             return;
           }
 
-          if (direction === 'right' && gearExpanded && isChainBottom && weaponCard?.dataset.weaponCard === 'm249') {
-            firstGearSlot()?.focus();
-            return;
-          }
-
           let attachmentCandidates = focusables;
-          if (!current.closest('.gear-region')) {
+          if (!current.closest('.gear-region') && !gearExpanded) {
             attachmentCandidates = attachmentCandidates.filter((candidate) => !candidate.closest('.outfit-rail'));
           }
           const nextPhysicalSlot = nearestInDirection(current, direction, attachmentCandidates);
@@ -1849,6 +2053,17 @@
 
         const secondaryType = current.dataset.secondarySlot || '';
         if (secondaryType) {
+          if (direction === 'left' || direction === 'right') {
+            const adjacentSecondarySlot = adjacentSecondaryTarget(current, direction);
+            if (adjacentSecondarySlot) {
+              adjacentSecondarySlot.focus();
+              return;
+            }
+            if (!gearExpanded && direction === 'left') {
+              weaponLeftRouteTarget(current)?.focus();
+            }
+            return;
+          }
           if (direction === 'down') return;
           const secondaryCandidates = focusables.filter((candidate) => !candidate.closest('.outfit-rail'));
           const nextPhysicalSlot = nearestInDirection(current, direction, secondaryCandidates);
@@ -1864,8 +2079,16 @@
             return;
           }
           if (direction === 'left') {
-            closestSidearmAttachment(current)?.focus();
+            nearestInventoryRouteTarget(current)?.focus();
             return;
+          }
+          if (direction === 'right') {
+            nearestWeaponRouteTarget(current)?.focus();
+            return;
+          }
+          if (direction === 'up') {
+            const candidates = focusables.filter((candidate) => !candidate.closest('.gear-region'));
+            nearestInDirection(current, direction, candidates)?.focus();
           }
           return;
         }
@@ -1880,11 +2103,6 @@
           return;
         }
 
-        if (current === gearToggle && (direction === 'up' || direction === 'down')) {
-          const equipmentSlots = Array.from(root.querySelectorAll('.equipment-rail button:not(:disabled)'));
-          if (direction === 'up') equipmentSlots.at(-1)?.focus();
-          return;
-        }
 
         if (direction === 'up' || direction === 'down') {
           const columnCandidates = verticalColumnCandidates(current);
@@ -1898,7 +2116,7 @@
         let candidates = itemContext(current) === 'inventory'
           ? focusables.filter((candidate) => !candidate.dataset.secondarySlot)
           : focusables;
-        if (!current.closest('.gear-region')) {
+        if (!current.closest('.gear-region') && !gearExpanded) {
           candidates = candidates.filter((candidate) => !candidate.closest('.outfit-rail'));
         }
         const next = nearestInDirection(current, direction, candidates);
@@ -2003,10 +2221,12 @@
 
       function categoryEndReference(panel, category) {
         const categoryBreaks = {
-          consumable:'consumables-throwables',
-          throwable:'throwables-ammo',
-          ammunition:'ammo-attachments',
-          attachment:'attachments-weapons'
+          ammunition:'ammo-throwables',
+          throwable:'throwables-attachments',
+          attachment:'attachments-weapons',
+          weapon:'weapons-heal',
+          consumable:'heal-gear',
+          gear:null
         };
         const breakName = categoryBreaks[category];
         return breakName ? panel.querySelector('[data-category-break="' + breakName + '"]') : null;
@@ -2021,12 +2241,13 @@
 
       function updateCategoryDividers(panel) {
         if (!panel) return;
-        const categories = ['consumable', 'throwable', 'ammunition', 'attachment', 'weapon'];
+        const categories = ['ammunition', 'throwable', 'attachment', 'weapon', 'consumable', 'gear'];
         const dividerBeforeCategory = {
-          throwable:'consumables-throwables',
-          ammunition:'throwables-ammo',
-          attachment:'ammo-attachments',
-          weapon:'attachments-weapons'
+          throwable:'ammo-throwables',
+          attachment:'throwables-attachments',
+          weapon:'attachments-weapons',
+          consumable:'weapons-heal',
+          gear:'heal-gear'
         };
         panel.querySelectorAll('.category-divider').forEach((divider) => { divider.hidden = true; });
         const populatedCategories = categories.filter((category) => categoryWrappers(panel, category).length > 0);
@@ -2463,7 +2684,7 @@
         }
       });
 
-      gearToggle.addEventListener('click', () => toggleGearExpanded());
+
 
       root.addEventListener('keyup', (event) => {
         if (event.key.toLowerCase() !== 'y' || !keyboardYStarted) return;

@@ -1,7 +1,7 @@
-# Inventory 2-a Asset Audit
+# Inventory 2-c Asset Audit
 
 Updated: 2026-09-21
-Layout source: Figma 545:2625.
+Layout source: Figma 545:3023.
 
 The replacement reuses existing local exports: oriented M16/M249/P1911 art,
 attachment silhouettes, item art, Gear/Outfit and character art, controller

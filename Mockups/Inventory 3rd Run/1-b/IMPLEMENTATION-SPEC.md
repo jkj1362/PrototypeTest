@@ -1,200 +1,159 @@
-# PUBG Console Inventory 1-b Third-Run Feature Specification
+# PUBG Console Inventory 1-b Third-Run Specification
 
-Status: third-run baseline; carried forward unchanged from the closed second run
+Updated: 2026-09-22
+Status: latest Figma revision implemented; visual/controller acceptance pending.
 
-Last updated: 2026-09-21
+## Authority and shared information
 
-Shared behavior authority: `../README.md`. This file records 1-b-specific
-layout and navigation overrides.
+[Figma 545:1887](https://www.figma.com/design/etHQBgFlvTuESYLwgH5CuH?node-id=545-1887)
+is the layout authority. Executable: WBP_Inventory1B.html. Shared behavior is
+documented in ../README.md.
 
-## 1. Purpose and authority
+1-b, 2-a, and 2-c display the same inventory and equipment information. Their
+layout differs, not their information model. The current 1-b reference replaces
+the old English text-only attachment cells with the same slot silhouettes and
+equipped-item artwork as 2-a/2-c. M16 uses the yellow equipped border, and
+Backpack/Vest retain their level labels in collapsed Gear.
 
-This third-run Inventory 1-b is a direct carry-forward of the completed
-second-run 1-b artifact, one of the two prototypes selected as the third-run
-baseline because its list layout is already one-column and its Gear/Outfit
-already opens collapsed. It keeps
-the conservative linear Vicinity and Inventory lists, horizontal firearm
-presentation, two-by-three attachment grids, item behavior, tooltip default,
-centered capacity label, and all current item-mutation fixes.
+## Layout
 
-Its two intentional layout changes are:
+The 2559 x 1439 reference is scaled approximately 0.75 to 1920 x 1080.
 
-1. Throwable and Melee/Tool move from the footer to a vertical column beside
-   the stacked firearm cards.
-2. Gear/Outfit is collapsed by default and expands with the R3 system adapted
-   from 3-a.
+| Region | Left | Top | Width | Height |
+|---|---:|---:|---:|---:|
+| Vicinity | 18 | 48 | 324 | 962 |
+| Inventory | 354 | 48 | 324 | 962 |
+| Stacked weapon cards | 1133 | 90 | 615 | 924 |
+| Melee/Throwable column | 1760 | 90 | 136 | 612 |
+| Collapsed Gear | 1760 | 710 | 136 | 304 |
+| Expanded Gear/Outfit | 1424 | 90 | 472 | 924 |
 
-The executable artifact is `WBP_Inventory1B.html` on a 1920 x 1080 canvas.
+Each card places a 153 px attachment matrix on the left and the weapon's
+name, type, ammo summary, and horizontal art on the right. Cells are 75 px
+squares separated by 3 px gaps. In row-major order:
 
-The second-run fork adds three shared decisions without changing the inherited
-layout: Gear/Outfit remains collapsed by default; modal A placement dims every
-attachment slot that is not an eligible destination; and the X/A slot cue is a
-smaller lower-right badge that leaves attachment artwork visible. The temporary
-dim state is removed after either A confirmation or B cancellation.
+| Left cell | Right cell |
+|---|---|
+| Muzzle | Scope |
+| Grip | Stock |
+| Magazine | Unavailable |
 
-## 2. Layout
+Weapon-specific unavailable sockets are blank but remain focusable, using the
+same socket definitions as 2-a. They expose no action and reject attachment
+placement. Occupied cells show item artwork; empty cells show the socket
+silhouette. Equipping, replacement, detachment, and dropping all restore the
+appropriate artwork and tooltip metadata.
 
-Vicinity remains at X=42 with width 384. Inventory remains at X=593 with width
-384. Both retain the 1-a linear row system and fixed Inventory capacity header.
+Melee aligns with M16; Throwable aligns with M249; Gear aligns with P1911.
+Collapsed Gear has three 124 x 86 rows and a compact R3 control. The expanded
+drawer is inherited behavior, not a state supplied by the updated reference.
 
-The equipment group begins at X=989 and Y=90 and reaches the shared content
-bottom at Y=989:
+## Categories
 
-- three equal-fill firearm cards remain stacked in a 518 x 899 column;
-- a 176 x 899 secondary column begins at X=1515;
-- Throwable occupies its upper half and Melee/Tool its lower half; and
-- the P1911 remains deliberately smaller than the main firearms.
+All three prototypes share ../shared/category-flags.css and the exact Figma
+550:663 PNG export. No gutter is reserved. The 36 x 31.5 flag head overlays the
+first item slot's top-left border, and its 4.5 px stem ends at the final item
+in that category. Category breaks remain unconnected. Pickup/drop and category
+compaction regenerate these bounds. The same overlay is represented in the
+reusable WBP_InventoryItemTile template.
 
-The three firearm cards divide the added vertical space evenly. Attachment
-slots remain a compact two-by-three group packed against the top of each card;
-the added card height does not create spacing between attachment rows. Firearm
-imagery remains horizontal and centered. This removes the obsolete lower
-footer void without changing the equipment group's horizontal footprint.
+## Interaction and navigation
 
-The compact Gear summary is at X=1776, Y=280, width 112, height 470. The
-expanded drawer begins at X=1515, Y=38, width 373, height 970. It overlays the
-secondary column only and never covers M16, M249, or P1911.
+- Initial focus is the first Vicinity item; tooltips and Gear start hidden
+  and collapsed respectively. View/V toggles tooltips; R3/R toggles Gear.
+- Left/Right follows the attachment matrix. Right past its right-edge cell
+  enters the corresponding Melee/Throwable/Gear area.
+- Up/Down follows every cell in the same attachment column and
+  continues to the next weapon at a card boundary.
+- Secondary/Gear navigation follows its visible vertical arrangement.
+- A placement is modal and restricts focus to compatible destinations;
+  A confirms, B cancels, and invalid destinations dim. X quick equip and
+  shared primary weapon switching retain the common interaction contract.
+- Normal and comparison tooltips retain source anchoring and content-driven
+  height. Slot names and effects are available through the common tooltips.
+- Vicinity and Inventory tooltips begin at X=686, directly beside the loose-item
+  lists. Attachment and secondary-weapon tooltips begin at X=875, immediately
+  left of the stacked weapon grid. Gear tooltips use that same X=875 anchor.
+- Vertically stacked comparison tooltips are centered as one combined group
+  against the 1080 px screen height, while remaining above the controller guide.
+- Socket markers use the horizontal map and contained image bounds. Weapon
+  swaps retain the established destination slot composition.
 
-## 3. Secondary-column navigation
+## Validation and remaining acceptance
 
-Attachment navigation retains the visible 1-a grid:
+Static verification covers inline script parsing, asset paths, unique UMG
+bindings, child-template references, attachment order, shared item fixtures,
+and category geometry after category removal. Browser visual review remains
+blocked by the local-file URL policy; physical-controller acceptance is pending.
+The reference extends outside the 5% safe zone; production needs safe-zone
+adaptation and licensed font import. Flag heads map to an atlas brush in a
+UMG Overlay, with a tinted Border for the variable-height stem.
 
-- Left/Right moves within a row when an enabled neighbor exists.
-- Up/Down moves within the same column and continues through the vertically
-  stacked firearm cards.
-- Right from a right-edge attachment, or a left cell whose right neighbor is
-  unavailable, enters the nearest secondary slot by vertical position.
-- The bottom edge of the P1911 grid is contained because the secondary area is
-  now to its right, not below it.
-- Up/Down toggles between Throwable and Melee/Tool.
-- Left from either secondary slot returns to the most recently focused firearm
-  attachment, falling back to the first P1911 attachment.
-- Right from either secondary slot enters the first Gear slot.
-- Any directional entry from outside Gear/Outfit excludes the Outfit rail until
-  focus has first entered the Gear rail.
+## 2026-09-22 review adjustments (1-b only)
 
-When Gear is expanded, Right from a firearm edge enters Gear because the
-secondary column is covered and removed from the active focus graph.
+- Mask the unused triangle in each exported flag head, keeping its exact
+  glyph and colored flag. The native atlas brush needs the same alpha mask.
+- Lists use a 4 px flex gap for every adjacent item. Category divider nodes
+  remain insertion anchors but display none and consume no layout space.
+- The weapon row fills the 924 px equipment region, overriding the legacy
+  611 px flex basis. All three cards now reach the Gear bottom at Y=1014.
+- M16 art scales by available width rather than its transparent canvas height;
+  socket positions use the same scale. Its transparent vertical margins may
+  be clipped while the visible gun stays inside the image area.
+- Secondary slots omit category labels; Throwable keeps the item name,
+  including after replacement. Tooltip and accessibility metadata are retained.
+- Render socket circles/highlights only; no attachment connector paths.
 
-## 4. Gear/Outfit collapse contract
+Inline scripts, unique bindings, marker-only rendering, row sizing, and both
+initial/replacement secondary-label paths passed source checks. Visual and
+physical-controller acceptance remain pending. Other variants are unchanged.
 
-The screen opens collapsed. The compact panel shows Helmet, Backpack, Vest,
-and the R3 toggle. Character and Outfit controls are hidden.
+## Character guide and empty slots (2026-09-22)
 
-R3, keyboard R, or the visible toggle expands the drawer. Expanded state shows
-the three Gear slots, character preview, complete Outfit rail, and a hide label.
-R3 is blocked during modal attachment placement because B remains the only
-placement cancellation input.
+Show/Hide Character is a root-level key guide at the lower right, outside
+the equipment panel. It has no button role, click handler, or tab stop.
+R3 and keyboard R retain the existing toggle and focus-recovery behavior.
+Navigation through Gear now visits only Helmet, Backpack, and Vest; the
+key guide is never a destination. This supersedes earlier R3-button routing.
+The binding changes from Btn_ToggleGearOutfit to Box_GearKeyGuide;
+Txt_GearToggleLabel remains stable. Empty Gear/Outfit cells display their
+existing representative silhouettes, and empty Melee uses slot-melee.svg.
 
-Focus recovery is deterministic:
+Weapon assets now use self-contained SVG wrappers with a -12 degree tilt
+and a viewBox fitted to the visible PNG bounds. Socket positions are mapped
+through the same rotation. This supersedes the preceding width-only M16
+scaling. The held weapon does not have a yellow border by default: yellow
+appears on the card only while one of its attachment cells is focused,
+including modal attachment placement. Weapon-swap selection uses a white
+outline, keeping yellow exclusive to attachment focus.
 
-- expansion preserves focus unless it is in the covered secondary column;
-- covered secondary focus moves to Helmet;
-- collapse from an Outfit slot returns focus to the first Gear slot (Helmet);
-- collapse preserves the focused Gear slot or any focus outside Outfit; and
-- Gear and Outfit rails loop independently on Up/Down.
+The two main-gun renders, M16 and M249, use 112% of their visual area's width
+after tilting. Their socket-highlight calculation uses the same 1.12 scale
+from the same center. P1911 retains its previous contained size.
 
-## 5. Preserved interaction contract
+Outside modal placement, Left from the attachment matrix's left edge returns
+to the vertically nearest visible Inventory item. Left from a right-column
+cell first enters its left-column neighbor regardless of socket availability.
+Modal placement remains restricted to compatible attachment destinations
+until confirmation or cancellation.
 
-All current 1-a behavior remains, including:
+All six cells in every attachment matrix participate in normal directional
+navigation, including sockets marked unavailable. Unavailable cells use
+`aria-disabled` rather than the native disabled state, expose no item action,
+and remain excluded from compatible placement destinations. This keeps the
+grid's movement predictable without making invalid sockets equip targets.
 
-- initial focus on the first Vicinity item;
-- linear-list category mutation and focus recovery;
-- consumable/Throwable stacking and 30-round ammunition stacks;
-- replaced Throwables returning to Inventory;
-- Vicinity X pickup with optional empty-slot quick equip, Inventory X quick
-  equip with replacement, modal placement, comparison tooltips, detach/drop,
-  and socket-highlight feedback without connector paths;
-- gamepad Menu toggling the Vicinity convenience, enabled by default;
-- shared Vicinity weapon switching: X swaps with primary slot 1, while A
-  selects primary slot 1 or 2 without changing that slot's attachments;
-- tooltips hidden by default and toggled by View/V; and
-- capacity text centered on the complete bar independently of fill.
+## Gear drawer and focus layering (2026-09-22)
 
-Tooltip positions are context-specific. The normal Vicinity tooltip uses X=426
-at the Vicinity panel's right edge. Normal Inventory and attachment-comparison
-tooltips retain X=360; Gear/Outfit retains the inherited X=1309 position.
-Tooltip height is content-driven. Same-corridor comparison panels form a
-vertical stack with an 18 px gap and move upward together if their natural
-combined height approaches the controller guide.
+Expanded Gear no longer dims the weapon area and suppresses the weapon-socket
+overlay while the drawer is visible. Melee and Throwable leave the focus graph;
+Gear, Outfit, weapon attachments, and the remaining inventory controls retain
+two-way directional navigation. The external R3 guide sits directly beside the
+collapsed Gear area and uses `캐릭터 보기` / `캐릭터 숨기기`.
 
-## 6. Bindable UMG API
+Expanded Outfit slots are 64 x 64 px with 54 px silhouettes and 8 px gaps, so
+the complete nine-slot chain remains inside the Gear/Outfit panel.
 
-1-b preserves the 30 bindings inherited from 1-a and adds:
-
-- `Box_SecondarySlots`
-- `Btn_ToggleGearOutfit`
-- `Txt_GearToggleLabel`
-- `Txt_OutfitTitle`
-- `Img_SelectedAttachmentCategory`
-- `Img_TooltipItemCategory`
-
-The resulting root HTML exposes 36 unique binding names.
-
-Generated Widget Blueprints remain layout-only. R3 state, focus recovery, item
-mutation, and gameplay behavior belong in the hand-written parent UserWidget.
-
-## Shared category and tooltip treatment (2026-08-24)
-
-Figma node `468:2072` is a component-treatment reference only. Its 5-a frame
-does not define a new prototype layout.
-
-- Vicinity and Inventory categories use 10 px solid-color markers and
-  independent category rails: green Recovery/Boost, red Throwable, ochre
-  Ammunition, blue Attachment, and purple Weapon.
-- Pickup, drop, stacking, and compaction regenerate the rails so each populated
-  category retains exactly one marker on its first visible item.
-- Tooltips use a dark panel, white border, icon-plus-category row, large item
-  art, and concise effect lines with green values.
-- A 3 px divider plus the two native 8 px row gaps creates a 19 px category
-  break. The 10 px marker is centered in that full break. The 18 px gutter
-  keeps the rail close to the item area. The first marker is centered in the
-  10 px list-top inset.
-- Empty-slot guidance tooltips suppress the category badge while retaining the
-  slot-specific guidance label and representative artwork.
-- List markers contain no icon. Populated-item tooltips retain the exported
-  category icon and text label.
-- Each populated category owns one independent 4 px rail. It starts at the
-  center of that category's 10 px marker and ends exactly at the bottom edge
-  of the category's final item row. The previous rail stops before the next
-  marker, leaving a visible unconnected gap between categories.
-- The treatment consumes space inside the existing list width and does not
-  change 1-b's layout or one-column focus model.
-- Occupied Throwable and Melee/Tool item art is centered within the remaining
-  secondary-slot space below the fixed name row.
-
-## 7. Validation checklist
-
-- The linear loose-item lists match 1-a.
-- Three equal-height horizontal firearm cards fill the content area to Y=989.
-- The secondary column fills the same 899 px height.
-- Every attachment group is packed upward with 2 px row and column gaps.
-- Throwable and Melee/Tool form a separate vertical column beside the firearms.
-- Attachment-to-secondary, secondary-to-attachment, and secondary-to-Gear
-  movement follow Section 3.
-- Attachment feedback brightens and enlarges mapped socket points without
-  drawing lines.
-- Default Gear state is collapsed; R/R3 expands and collapses it.
-- Modal A placement dims every non-destination attachment slot, including the
-  source slot, while navigation remains restricted to eligible destinations.
-- A confirmation and B cancellation both restore normal attachment-slot styling.
-- X and A indicators use a centered 24 px lower-right badge and do not hide slot artwork.
-- The empty Melee/Tool slot shows its equip-guidance tooltip when focused.
-- All nine expanded Outfit slots are focusable and participate in the rail loop.
-- Expanded Gear covers only the secondary column.
-- Drawer focus recovery follows Section 4.
-- Replaced Throwables return to Inventory.
-- Vicinity X never replaces an equipped attachment; occupied/off cases enter Inventory.
-- Inventory X retains replacement quick equip.
-- Menu toggles the Vicinity empty-slot convenience.
-- While that convenience is enabled, a focused compatible Vicinity attachment
-  shows the X cue on the held slot regardless of whether it is empty or occupied.
-  This cue-visibility rule does not change the preceding action behavior.
-- Capacity text stays centered.
-- Tooltips remain hidden on entry.
-- Both lists expose one marker per populated category, and rail state remains
-  correct after category compaction.
-- Attachment tooltips show the blue Attachment badge and concise effect rows.
-- Every `data-umg-name` is unique.
-- No media query, CSS grid, z-index, transform, or non-root absolute child is introduced.
-- Browser console has no errors.
+List rendering uses three explicit layers: the yellow focus overlay is highest,
+the category flag is next, and the item slot is lowest. Focusing an item does
+not move its slot artwork above the flag.
