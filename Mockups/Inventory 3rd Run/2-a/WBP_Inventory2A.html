@@ -943,6 +943,20 @@
     #inventory-1b .vicinity-region .list-header,
     #inventory-1b .inventory-region .list-header { display:none; }
 
+    #inventory-1b .common-ammo-summary {
+      width:306px; height:34px; flex:0 0 34px; margin:0 9px 6px;
+      padding:1px 7px; display:flex; flex-direction:row; align-items:center;
+      border:1px solid #787676; background-color:#2c2c2c;
+      pointer-events:none;
+    }
+    #inventory-1b .common-ammo-item {
+      flex:1; display:flex; flex-direction:row;
+      align-items:center; justify-content:center; gap:3px;
+      color:#ffffff; font-family:"PUBG Headline", "Arial Narrow", Arial, sans-serif;
+      font-size:18px; font-weight:700; line-height:27px;
+    }
+    #inventory-1b .common-ammo-item img { width:30px; height:30px; flex:0 0 30px; object-fit:contain; }
+
     #inventory-1b .weapon-card,
     #inventory-1b .weapon-card.held { border:3px solid #d9d9d9; padding:6px; }
     #inventory-1b .weapon-card.weapon-focused { border-color:#fff600; }
@@ -1037,6 +1051,13 @@
 
     <section class="inventory-region" data-umg-name="Box_Inventory">
       <h1 class="screen-title" data-umg-name="Txt_InventoryTitle">INVENTORY</h1>
+      <section class="common-ammo-summary" data-umg-name="Box_CommonAmmoSummary" aria-label="보유 탄약 요약">
+        <div class="common-ammo-item"><img data-umg-name="Img_CommonAmmo556" src="../assets/ammo-counter-556.png" alt="5.56mm"><span data-umg-name="Txt_CommonAmmo556">180</span></div>
+        <div class="common-ammo-item"><img data-umg-name="Img_CommonAmmo9mm" src="../assets/ammo-counter-9mm.png" alt="9mm"><span data-umg-name="Txt_CommonAmmo9mm">54</span></div>
+        <div class="common-ammo-item"><img data-umg-name="Img_CommonAmmo762" src="../assets/ammo-counter-762.png" alt="7.62mm"><span data-umg-name="Txt_CommonAmmo762">30</span></div>
+        <div class="common-ammo-item"><img data-umg-name="Img_CommonAmmoBlue" src="../assets/ammo-counter-blue.png" alt="특수 탄약"><span data-umg-name="Txt_CommonAmmoBlue">30</span></div>
+        <div class="common-ammo-item"><img data-umg-name="Img_CommonAmmoShells" src="../assets/ammo-counter-shells.png" alt="산탄"><span data-umg-name="Txt_CommonAmmoShells">30</span></div>
+      </section>
       <div class="tile-panel" data-umg-name="Box_InventoryGrid" data-umg-type="ScrollBox">
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="../assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">30</span></button></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/ammo-556.png')" data-item-name="5.56mm" data-item-type="탄약" data-item-category="ammunition" data-image="../assets/ammo-556.png" data-description="호환되는 소총과 경기관총에 사용하는 탄약입니다."><span class="item-count">30</span></button></div>

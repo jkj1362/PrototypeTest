@@ -1,6 +1,6 @@
 # Inventory Prototype 1 asset audit
 
-Date: 2026-09-21
+Date: 2026-10-01
 
 Source: Figma frame 545:1887 ("개선 1").
 
@@ -49,3 +49,10 @@ The three weapon-*-tilted-1b.svg files embed the unchanged local PNG bytes
 with a -12 degree vector rotation and trimmed transparent canvas bounds.
 They introduce no new drawn weapon art. For UMG, rasterize these audited
 vector wrappers at import; socket transforms use the matching asset bounds.
+
+## Common ammunition summary (2026-10-01)
+
+`ammo-counter-556.png`, `ammo-counter-9mm.png`, `ammo-counter-762.png`,
+`ammo-counter-blue.png`, and `ammo-counter-shells.png` are the original PNG
+image fills from Figma nodes 616:932, 616:935, 616:938, 616:949, and 616:951.
+They are rendered as passive 36 px icons above the weapon rack.

@@ -1,6 +1,6 @@
 # PUBG Console Inventory 1-b Third-Run Specification
 
-Updated: 2026-09-22
+Updated: 2026-10-01
 Status: latest Figma revision implemented; visual/controller acceptance pending.
 
 ## Authority and shared information
@@ -23,8 +23,9 @@ The 2559 x 1439 reference is scaled approximately 0.75 to 1920 x 1080.
 |---|---:|---:|---:|---:|
 | Vicinity | 18 | 48 | 324 | 962 |
 | Inventory | 354 | 48 | 324 | 962 |
-| Stacked weapon cards | 1133 | 90 | 615 | 924 |
-| Melee/Throwable column | 1760 | 90 | 136 | 612 |
+| Common ammo summary | 1133 | 86 | 474 | 47 |
+| Stacked weapon cards | 1133 | 137 | 615 | 877 |
+| Melee/Throwable column | 1760 | 137 | 136 | 565 |
 | Collapsed Gear | 1760 | 710 | 136 | 304 |
 | Expanded Gear/Outfit | 1424 | 90 | 472 | 924 |
 
@@ -49,6 +50,12 @@ Collapsed Gear has three 124 x 86 rows and a compact R3 control. The expanded
 drawer is inherited behavior, not a state supplied by the updated reference.
 
 ## Categories
+
+The passive common-ammunition summary sits above the weapon rack and follows
+Figma 616:929. It shows the five current common types in one horizontal row
+(180, 54, 30, 30, 30), uses the exact Figma image fills, and never enters the
+focus graph. The row has enough horizontal capacity for a sixth type if the
+common set expands.
 
 All three prototypes share ../shared/category-flags.css and the exact Figma
 550:663 PNG export. No gutter is reserved. The 36 x 31.5 flag head overlays the
@@ -95,8 +102,9 @@ UMG Overlay, with a tinted Border for the variable-height stem.
   glyph and colored flag. The native atlas brush needs the same alpha mask.
 - Lists use a 4 px flex gap for every adjacent item. Category divider nodes
   remain insertion anchors but display none and consume no layout space.
-- The weapon row fills the 924 px equipment region, overriding the legacy
-  611 px flex basis. All three cards now reach the Gear bottom at Y=1014.
+- The weapon row fills the 877 px region below the common-ammunition summary,
+  overriding the legacy 611 px flex basis. All three cards still reach the
+  Gear bottom at Y=1014.
 - M16 art scales by available width rather than its transparent canvas height;
   socket positions use the same scale. Its transparent vertical margins may
   be clipped while the visible gun stays inside the image area.

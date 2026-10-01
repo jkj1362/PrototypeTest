@@ -1,6 +1,6 @@
 # PUBG Console Inventory 2-a Third-Run Specification
 
-Updated: 2026-09-22
+Updated: 2026-10-01
 Status: reference replacement implemented; visual and controller acceptance pending.
 
 ## Authority
@@ -33,6 +33,12 @@ Vicinity and Inventory retain a 2 px top border directly on their list panels.
 Inventory has no list-top capacity bar. A narrow, unlabeled vertical fill bar
 is owned by Gear and remains visible in both collapsed and expanded states.
 Loose-item rows use a uniform 4 px gap, including category boundaries.
+
+The passive common-ammunition summary is contained in the Inventory header,
+directly above the scroll list. Figma 616:917 keeps the five common types in a
+single row (180, 54, 30, 30, 30). The block never enters the focus graph. A
+future second row is reserved for special ammunition such as P90 or AWM ammo;
+it is not shown while only the five common types are present.
 
 Tilted M16 and M249 art uses 76% of the available visual height. P1911 uses
 82% of the available visual width so its grip and muzzle remain inside the

@@ -1,6 +1,6 @@
 # Inventory 2-a Asset Audit
 
-Updated: 2026-09-21
+Updated: 2026-10-01
 Layout source: Figma 545:2625.
 
 The replacement reuses existing local exports: oriented M16/M249/P1911 art,
@@ -35,3 +35,10 @@ with no gutter or extra slot padding.
 
 slot-melee.svg is the exact melee silhouette exported by the previously
 inspected Figma 545:1887 frame. Existing Gear/Outfit silhouettes are reused.
+
+## Common ammunition summary (2026-10-01)
+
+`ammo-counter-556.png`, `ammo-counter-9mm.png`, `ammo-counter-762.png`,
+`ammo-counter-blue.png`, and `ammo-counter-shells.png` are the original PNG
+image fills from Figma nodes 616:920, 616:923, 616:926, 616:954, and 616:957.
+They are rendered as passive 30 px icons in the one-row Inventory header.

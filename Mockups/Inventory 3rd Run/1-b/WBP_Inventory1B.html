@@ -839,10 +839,22 @@
        overlay the right portion of the screen. */
     #inventory-1b .vicinity-region { left:18px; top:48px; width:324px; height:962px; }
     #inventory-1b .inventory-region { left:354px; top:48px; width:324px; height:962px; }
-    #inventory-1b .weapon-region { left:1133px; top:90px; width:615px; height:924px; }
+    #inventory-1b .common-ammo-summary {
+      position:absolute; left:1133px; top:86px; width:474px; height:47px;
+      padding:1px 8px; display:flex; flex-direction:row; align-items:center;
+      justify-content:space-between; border:1px solid #787676;
+      background-color:#2c2c2c; pointer-events:none;
+    }
+    #inventory-1b .common-ammo-item {
+      display:flex; flex-direction:row; align-items:center; gap:6px;
+      color:#ffffff; font-family:"PUBG Headline", "Arial Narrow", Arial, sans-serif;
+      font-size:24px; font-weight:700; line-height:35px;
+    }
+    #inventory-1b .common-ammo-item img { width:36px; height:36px; object-fit:contain; }
+    #inventory-1b .weapon-region { left:1133px; top:137px; width:615px; height:877px; }
     #inventory-1b .weapon-region > .screen-title { display:none; }
 
-    #inventory-1b .weapon-row { width:615px; height:924px; flex:1; min-height:0; flex-direction:column; gap:8px; }
+    #inventory-1b .weapon-row { width:615px; height:877px; flex:1; min-height:0; flex-direction:column; gap:8px; }
     #inventory-1b .weapon-widget,
     #inventory-1b .weapon-widget:nth-child(3) { flex:1; width:615px; height:auto; }
     #inventory-1b .weapon-card { padding:6px; flex-direction:column; gap:6px; }
@@ -873,7 +885,7 @@
     }
 
     #inventory-1b .secondary-column {
-      position:absolute; left:1760px; top:90px; width:136px; height:612px;
+      position:absolute; left:1760px; top:137px; width:136px; height:565px;
       display:flex; flex-direction:column; gap:8px;
     }
     #inventory-1b .secondary-column .secondary-slot { width:136px; height:302px; flex:1; }
@@ -1032,6 +1044,14 @@
         <div class="category-divider" data-category-break="heal-gear"></div>
         <div class="item-widget" data-umg-widget="WBP_InventoryItemTile"><button class="item-tile" style="background-image:url('../assets/gear-vest.png')" data-item-name="3레벨 조끼" data-item-type="장비" data-item-category="gear" data-image="../assets/gear-vest.png" data-description="아직 착용하지 않은 여분 조끼입니다."></button></div>
       </div>
+    </section>
+
+    <section class="common-ammo-summary" data-umg-name="Box_CommonAmmoSummary" aria-label="보유 탄약 요약">
+      <div class="common-ammo-item"><img data-umg-name="Img_CommonAmmo556" src="../assets/ammo-counter-556.png" alt="5.56mm"><span data-umg-name="Txt_CommonAmmo556">180</span></div>
+      <div class="common-ammo-item"><img data-umg-name="Img_CommonAmmo9mm" src="../assets/ammo-counter-9mm.png" alt="9mm"><span data-umg-name="Txt_CommonAmmo9mm">54</span></div>
+      <div class="common-ammo-item"><img data-umg-name="Img_CommonAmmo762" src="../assets/ammo-counter-762.png" alt="7.62mm"><span data-umg-name="Txt_CommonAmmo762">30</span></div>
+      <div class="common-ammo-item"><img data-umg-name="Img_CommonAmmoBlue" src="../assets/ammo-counter-blue.png" alt="특수 탄약"><span data-umg-name="Txt_CommonAmmoBlue">30</span></div>
+      <div class="common-ammo-item"><img data-umg-name="Img_CommonAmmoShells" src="../assets/ammo-counter-shells.png" alt="산탄"><span data-umg-name="Txt_CommonAmmoShells">30</span></div>
     </section>
 
     <section class="weapon-region" data-umg-name="Box_WeaponRack">
